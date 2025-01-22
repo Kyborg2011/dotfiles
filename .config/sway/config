@@ -1,0 +1,318 @@
+# The files we include below will be created / overwritten by nwg-shell tools
+#
+include variables
+include outputs
+include autostart
+include workspaces
+include keyboard
+include pointer
+include touchpad
+
+# nwg-shell sway config
+# Read `man 5 sway` for reference.
+
+# border & title
+for_window [title="^.*"] border pixel 1, title_format "<b> %class >> %title </b>"
+default_border pixel 1
+
+# gaps
+gaps inner 4
+gaps outer 0
+smart_gaps on
+
+# font
+font pango:monospace 11
+
+# mod key used for most binds
+# Mod1 = Alt
+# Mod4 = Super
+set $Mod Mod4
+
+# direction keys
+set $up l
+set $down k
+set $left j
+set $right semicolon
+
+set $mybind bindsym --to-code
+
+###############     Autostart      ##################
+
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec hash dbus-update-activation-environment 2>/dev/null && \
+    dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec ~/.azotebg
+
+# https://github.com/milgra/sov start:
+exec_always rm -f /tmp/sovpipe && mkfifo /tmp/sovpipe && tail -f /tmp/sovpipe | sov -t 250
+
+### Turn off screen on lid closed
+set $laptop eDP-1
+bindswitch lid:on output $laptop disable
+bindswitch lid:off output $laptop enable
+
+#############         Bindings           ##################
+
+# kill focused window
+$mybind $Mod+Shift+q kill
+$mybind Mod1+q kill
+$mybind Mod1+F4 kill
+
+# core applications
+$mybind $Mod+Return       exec $term
+$mybind Mod1+Shift+Return exec $term
+#bindsym Control+Shift+t   exec $term
+$mybind $Mod+t            exec $term
+$mybind $Mod+F2           exec $term
+$mybind $Mod+s            exec nwg-shell-config
+$mybind $Mod+d            exec $dock
+$mybind $Mod+e            exec $editor
+$mybind $Mod+w            exec $browser
+$mybind Control+space     exec $launcher
+$mybind Mod1+F1           exec $launcher
+$mybind $Mod+f            exec $filemanager
+$mybind $Mod+c            exec swaync-client -t
+$mybind Mod1+c            exec nwg-clipman
+$mybind Mod1+l            exec nwg-lock
+$mybind $Mod+F1           exec nwg-shell-help
+
+# Switch keyboard language:
+$mybind $Mod+space	  exec /home/anthony/.local/bin/keyboard-layout -s
+
+# Exit menu
+$mybind $Mod+x exec $exit
+
+# Exit sway (default way to log you out of your Wayland session)
+$mybind $Mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+
+# screenshot
+$mybind Print exec screenshot fullscreen
+$mybind Control+Print exec screenshot display
+$mybind Shift+Control+Print exec screenshot swappy
+$mybind $Mod+Shift+Control+Print exec screenshot focused
+
+# audio
+$mybind XF86AudioPlay exec playerctl play-pause
+$mybind XF86AudioNext exec playerctl next
+$mybind XF86AudioPrev exec playerctl previous
+$mybind XF86AudioStop exec playerctl stop
+$mybind XF86AudioMute exec pactl set-sink-mute 0 toggle
+$mybind XF86AudioRaiseVolume exec pactl set-sink-volume 0 +2%
+$mybind XF86AudioLowerVolume exec pactl set-sink-volume 0 -2%
+
+# backlight
+$mybind XF86MonBrightnessUp exec light -A 5
+$mybind XF86MonBrightnessDown exec light -U 5
+
+# Reload the configuration file
+$mybind $Mod+Shift+c reload
+
+###########          Workspace Bindings          ###############
+
+# switch to workspace
+$mybind --no-repeat $Mod+1 workspace number 1; exec "echo 1 > /tmp/sovpipe"
+$mybind --no-repeat $Mod+2 workspace number 2; exec "echo 1 > /tmp/sovpipe"
+$mybind --no-repeat $Mod+3 workspace number 3; exec "echo 1 > /tmp/sovpipe"
+$mybind --no-repeat $Mod+4 workspace number 4; exec "echo 1 > /tmp/sovpipe"
+$mybind --no-repeat $Mod+5 workspace number 5; exec "echo 1 > /tmp/sovpipe"
+$mybind --no-repeat $Mod+6 workspace number 6; exec "echo 1 > /tmp/sovpipe"
+$mybind --no-repeat $Mod+7 workspace number 7; exec "echo 1 > /tmp/sovpipe"
+$mybind --no-repeat $Mod+8 workspace number 8; exec "echo 1 > /tmp/sovpipe"
+$mybind --no-repeat $Mod+9 workspace number 9; exec "echo 1 > /tmp/sovpipe"
+$mybind --no-repeat $Mod+0 workspace number 10; exec "echo 1 > /tmp/sovpipe"
+
+$mybind --release $Mod+1 exec "echo 0 > /tmp/sovpipe"
+$mybind --release $Mod+2 exec "echo 0 > /tmp/sovpipe"
+$mybind --release $Mod+3 exec "echo 0 > /tmp/sovpipe"
+$mybind --release $Mod+4 exec "echo 0 > /tmp/sovpipe"
+$mybind --release $Mod+5 exec "echo 0 > /tmp/sovpipe"
+$mybind --release $Mod+6 exec "echo 0 > /tmp/sovpipe"
+$mybind --release $Mod+7 exec "echo 0 > /tmp/sovpipe"
+$mybind --release $Mod+8 exec "echo 0 > /tmp/sovpipe"
+$mybind --release $Mod+9 exec "echo 0 > /tmp/sovpipe"
+$mybind --release $Mod+0 exec "echo 0 > /tmp/sovpipe"
+
+# switch to workspace - numpad alternatives
+$mybind $Mod+Mod2+KP_1 workspace number 1
+$mybind $Mod+Mod2+KP_2 workspace number 2
+$mybind $Mod+Mod2+KP_3 workspace number 3
+$mybind $Mod+Mod2+KP_4 workspace number 4
+$mybind $Mod+Mod2+KP_5 workspace number 5
+$mybind $Mod+Mod2+KP_6 workspace number 6
+$mybind $Mod+Mod2+KP_7 workspace number 7
+$mybind $Mod+Mod2+KP_8 workspace number 8
+
+# switch to next or previous workspace
+$mybind $Mod+Mod1+Left workspace prev
+$mybind $Mod+Mod1+Right workspace next
+
+# move focused container to workspace
+$mybind $Mod+Shift+1 move container to workspace number 1; workspace number 1
+$mybind $Mod+Shift+2 move container to workspace number 2; workspace number 2
+$mybind $Mod+Shift+3 move container to workspace number 3; workspace number 3
+$mybind $Mod+Shift+4 move container to workspace number 4; workspace number 4
+$mybind $Mod+Shift+5 move container to workspace number 5; workspace number 5
+$mybind $Mod+Shift+6 move container to workspace number 6; workspace number 6
+$mybind $Mod+Shift+7 move container to workspace number 7; workspace number 7
+$mybind $Mod+Shift+8 move container to workspace number 8; workspace number 8
+
+# move focused container to workspace - numpad alternatives
+$mybind $Mod+Shift+Mod2+KP_End   move container to workspace number 1; workspace number 1
+$mybind $Mod+Shift+Mod2+KP_Down  move container to workspace number 2; workspace number 2
+$mybind $Mod+Shift+Mod2+KP_Next  move container to workspace number 3; workspace number 3
+$mybind $Mod+Shift+Mod2+KP_Left  move container to workspace number 4; workspace number 4
+$mybind $Mod+Shift+Mod2+KP_Begin move container to workspace number 5; workspace number 5
+$mybind $Mod+Shift+Mod2+KP_Right move container to workspace number 6; workspace number 7
+$mybind $Mod+Shift+Mod2+KP_Home  move container to workspace number 7; workspace number 7
+$mybind $Mod+Shift+Mod2+KP_Up    move container to workspace number 8; workspace number 8
+
+############      Container/Window control  ############
+
+# Scratchpad, Floating
+$mybind $Mod+Mod1+space floating toggle
+floating_modifier Mod1 normal
+
+# Sway has a "scratchpad", which is a bag of holding for windows.
+# You can send windows there and get them back later.
+
+# Move the currently focused window to the scratchpad
+$mybind $Mod+Shift+z move scratchpad
+
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+$mybind $Mod+z scratchpad show
+
+# change focus
+$mybind $Mod+$left  focus left
+$mybind $Mod+$down  focus down
+$mybind $Mod+$up    focus up
+$mybind $Mod+$right focus right
+
+# alternatively, you can use the cursor keys:
+$mybind $Mod+Left   focus left
+$mybind $Mod+Down   focus down
+$mybind $Mod+Up     focus up
+$mybind $Mod+Right  focus right
+
+# move focus to the parent container
+$mybind $Mod+p      focus parent
+
+# move focused window
+$mybind $Mod+Shift+$left  move left
+$mybind $Mod+Shift+$down  move down
+$mybind $Mod+Shift+$up    move up
+$mybind $Mod+Shift+$right move right
+
+# alternatively, you can use the cursor keys:
+$mybind $Mod+Shift+Up    move up
+$mybind $Mod+Shift+Down  move down
+$mybind $Mod+Shift+Left  move left
+$mybind $Mod+Shift+Right move right
+
+# Resizing containers
+mode "resize" {
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    # Ditto, with arrow keys
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+$mybind $Mod+r mode "resize"
+
+# Size
+$mybind Mod1+Up    resize shrink height 10 px or 1 ppt
+$mybind Mod1+Down  resize grow   height 10 px or 1 ppt
+$mybind Mod1+Left  resize shrink width  10 px or 1 ppt
+$mybind Mod1+Right resize grow   width  10 px or 1 ppt
+
+# layout toggle
+$mybind Mod1+Tab layout toggle tabbed stacking split
+$mybind $Mod+Tab layout toggle splitv splith
+
+# switch to workspace with urgent window
+for_window [urgent="latest"] focus
+focus_on_window_activation   focus
+
+# container layout
+$mybind $Mod+h split h
+$mybind $Mod+v split v
+$mybind $Mod+Shift+t layout tabbed
+$mybind $Mod+Shift+s layout stacking
+$mybind $Mod+Shift+h layout toggle split
+
+default_orientation horizontal
+
+# make the current focus fullscreen
+$mybind $Mod+Shift+f fullscreen
+
+# Swap focus between the tiling area and the floating area
+$mybind $Mod+Shift+space focus mode_toggle
+
+###############      Border & Gaps     ###############
+
+# changing border style
+$mybind $Mod+b border toggle
+
+# change gaps
+$mybind $Mod+plus                gaps inner current plus  5
+$mybind $Mod+minus               gaps inner current minus 5
+$mybind Mod1+plus                gaps outer current plus  5
+$mybind Mod1+minus               gaps outer current minus 5
+
+$mybind $Mod+KP_Add              gaps inner current plus  5
+$mybind $Mod+KP_Subtract         gaps inner current minus 5
+$mybind Mod1+KP_Add              gaps outer current plus  5
+$mybind Mod1+KP_Subtract         gaps outer current minus 5
+
+############    application settings   ############
+
+# focus, floating, & sticky
+for_window [app_id="(?i)(?:blueman-manager|azote|gnome-disks)"] floating enable
+for_window [app_id="(?i)(?:pavucontrol|nm-connection-editor|gsimplecal|galculator)"] floating enable
+for_window [app_id="(?i)(?:firefox|chromium)"] border none
+for_window [title="(?i)(?:copying|deleting|moving)"] floating enable
+
+# common floating windows tweaks
+for_window [window_role = "pop-up"] floating enable
+for_window [window_role = "bubble"] floating enable
+for_window [window_role = "dialog"] floating enable
+for_window [window_type = "dialog"] floating enable
+for_window [window_role = "task_dialog"] floating enable
+for_window [window_type = "menu"] floating enable
+for_window [app_id = "floating"] floating enable
+for_window [app_id = "floating_update"] floating enable, resize set width 1000px height 600px
+for_window [class = "(?i)pinentry"] floating enable
+for_window [title = "Administrator privileges required"] floating enable
+
+# firefox tweeks
+for_window [title = "About Mozilla Firefox"] floating enable
+for_window [window_role = "About"] floating enable
+for_window [app_id="firefox" title="Library"] floating enable, border pixel 1, sticky enable
+for_window [title = "Firefox - Sharing Indicator"] kill
+for_window [title = "Firefox — Sharing Indicator"] kill
+
+popup_during_fullscreen smart
+
+############    Moving left and right with non-existing workspaces    ############
+#bindsym $Mod+alt+left  workspace prev
+#bindsym $Mod+alt+right workspace next
+#bindsym $Mod+control+alt+left  move container to workspace prev, workspace prev
+#bindsym $Mod+control+alt+right move container to workspace next, workspace next
+
+set $num_of_workspaces 10
+$mybind $Mod+control+left          exec swaymsg -pt get_workspaces | gawk -f ~/.config/sway/workspace.gawk -v move_type="left"  -v num_of_workspaces=$num_of_workspaces
+$mybind $Mod+control+right         exec swaymsg -pt get_workspaces | gawk -f ~/.config/sway/workspace.gawk -v move_type="right" -v num_of_workspaces=$num_of_workspaces
+$mybind $Mod+control+shift+left  exec swaymsg -pt get_workspaces | gawk -f ~/.config/sway/workspace.gawk -v move_type="container_left"  -v num_of_workspaces=$num_of_workspaces
+$mybind $Mod+control+shift+right exec swaymsg -pt get_workspaces | gawk -f ~/.config/sway/workspace.gawk -v move_type="container_right" -v num_of_workspaces=$num_of_workspaces
+
+#exec_always ironbar

@@ -1,0 +1,176 @@
+/***** SUGGESTED TO CHANGE CAREFULLY *****/
+
+* {
+    font-family: "Open Sans";
+    font-weight: 400;
+    color: #fbf1c7;
+}
+
+/* Recommended if panel "height"  unset or smaller then your theme default button height */
+button {
+    margin: 2px;
+    background: none;
+    border: none;
+}
+
+/* SwayTaskBar and SwayWorkspaces use custom widgets, that need this and the next name
+   to highlight currently focused task / workspace. */
+#task-box {
+    padding-left: 4px;
+    padding-right: 4px
+}
+#task-box-focused {
+    background-color: rgba(255, 255, 255, 0.12);
+    padding-left: 4px;
+    padding-right: 4px
+}
+
+
+/***** MODIFY TO YOUR TASTE *****/
+
+/* Default custom button */
+#button-custom {
+    background: rgba(40, 40, 40, 0.75);
+    border: 0;
+}
+
+#button-custom:hover {
+    border: solid;
+    border-radius: 3px;
+    border-color: #458588;
+    background: #458588;
+    color: #fbf1c7;
+}
+
+/* Top panel in sample config uses this name */
+#panel-top {
+    background: rgba(40, 40, 40, 1.0);
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    border-bottom-color: #458588;
+    color: #fbf1c7;
+    opacity: 0.8;
+}
+
+/* Bottom panel in sample config uses this name */
+#panel-bottom {
+    background-color: #282828;
+    border-radius: 0;
+    color: #fbf1c7;
+}
+
+/* Controls window in sample config uses this name */
+#controls-window {
+    background-color: rgba(37, 37, 37, 0.95);
+    border-radius: 0;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, 1.0);
+    color: #fbf1c7;
+}
+
+/* Executors usually behave better in monospace fonts */
+#executor-label {
+    font-weight: 400;
+    font-size: 16px
+}
+
+/* and so does the Clock */
+#clock {
+    font-family: "Play", "JetBrains Mono";
+    font-weight: 600;
+    font-size: 19px;
+}
+
+/* Sample executor-weather uses "css-name": "weather" */
+#weather {
+    font-size: 16px
+}
+
+/* dwl module */
+#dwl-tag-box {
+	padding-top: 4px;
+	padding-bottom: 4px
+}
+
+#dwl-tag-occupied {
+	color: #eee;
+    background-color: #006699;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+#dwl-tag-free {
+	color: #eee;
+    background-color: rgba(32, 50, 90, 1.0);
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+#dwl-tag-urgent {
+	font-family: monospace;
+	color: #eee;
+    background-color: #ee6600;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+#dwl-tag-selected {
+    border: 2px solid #81a1c1;
+}
+
+/* Selected (hovered) UI elements */
+*:selected {
+    border: solid;
+    border-radius: 3px;
+    border-color: #458588;
+    background: #458588;
+    color: #fbf1c7;
+}
+
+#root-executor {
+    padding-left: 10px;
+}
+
+#controls-overview {
+    background-color: #689d6a;
+    border-color: transparent;
+    margin-left: 10px;
+}
+
+#executor-cpuav-root {
+    background-color: #d79921;
+}
+
+#executor-memory-root {
+    background-color: #b16286;
+}
+
+#executor-drives-root {
+    background-color: #458588;
+}
+
+#executor-cpuav {
+    color: #1d2021;
+}
+
+#sway-workspaces-item {
+    background: transparent;
+    outline-color: transparent;
+    border-color: transparent;
+    color: transparent;
+    box-shadow: none;
+    opacity: 0;
+}
+
+#sway-workspaces-item:hover {
+    background: transparent;
+}
+
+#sway-workspaces-item:focus {
+    background: transparent;
+}
+
+#sway-workspaces {
+    margin-left: -200px;
+}
