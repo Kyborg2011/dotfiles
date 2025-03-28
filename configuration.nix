@@ -204,7 +204,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    wget curl telegram-desktop chromium qutebrowser eclipses.eclipse-sdk transmission_4 android-studio python312Packages.jupyterlab
+    usbutils wget curl telegram-desktop chromium qutebrowser eclipses.eclipse-sdk transmission_4 android-studio python312Packages.jupyterlab
     qtcreator ffmpeg sox audacity vlc mpv pidgin libreoffice-fresh gimp inkscape gparted tor-browser
     wine winetricks winePackages.fonts keepassxc seahorse htop btop krusader
     calibre mu rhythmbox dropbox digikam yt-dlp zip unzip gnupg gnumake cmake
