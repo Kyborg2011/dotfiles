@@ -14,10 +14,10 @@
     bluetooth = {
       enable = true;
       powerOnBoot = true;
-      input = {
-        General = {
-          UserspaceHID = true;
-        };
+      settings = {
+	      General = {
+		      Experimental = true;
+	      };
       };
     };
     nvidia.open = false;
@@ -25,7 +25,7 @@
 
   ##################### BOOTLOADER ##########################
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_6_12;
     supportedFilesystems = [ "ntfs" ];
     kernelPatches = [
       {
@@ -35,6 +35,9 @@
           rust = true;
         };
       }
+    ];
+    kernelParams = [
+      "usbcore.autosuspend=-1"
     ];
     loader = {
       systemd-boot.enable = false;
@@ -121,6 +124,7 @@
     flatpak.enable = true;
     pulseaudio.enable = false;
     printing.enable = true;
+    blueman.enable = true;
     gnome = {
       evolution-data-server.enable = true;
       glib-networking.enable = true;
@@ -208,7 +212,7 @@
     qtcreator ffmpeg sox audacity vlc mpv pidgin libreoffice-fresh gimp inkscape gparted tor-browser
     wine winetricks winePackages.fonts keepassxc seahorse htop btop krusader
     calibre mu rhythmbox dropbox digikam yt-dlp zip unzip gnupg gnumake cmake
-    blueman watchman rustc steam hledger-ui hledger-web
+    watchman rustc steam hledger-ui hledger-web
     obs-studio emacs direnv gnucash fontforge discord sublime4 jadx ghidra
     gnome-builder joplin-desktop puffin tree bat git vim mullvad-vpn spyder go cargo rustup
     hledger yarn jdk23 z-lua
