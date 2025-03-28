@@ -1,0 +1,47 @@
+{
+    "workbench.startupEditor": "none",
+    "security.workspace.trust.untrustedFiles": "open",
+    "cmake.showOptionsMovedNotification": false,
+    "vs-kubernetes": {
+        "vscode-kubernetes.kubectl-path-linux": "/home/anthony/.local/state/vs-kubernetes/tools/kubectl/kubectl",
+        "vscode-kubernetes.helm-path-linux": "/home/anthony/.local/state/vs-kubernetes/tools/helm/linux-amd64/helm",
+        "vscode-kubernetes.minikube-path-linux": "/home/anthony/.local/state/vs-kubernetes/tools/minikube/linux-amd64/minikube"
+    },
+    "redhat.telemetry.enabled": true,
+    "editor.fontFamily": "'Input Mono', 'Droid Sans Mono', 'monospace', monospace",
+    "editor.fontSize": 14,
+    "editor.lineHeight": "25px",
+    "workbench.iconTheme": "Monokai Pro (Filter Spectrum) Icons",
+    "[sql]": {
+        "editor.defaultFormatter": "mtxr.sqltools"
+    },
+    "[cpp]": {
+        "editor.defaultFormatter": "xaver.clang-format"
+    },
+    "javascript.preferences.quoteStyle": "double",
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "solidity.telemetry": false,
+    "git.openRepositoryInParentFolders": "never",
+    "kotlin.languageServer.enabled": false,
+    "kotlin.debugAdapter.enabled": false,
+    "files.autoSave": "afterDelay",
+    "editor.formatOnPaste": true,
+    "java.semanticHighlighting.enabled": true,
+    "java.configuration.checkProjectSettingsExclusions": false,
+    "hardhat.telemetry": true,
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "[python]": {
+        "editor.formatOnType": true
+    },
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "workbench.colorTheme": "Monokai Pro (Filter Spectrum)"
+}

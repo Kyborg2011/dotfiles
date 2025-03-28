@@ -8,48 +8,64 @@ import Wp from "gi://AstalWp"
 import Network from "gi://AstalNetwork"
 import Tray from "gi://AstalTray"
 
+const idleInhibit = Variable<boolean>(false)
+
 function SysTray() {
     const tray = Tray.get_default()
 
-    return <box>
-        {bind(tray, "items").as(items => items.map(item => {
-            if (item.iconThemePath)
-                App.add_icons(item.iconThemePath)
-
-            const menu = item.create_menu()
-
-            return <button
+    return <box className="SysTray">
+        {bind(tray, "items").as(items => items.map(item => (
+            <menubutton
                 tooltipMarkup={bind(item, "tooltipMarkup")}
-                onDestroy={() => menu?.destroy()}
-                onClickRelease={self => {
-                    menu?.popup_at_widget(self, Gdk.Gravity.SOUTH, Gdk.Gravity.NORTH, null)
-                }}>
-                <icon gIcon={bind(item, "gicon")} />
-            </button>
-        }))}
+                usePopover={false}
+                actionGroup={bind(item, "actionGroup").as(ag => ["dbusmenu", ag])}
+                menuModel={bind(item, "menuModel")}>
+                <icon gicon={bind(item, "gicon")} />
+            </menubutton>
+        )))}
     </box>
 }
 
 function Wifi() {
-    const { wifi } = Network.get_default()
+    const network = Network.get_default()
+    const wifi = bind(network, "wifi")
 
-    return <icon
-        tooltipText={bind(wifi, "ssid").as(String)}
-        className="Wifi"
-        icon={bind(wifi, "iconName")}
-    />
+    return <box visible={wifi.as(Boolean)}>
+        {wifi.as(wifi => wifi && (
+            <icon
+                tooltipText={bind(wifi, "ssid").as(String)}
+                className="Wifi"
+                icon={bind(wifi, "iconName")}
+            />
+        ))}
+    </box>
+
 }
 
 function AudioSlider() {
     const speaker = Wp.get_default()?.audio.defaultSpeaker!
+    const isShowed = Variable(true)
 
-    return <box className="AudioSlider" css="min-width: 140px">
-        <icon icon={bind(speaker, "volumeIcon")} />
-        <slider
-            hexpand
-            onDragged={({ value }) => speaker.volume = value}
-            value={bind(speaker, "volume")}
-        />
+    return <box className="AudioSlider">
+        <button 
+            onClicked={() => {
+                isShowed.set(!(isShowed.get()))
+            }
+        }>
+            <icon
+                icon={bind(speaker, "volumeIcon")}
+            />
+        </button>
+        <box
+            visible={bind(isShowed).as(Boolean)}
+            css="min-width: 140px"
+        >
+            <slider
+                hexpand
+                onDragged={({ value }) => speaker.volume = value}
+                value={bind(speaker, "volume")}
+            />
+        </box>
     </box>
 }
 
@@ -79,13 +95,13 @@ function Media() {
                     )}
                 />
                 <label
-                    label={bind(ps[0], "title").as(() =>
+                    label={bind(ps[0], "metadata").as(() =>
                         `${ps[0].title} - ${ps[0].artist}`
                     )}
                 />
             </box>
         ) : (
-            "Nothing Playing"
+            <label label="Nothing Playing" />
         ))}
     </box>
 }
@@ -95,6 +111,7 @@ function Workspaces() {
 
     return <box className="Workspaces">
         {bind(hypr, "workspaces").as(wss => wss
+            .filter(ws => !(ws.id >= -99 && ws.id <= -2)) // filter out special workspaces
             .sort((a, b) => a.id - b.id)
             .map(ws => (
                 <button
@@ -121,7 +138,7 @@ function FocusedClient() {
     </box>
 }
 
-function Time({ format = "%H:%M - %A %e." }) {
+function Time({ format = "%a, %e %B %H:%M" }) {
     const time = Variable<string>("").poll(1000, () =>
         GLib.DateTime.new_now_local().format(format)!)
 
@@ -132,30 +149,44 @@ function Time({ format = "%H:%M - %A %e." }) {
     />
 }
 
-export default function Bar(monitor: Gdk.Monitor) {
-    const anchor = Astal.WindowAnchor.TOP
-        | Astal.WindowAnchor.LEFT
-        | Astal.WindowAnchor.RIGHT
+function IdleInhibit() {
+    return <button
+        className="IdleInhibit"
+        onClicked={() => {
+            idleInhibit.set(!(idleInhibit.get()))
+        }}>
+        <label
+            className="nerd-icon"
+            label={bind(idleInhibit).as((val) => val ? "󰈈" : "󰈉")}
+        />
+    </button>
+}
 
+export default function Bar(monitor: Gdk.Monitor) {
+    const { TOP, LEFT, RIGHT } = Astal.WindowAnchor
+    
     return <window
         className="Bar"
-        gdkmonitor={monitor}
+        inhibit={bind(idleInhibit).as(Boolean)}
+        application={App}
+        monitor={monitor}
+        layer={Astal.Layer.TOP}
         exclusivity={Astal.Exclusivity.EXCLUSIVE}
-        anchor={anchor}>
+        anchor={TOP | LEFT | RIGHT}>
         <centerbox>
             <box hexpand halign={Gtk.Align.START}>
                 <Workspaces />
                 <FocusedClient />
             </box>
             <box>
-                <Media />
+                <Time />
             </box>
             <box hexpand halign={Gtk.Align.END} >
                 <SysTray />
                 <Wifi />
                 <AudioSlider />
+                <IdleInhibit />
                 <BatteryLevel />
-                <Time />
             </box>
         </centerbox>
     </window>
