@@ -66,6 +66,8 @@
     shellAliases = {
       zshconfig = "vim ~/.zshrc";
       ohmyzsh = "vim ~/.oh-my-zsh";
+      night = "killall -q hyprsunset; hyprsunset -t 4900 &";
+      night-off = "killall -q hyprsunset; hyprsunset -t 6000 &";
     };
   };
 

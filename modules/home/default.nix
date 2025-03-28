@@ -31,6 +31,7 @@
       z-lua
       d2
       apacheHttpdPackages.subversion
+      killall
       (import ./ags { inherit inputs; inherit pkgs; })
       (pkgs.callPackage ./custom-fonts { })
     ];

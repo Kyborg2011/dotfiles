@@ -215,7 +215,7 @@
     watchman rustc steam hledger-ui hledger-web
     obs-studio emacs direnv gnucash fontforge discord sublime4 jadx ghidra
     gnome-builder joplin-desktop puffin tree bat git vim mullvad-vpn spyder go cargo rustup
-    hledger yarn jdk23 z-lua
+    blueman hledger yarn jdk23 z-lua
 
     gnomeExtensions.dash-to-dock
     gnomeExtensions.gsconnect
