@@ -32,6 +32,7 @@
       d2
       apacheHttpdPackages.subversion
       killall
+      gnome-control-center
       (import ./ags { inherit inputs; inherit pkgs; })
       (pkgs.callPackage ./custom-fonts { })
     ];
@@ -199,6 +200,14 @@
   xdg.configFile."environment.d/envvars.conf".text = ''
     PATH="$HOME/.nix-profile/bin:$PATH"
   '';
+  xdg.desktopEntries."org.gnome.Settings" = {
+    name = "Settings";
+    comment = "Gnome Control Center";
+    icon = "org.gnome.Settings";
+    exec = "env XDG_CURRENT_DESKTOP=gnome ${pkgs.gnome-control-center}/bin/gnome-control-center";
+    categories = ["X-Preferences"];
+    terminal = false;
+  };
 
   fonts.fontconfig.enable = true;
 
