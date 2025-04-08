@@ -33,6 +33,7 @@
       apacheHttpdPackages.subversion
       killall
       gnome-control-center
+      brightnessctl
       (import ./ags { inherit inputs; inherit pkgs; })
       (pkgs.callPackage ./custom-fonts { })
     ];

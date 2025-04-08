@@ -1,5 +1,5 @@
 import { App } from "astal/gtk3"
-import { Variable, GLib, bind } from "astal"
+import { Variable, GLib, bind, exec } from "astal"
 import { Astal, Gtk, Gdk } from "astal/gtk3"
 import Hyprland from "gi://AstalHyprland"
 import Mpris from "gi://AstalMpris"
@@ -44,7 +44,7 @@ function Wifi() {
 
 function AudioSlider() {
     const speaker = Wp.get_default()?.audio.defaultSpeaker!
-    const isShowed = Variable(true)
+    const isShowed = Variable(false)
 
     return <box className="AudioSlider">
         <button 
@@ -64,6 +64,49 @@ function AudioSlider() {
                 hexpand
                 onDragged={({ value }) => speaker.volume = value}
                 value={bind(speaker, "volume")}
+            />
+        </box>
+    </box>
+}
+
+function BrightnessSlider() {
+    const get = (): number => Number(exec(`brightnessctl g`))
+    const getMax = (): number => Number(exec(`brightnessctl m`))
+    const isShowed = Variable(false)
+    const max = getMax()
+    const brightness = Variable(get() / max)
+
+    return <box className="AudioSlider">
+        <button
+            css="margin-left: 20px;"
+            onClicked={() => {
+                isShowed.set(!(isShowed.get()))
+            }
+        }>
+            <label
+                className="nerd-icon"
+                label={bind(brightness).as((val) => {
+                    if (val == 1) {
+                        return "󰃠"
+                    } else if (val > 0.5) {
+                        return "󰃟"
+                    } else {
+                        return "󰃞"
+                    }
+                })}
+            />
+        </button>
+        <box
+            visible={bind(isShowed).as(Boolean)}
+            css="min-width: 140px"
+        >
+            <slider
+                hexpand
+                onDragged={({ value }) => {
+                    brightness.set(value)
+                    exec(`brightnessctl s ${Math.floor(value * max)}`)
+                }}
+                value={bind(brightness)}
             />
         </box>
     </box>
@@ -133,7 +176,12 @@ function FocusedClient() {
         className="Focused"
         visible={focused.as(Boolean)}>
         {focused.as(client => (
-            client && <label label={bind(client, "title").as(String)} />
+            client && <label label={bind(client, "title").as(val => {
+                if (val.length > 40) {
+                    return val.slice(0, 40) + "..."
+                }
+                return val
+            })} />
         ))}
     </box>
 }
@@ -184,6 +232,7 @@ export default function Bar(monitor: Gdk.Monitor) {
             <box hexpand halign={Gtk.Align.END} >
                 <SysTray />
                 <Wifi />
+                <BrightnessSlider />
                 <AudioSlider />
                 <IdleInhibit />
                 <BatteryLevel />
