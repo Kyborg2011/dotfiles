@@ -176,7 +176,11 @@
   users.users.anthony = {
     isNormalUser = true;
     description = "Anthony";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "adbusers"
+    ];
     packages = with pkgs; [
       google-chrome
       kdePackages.okular
@@ -235,6 +239,9 @@
     thunar-archive-plugin
     thunar-media-tags-plugin
   ];
+
+  # Android (adb) setup
+  programs.adb.enable = true;
 
   # System-wide environment variables
   environment.variables = {
