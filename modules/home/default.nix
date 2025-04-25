@@ -26,6 +26,7 @@
       inputs.hyprpaper.packages.${pkgs.system}.hyprpaper
       wofi
       wl-clipboard
+      wf-recorder
       cliphist
       catppuccin-gtk
       z-lua

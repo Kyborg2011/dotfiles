@@ -43,5 +43,6 @@
     "[css]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "workbench.colorTheme": "Monokai Pro (Filter Spectrum)"
+    "workbench.colorTheme": "Monokai Pro (Filter Spectrum)",
+    "github.copilot.chat.agent.thinkingTool": true
 }

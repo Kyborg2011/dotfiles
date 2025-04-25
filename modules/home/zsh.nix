@@ -23,7 +23,7 @@
       ];
     };
 
-    initExtra = ''
+    initContent = ''
       # Wayland specific configuration
       if [[ "$XDG_SESSION_DESKTOP" =~ ^(sway|i3|Hyprland|hyprland)$ ]]; then
         export _JAVA_AWT_WM_NONREPARENTING=1

@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, inputs, pkgs, ... }:
+{ config, lib, inputs, pkgs, ... }:
 
 {
   imports =
@@ -24,18 +24,11 @@
   };
 
   ##################### BOOTLOADER ##########################
+  boot.kernelPackages = pkgs.linuxPackages_6_13;
+
   boot = {
-    kernelPackages = pkgs.linuxPackages_6_12;
+    #kernelPackages = inputs.nixpkgs-stable.linuxPackages_zen;
     supportedFilesystems = [ "ntfs" ];
-    kernelPatches = [
-      {
-        name = "Rust Support";
-        patch = null;
-        features = {
-          rust = true;
-        };
-      }
-    ];
     kernelParams = [
       "usbcore.autosuspend=-1"
     ];
@@ -47,6 +40,7 @@
         devices = [ "nodev" ];
         efiSupport = true;
         useOSProber = true;
+        configurationLimit = 4;
       };
     };
   };
@@ -125,6 +119,7 @@
     pulseaudio.enable = false;
     printing.enable = true;
     blueman.enable = true;
+    mullvad-vpn.enable = true;
     gnome = {
       evolution-data-server.enable = true;
       glib-networking.enable = true;
@@ -134,6 +129,8 @@
       tinysparql.enable = true;
     };
   };
+
+  services.mullvad-vpn.package = pkgs.mullvad-vpn;
 
   qt = {
     enable = true;
@@ -209,15 +206,20 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     usbutils sysstat bandwhich hwinfo lm_sensors lsof pciutils unixtools.netstat wget curl telegram-desktop
-    chromium qutebrowser eclipses.eclipse-sdk transmission_4 android-studio python312Packages.jupyterlab
+    chromium qutebrowser eclipses.eclipse-sdk transmission_4-qt android-studio python312Packages.jupyterlab
     qtcreator ffmpeg sox audacity vlc mpv pidgin libreoffice-fresh gimp inkscape gparted tor-browser
     wine winetricks winePackages.fonts keepassxc seahorse htop btop krusader
-    calibre mu rhythmbox dropbox digikam yt-dlp zip unzip gnupg gnumake cmake
+    calibre mu rhythmbox dropbox yt-dlp zip unzip gnupg gnumake cmake
     watchman rustc steam hledger-ui hledger-web
     obs-studio emacs direnv gnucash fontforge discord sublime4 jadx ghidra
-    gnome-builder joplin-desktop puffin tree bat git vim mullvad-vpn spyder go cargo rustup
-    blueman hledger yarn jdk23 z-lua zap kile
+    gnome-builder joplin-desktop puffin tree bat git vim mullvad-vpn go cargo rustup
+    blueman hledger yarn jdk23 z-lua zap kile bottles obsidian
 
+    # digikam - there is build failure!
+
+    #Cyber Sec
+    nmap burpsuite wireshark john hashcat ffuf protonvpn-cli
+    
     gnomeExtensions.dash-to-dock
     gnomeExtensions.gsconnect
     gnomeExtensions.applications-menu
@@ -285,6 +287,17 @@
   ];
 
   users.defaultUserShell = pkgs.zsh;
+
+  # Config taken from here: https://github.com/pfaj/nixos-config/blob/master/modules/nixos/zram.nix
+  zramSwap.enable = true;
+  zramSwap.memoryPercent = 100;
+  boot.kernel.sysctl."vm.swappiness" = 180; # zram is relatively cheap, prefer swap
+  boot.kernel.sysctl."vm.page-cluster" = 0; # zram is in memory, no need to readahead
+  boot.kernel.sysctl."vm.dirty_background_bytes" = 128 * 1024 * 1024; # Start asynchronously writing at 128 MiB dirty memory
+  boot.kernel.sysctl."vm.dirty_ratio" = 50; # Start synchronously writing at 50% dirty memory
+  boot.kernel.sysctl."vm.dirty_bytes" = 64 * 1024 * 1024;
+  boot.kernel.sysctl."vm.vfs_cache_pressure" = 500;
+  systemd.oomd.enable = false; # With 32 GiB of RAM and zram enabled OOM is unlikely
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
