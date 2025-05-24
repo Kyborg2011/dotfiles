@@ -144,12 +144,20 @@
     pkgs.intel-media-driver
   ];
 
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
+  programs = {
+    dconf.enable = true;
+    nm-applet.enable = true;
+    gamemode.enable = true;
+    firefox.enable = true;
+    steam = {
+      enable = true;
+      remotePlay.openFirewall = true;
+    };
+    npm = {
+      enable = true;
+      package = pkgs.nodejs;
+    };
   };
-  programs.gamemode.enable = true;
-  programs.nm-applet.enable = true;
 
   services.postgresql = {
     enable = true;
@@ -180,19 +188,12 @@
       "networkmanager"
       "wheel"
       "adbusers"
+      "kvm"
     ];
     packages = with pkgs; [
       google-chrome
       kdePackages.okular
     ];
-  };
-
-  # Install firefox.
-  programs.firefox.enable = true;
-
-  programs.npm = {
-    enable = true;
-    package = pkgs.nodejs;
   };
 
   # Allow unfree packages
@@ -219,11 +220,13 @@
     gnome-builder joplin-desktop puffin tree bat git vim mullvad-vpn go cargo rustup
     blueman hledger yarn jdk23 z-lua zap kile bottles obsidian
 
-    # digikam - there is build failure!
+    # Digikam - there is build failure!
 
-    #Cyber Sec
+    # Cyber Sec
     nmap burpsuite wireshark john hashcat ffuf protonvpn-cli
     
+    # Gnome related apps + extensions for Gnome Shell
+    gnome-control-center gnome-tweaks gnome-shell-extensions evolution
     gnomeExtensions.dash-to-dock
     gnomeExtensions.gsconnect
     gnomeExtensions.applications-menu
@@ -242,6 +245,17 @@
 
   # Android (adb) setup
   programs.adb.enable = true;
+  services.udev.extraRules =
+    let
+      # nix-shell -p usbutils --run "lsusb"
+      idVendor = "04e8"; # Change according to the guide above
+      idProduct = "6860"; # Change according to the guide above
+    in
+    ''
+      SUBSYSTEM=="usb", ATTR{idVendor}=="${idVendor}", MODE="[]", GROUP="adbusers", TAG+="uaccess"
+      SUBSYSTEM=="usb", ATTR{idVendor}=="${idVendor}", ATTR{idProduct}=="${idProduct}", SYMLINK+="android_adb"
+      SUBSYSTEM=="usb", ATTR{idVendor}=="${idVendor}", ATTR{idProduct}=="${idProduct}", SYMLINK+="android_fastboot"
+    '';
 
   # System-wide environment variables
   environment.variables = {

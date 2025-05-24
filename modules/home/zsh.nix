@@ -48,7 +48,7 @@
       export HIST_STAMPS="dd.mm.yyyy"
 
       # Path configurations
-      export PATH="$HOME/Android/Sdk/platform-tools:$PATH"
+      #export PATH="$HOME/Android/Sdk/platform-tools:$PATH"
       export PATH="$HOME/Android/Sdk/emulator:$PATH"
       export PATH="/usr/local/go/bin:$HOME/go/bin:$PATH"
       export PATH="$HOME/.yarn/bin:$PATH"
