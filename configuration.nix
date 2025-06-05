@@ -24,7 +24,7 @@
   };
 
   ##################### BOOTLOADER ##########################
-  boot.kernelPackages = pkgs.linuxPackages_6_13;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot = {
     #kernelPackages = inputs.nixpkgs-stable.linuxPackages_zen;
@@ -70,8 +70,6 @@
 
   services.xserver = {
     enable = true;
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
     xkb = {
       layout = "us,ru,ua";
       options = "grp:win_space_toggle";
@@ -90,7 +88,7 @@
   programs.virt-manager.enable = true;
 
   virtualisation = {
-    virtualbox.host.enable = true;
+    #virtualbox.host.enable = true;
     docker.enable = true;
     podman.enable = true;
     libvirtd.enable = true;
@@ -119,7 +117,12 @@
     pulseaudio.enable = false;
     printing.enable = true;
     blueman.enable = true;
-    mullvad-vpn.enable = true;
+    displayManager.gdm.enable = true;
+    desktopManager.gnome.enable = true;
+    mullvad-vpn = {
+      enable = true;
+      package = pkgs.mullvad-vpn;
+    };
     gnome = {
       evolution-data-server.enable = true;
       glib-networking.enable = true;
@@ -129,8 +132,6 @@
       tinysparql.enable = true;
     };
   };
-
-  services.mullvad-vpn.package = pkgs.mullvad-vpn;
 
   qt = {
     enable = true;
@@ -203,6 +204,8 @@
       android_sdk.accept_license = true;
       permittedInsecurePackages = [
         "openssl-1.1.1w"
+        "ventoy-gtk3-1.1.05"
+        "ventoy-1.1.05"
       ];
     };
   };
@@ -218,7 +221,7 @@
     watchman rustc steam hledger-ui hledger-web
     obs-studio emacs direnv gnucash fontforge discord sublime4 jadx ghidra
     gnome-builder joplin-desktop puffin tree bat git vim mullvad-vpn go cargo rustup
-    blueman hledger yarn jdk23 z-lua zap kile bottles obsidian
+    blueman hledger yarn jdk23 z-lua zap kile bottles obsidian ventoy-full
 
     # Digikam - there is build failure!
 
