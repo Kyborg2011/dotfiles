@@ -214,7 +214,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     usbutils sysstat bandwhich hwinfo lm_sensors lsof pciutils unixtools.netstat wget curl telegram-desktop
-    chromium eclipses.eclipse-sdk transmission_4-qt android-studio python312Packages.jupyterlab
+    chromium eclipses.eclipse-sdk transmission_4-qt android-studio
     qtcreator ffmpeg sox audacity vlc mpv pidgin libreoffice-fresh gimp inkscape gparted tor-browser
     wine winetricks winePackages.fonts keepassxc seahorse htop btop krusader
     calibre mu dropbox yt-dlp zip unzip gnupg gnumake cmake
@@ -223,13 +223,15 @@
     gnome-builder joplin-desktop puffin tree bat git vim mullvad-vpn go cargo rustup
     blueman hledger yarn jdk23 z-lua zap kile bottles obsidian ventoy-full darktable
     rhythmbox gnucash
+    python3Full jupyter-all python313Packages.jupyterlab
+    digikam
 
     # Digikam - there is build failure!
     # qutebrowser
-    # Cyber Sec
+    # Cyber Sec:
     nmap burpsuite wireshark john hashcat ffuf protonvpn-cli
     
-    # Gnome related apps + extensions for Gnome Shell
+    # Gnome related apps + extensions for Gnome Shell:
     gnome-control-center gnome-tweaks gnome-shell-extensions evolution
     gnomeExtensions.dash-to-dock
     gnomeExtensions.gsconnect
