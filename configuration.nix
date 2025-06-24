@@ -214,17 +214,18 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     usbutils sysstat bandwhich hwinfo lm_sensors lsof pciutils unixtools.netstat wget curl telegram-desktop
-    chromium qutebrowser eclipses.eclipse-sdk transmission_4-qt android-studio python312Packages.jupyterlab
+    chromium eclipses.eclipse-sdk transmission_4-qt android-studio python312Packages.jupyterlab
     qtcreator ffmpeg sox audacity vlc mpv pidgin libreoffice-fresh gimp inkscape gparted tor-browser
     wine winetricks winePackages.fonts keepassxc seahorse htop btop krusader
-    calibre mu rhythmbox dropbox yt-dlp zip unzip gnupg gnumake cmake
+    calibre mu dropbox yt-dlp zip unzip gnupg gnumake cmake
     watchman rustc steam hledger-ui hledger-web
-    obs-studio emacs direnv gnucash fontforge discord sublime4 jadx ghidra
+    obs-studio emacs direnv fontforge discord sublime4 jadx ghidra
     gnome-builder joplin-desktop puffin tree bat git vim mullvad-vpn go cargo rustup
-    blueman hledger yarn jdk23 z-lua zap kile bottles obsidian ventoy-full
+    blueman hledger yarn jdk23 z-lua zap kile bottles obsidian ventoy-full darktable
+    rhythmbox gnucash
 
     # Digikam - there is build failure!
-
+    # qutebrowser
     # Cyber Sec
     nmap burpsuite wireshark john hashcat ffuf protonvpn-cli
     
@@ -308,6 +309,8 @@
     xorg.libXi
     xorg.libXrender
     xorg.libXext
+    fuse
+    xorg.libxcb
   ];
 
   users.defaultUserShell = pkgs.zsh;

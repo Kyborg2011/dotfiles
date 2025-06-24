@@ -22,7 +22,7 @@
       #vim-virtualenv
       #vim-bufmru
       vim-cmake
-      LanguageClient-neovim
+      #LanguageClient-neovim
       vim-flog
       fzf-vim
       vim-startify
