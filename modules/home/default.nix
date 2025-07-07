@@ -12,7 +12,10 @@
     ./vscode.nix
     ./kitty.nix
     ./theming.nix
+    ./hyprpanel.nix
   ];
+
+  services.gnome-keyring.enable = true;
 
   home = {
     username = "anthony";
@@ -35,7 +38,13 @@
       killall
       gnome-control-center
       brightnessctl
-      (import ./ags { inherit inputs; inherit pkgs; })
+      filezilla
+      tree
+      freecad
+      youtube-music
+      pavucontrol
+      nerdfonts
+      dmenu-wayland
       (pkgs.callPackage ./custom-fonts { })
     ];
     sessionVariables = {
@@ -56,6 +65,7 @@
   };
 
   programs.home-manager.enable = true;
+  programs.mpv.enable = true;
 
   programs.wofi = {
     enable = true;
@@ -150,7 +160,6 @@
   programs.git = {
     enable = true;
     package = pkgs.git;
-
     userName = "kyborg2011";
     userEmail = "wkyborgw@gmail.com";
   };
@@ -199,9 +208,17 @@
     };
   };
 
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "inode/directory" = "thunar.desktop";
+    };
+  };
+  
   xdg.configFile."environment.d/envvars.conf".text = ''
     PATH="$HOME/.nix-profile/bin:$PATH"
   '';
+
   xdg.desktopEntries."org.gnome.Settings" = {
     name = "Settings";
     comment = "Gnome Control Center";
@@ -231,12 +248,12 @@
     };
     settings = {
       exec-once = [
-        "simple-bar &"
+        "hyprpanel"
         "systemctl --user start hypridle.service"
         "hyprctl setcursor Bibata-Ice-Modern 24"
       ];
       bind = [
-        #", Print, exec, grimblast --notify copysave area"
+        ", Print, exec, grimblast --notify copysave area"
       ];
       windowrulev2 = [
         # telegram media viewer

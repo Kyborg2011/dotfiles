@@ -29,7 +29,16 @@
       url = "github:hyprwm/hyprpaper";
     };
 
-    ags.url = "github:aylur/ags";
+    /*ags.url = "github:aylur/ags";
+    astal = {
+      url = "github:aylur/astal";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    hyprpanel = {
+      url = "github:Jas-SinghFSU/HyprPanel";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };*/
   };
 
   outputs = {nixpkgs, ...} @ inputs: {

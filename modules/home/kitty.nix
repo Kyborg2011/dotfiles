@@ -46,6 +46,10 @@
       color14 = "#ae81ff";
       color7 = "#f8f8f2";
       color15 = "#f8f8f2";
+
+      remember_window_size = "yes";
+      initial_window_width = 640;
+      initial_window_height = 400;
     };
     
     # Open actions configuration

@@ -1,6 +1,6 @@
-import { App } from "astal/gtk3"
-import { Variable, GLib, bind, exec } from "astal"
-import { Astal, Gtk, Gdk } from "astal/gtk3"
+import { app } from "gi://Astal?version=3.0"
+import { Variable, GLib, bind, exec } from "gi://Astal?version=3.0"
+import { Astal, Gtk, Gdk } from "gi://Astal?version=3.0"
 import Hyprland from "gi://AstalHyprland"
 import Mpris from "gi://AstalMpris"
 import Battery from "gi://AstalBattery"
@@ -216,7 +216,6 @@ export default function Bar(monitor: Gdk.Monitor) {
     return <window
         className="Bar"
         inhibit={bind(idleInhibit).as(Boolean)}
-        application={App}
         monitor={monitor}
         layer={Astal.Layer.TOP}
         exclusivity={Astal.Exclusivity.EXCLUSIVE}

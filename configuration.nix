@@ -146,7 +146,6 @@
   ];
 
   programs = {
-    dconf.enable = true;
     nm-applet.enable = true;
     gamemode.enable = true;
     firefox.enable = true;
@@ -215,22 +214,143 @@
   environment.systemPackages = with pkgs; [
     usbutils sysstat bandwhich hwinfo lm_sensors lsof pciutils unixtools.netstat wget curl telegram-desktop
     chromium eclipses.eclipse-sdk transmission_4-qt android-studio
-    qtcreator ffmpeg sox audacity vlc mpv pidgin libreoffice-fresh gimp inkscape gparted tor-browser
+    qtcreator ffmpeg sox audacity vlc pidgin libreoffice-fresh gimp inkscape gparted tor-browser
     wine winetricks winePackages.fonts keepassxc seahorse htop btop krusader
     calibre mu dropbox yt-dlp zip unzip gnupg gnumake cmake
     watchman rustc steam hledger-ui hledger-web
     obs-studio emacs direnv fontforge discord sublime4 jadx ghidra
     gnome-builder joplin-desktop puffin tree bat git vim mullvad-vpn go cargo rustup
-    blueman hledger yarn jdk23 z-lua zap kile bottles obsidian ventoy-full darktable
+    blueman hledger yarn jdk23 z-lua kile bottles obsidian ventoy-full darktable
     rhythmbox gnucash
-    python3Full jupyter-all python313Packages.jupyterlab
+    python3Full jupyter-all python3Packages.jupyterlab
     digikam
+    ffuf protonvpn-cli
+    dconf-editor xdg-utils
 
-    # Digikam - there is build failure!
-    # qutebrowser
-    # Cyber Sec:
-    nmap burpsuite wireshark john hashcat ffuf protonvpn-cli
+    #qutebrowser
+    rofi-wayland
+
+    # OPSEC (from Kali Linux distribution):
+    recon-ng theharvester maltego dmitry fierce openvas-scanner
+    burpsuite zap commix reaverwps armitage mimikatz
     
+    # Network discovery and scanning
+    nmap
+    masscan
+    
+    # DNS and domain reconnaissance  
+    dnsrecon
+    fierce
+    
+    # Vulnerability scanning
+    nikto
+    lynis
+    
+    # Web application testing
+    dirb
+    gobuster
+    wfuzz
+    sqlmap
+    
+    # Wireless security
+    aircrack-ng
+    pixiewps
+    wifite2
+    kismet
+    macchanger
+    
+    # Exploitation frameworks
+    metasploit
+    
+    # Password cracking
+    john johnny
+    hashcat
+    thc-hydra
+    medusa
+    
+    # Digital forensics
+    binwalk
+    foremost
+    sleuthkit
+    volatility2-bin volatility3
+    yara
+    
+    # Network analysis
+    wireshark
+    tcpdump
+    tcpflow
+    tcpreplay
+    netsniff-ng
+    
+    # Network tools
+    netcat-gnu
+    socat
+    proxychains
+    
+    # Reverse engineering
+    radare2
+    cutter
+    apktool
+    
+    # SDR and radio
+    gnuradio
+    gqrx
+    inspectrum
+    hackrf
+    kalibrate-rtl
+    multimon-ng
+    
+    # RFID/NFC
+    libnfc
+    mfoc
+    mfcuk
+    
+    # Fuzzing
+    aflplusplus
+    spike
+    
+    # Misc security tools
+    chkrootkit
+    ssdeep
+    hashdeep
+    exiv2
+    steghide
+    
+    # Network services
+    sipp
+    sipsak
+    
+    # Load testing
+    siege
+    
+    # SSL/TLS tools
+    sslscan
+    ssldump
+    sslsplit
+    
+    # Database tools
+    sqlitebrowser
+    mdbtools
+    
+    # Archive tools
+    fcrackzip
+    pdfcrack
+    unrar
+    
+    # System tools
+    gparted
+    ddrescue
+    safecopy
+    extundelete
+    testdisk
+    
+    # Development tools
+    gdb
+    nasm
+    
+    # Various utilities
+    util-linux
+
     # Gnome related apps + extensions for Gnome Shell:
     gnome-control-center gnome-tweaks gnome-shell-extensions evolution
     gnomeExtensions.dash-to-dock
@@ -241,12 +361,31 @@
     gnomeExtensions.caffeine
   ];
 
-  programs.xfconf.enable = true;
-  programs.thunar.enable = true;
-  programs.thunar.plugins = with pkgs.xfce; [
-    thunar-volman
-    thunar-archive-plugin
-    thunar-media-tags-plugin
+  programs = {
+    dconf.enable = true;
+    xfconf.enable = true;
+    file-roller.enable = true;
+    thunar = {
+      enable = true;
+      plugins = with pkgs.xfce; [
+        thunar-volman
+        thunar-archive-plugin
+        thunar-media-tags-plugin
+      ];
+    };
+  };
+
+  programs.dconf.profiles.user.databases = [
+    {
+      lockAll = true; # prevents overriding
+      settings."org/gnome/desktop/interface" = {
+        color-scheme = "prefer-dark";
+        cursor-theme = "Bibata-Ice-Modern";
+        cursor-size = 24;
+        gtk-theme = "Catppuccin-Mocha";
+        gtk-icon-theme = "Papirus-Dark";
+      };
+    }
   ];
 
   # Android (adb) setup
