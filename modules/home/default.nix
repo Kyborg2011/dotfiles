@@ -43,7 +43,7 @@
       freecad
       youtube-music
       pavucontrol
-      nerdfonts
+      nerd-fonts.jetbrains-mono
       dmenu-wayland
       (pkgs.callPackage ./custom-fonts { })
     ];
@@ -214,7 +214,7 @@
       "inode/directory" = "thunar.desktop";
     };
   };
-  
+
   xdg.configFile."environment.d/envvars.conf".text = ''
     PATH="$HOME/.nix-profile/bin:$PATH"
   '';
@@ -251,9 +251,6 @@
         "hyprpanel"
         "systemctl --user start hypridle.service"
         "hyprctl setcursor Bibata-Ice-Modern 24"
-      ];
-      bind = [
-        ", Print, exec, grimblast --notify copysave area"
       ];
       windowrulev2 = [
         # telegram media viewer

@@ -2,11 +2,7 @@
 {
   programs.hyprpanel = {
     enable = true;
-
-    # Configure bar layouts for monitors.
-    # See 'https://hyprpanel.com/configuration/panel.html'.
-    # Default: null
-    layout = {
+    settings = {
       "bar.layouts" = {
         "*" = {
           left = [ "dashboard" "workspaces" "windowtitle" ];
@@ -26,12 +22,6 @@
           ];
         };
       };
-    };
-
-    # Configure and theme almost all options from the GUI.
-    # See 'https://hyprpanel.com/configuration/settings.html'.
-    # Default: <same as gui>
-    settings = {
       "bar.customModules.storage.paths" = [ "/" ];
       "theme.bar.menus.menu.notifications.scrollbar.color" = "#83a598";
       "theme.bar.menus.menu.notifications.pager.label" = "#a89984";
@@ -478,7 +468,7 @@
       "bar.clock.showIcon" = false;
       "theme.bar.buttons.clock.spacing" = "0em";
       "bar.media.show_active_only" = true;
-      "bar.customModules.ram.icon" = "󰍛";
+      "bar.customModules.ram.icon" = "";
       "menus.dashboard.shortcuts.left.shortcut1.icon" = "";
       "menus.dashboard.shortcuts.left.shortcut1.command" = "firefox";
       "menus.dashboard.shortcuts.left.shortcut1.tooltip" = "Firefox";
@@ -488,11 +478,16 @@
       "menus.dashboard.shortcuts.left.shortcut3.icon" = "󰨞";
       "menus.dashboard.shortcuts.left.shortcut3.command" = "code";
       "menus.dashboard.shortcuts.left.shortcut3.tooltip" = "Visual Studio Code";
-      "menus.dashboard.directories.left.directory3.command" = "bash -c \"xdg-open $HOME/dev/\"";
+      "menus.dashboard.directories.left.directory3.command" = "bash -c \"thunar $HOME/dev/\"";
+      "menus.dashboard.directories.left.directory1.command" = "bash -c \"thunar $HOME/Downloads/\"";
+      "menus.dashboard.directories.left.directory2.command" = "bash -c \"thunar $HOME/Videos/\"";
+      "menus.dashboard.directories.left.directory4.command" = "bash -c \"thunar $HOME/Documents/\"";
+      "menus.dashboard.directories.left.directory5.command" = "bash -c \"thunar $HOME/Pictures/\"";
+      "menus.dashboard.directories.left.directory6.command" = "bash -c \"thunar $HOME/\"";
       "bar.launcher.icon" = "";
       "theme.bar.buttons.modules.cpu.enableBorder" = false;
       "bar.customModules.storage.icon" = "󰋊";
-      "menus.dashboard.directories.left.directory3.label" = "󰚝 Dev";
+      "menus.dashboard.directories.left.directory3.label" = " Dev";
       "menus.dashboard.powermenu.avatar.image" = "/home/anthony/Dropbox/01 AboutMe/16 Pictures/guy-fawkes-mask.jpeg";
     };
   };

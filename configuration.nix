@@ -10,18 +10,40 @@
       ./hardware-configuration.nix
     ];
 
-  hardware = {
-    bluetooth = {
-      enable = true;
-      powerOnBoot = true;
-      settings = {
-	      General = {
-		      Experimental = true;
-	      };
+  hardware = 
+    let
+      hp = "HP_150nw_NixOS";
+      hostName = "192.168.88.29";
+    in
+    {
+      bluetooth = {
+        enable = true;
+        powerOnBoot = true;
+        settings = {
+          General = {
+            Experimental = true;
+          };
+        };
       };
+      printers = {
+        ensureDefaultPrinter = hp;
+        ensurePrinters = [
+          {
+            name = hp;
+            deviceUri = "ipp://${hostName}/ipp";
+            model = "everywhere";
+            description = lib.replaceStrings [ "_" ] [ " " ] hp;
+            location = "Study";
+          }
+        ];
+      };
+      graphics.extraPackages = [
+        pkgs.intel-compute-runtime
+        pkgs.intel-vaapi-driver
+        pkgs.intel-media-driver
+      ];
+      nvidia.open = false;
     };
-    nvidia.open = false;
-  };
 
   ##################### BOOTLOADER ##########################
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -115,7 +137,6 @@
     libinput.enable = true;
     flatpak.enable = true;
     pulseaudio.enable = false;
-    printing.enable = true;
     blueman.enable = true;
     displayManager.gdm.enable = true;
     desktopManager.gnome.enable = true;
@@ -139,12 +160,6 @@
     style = "adwaita-dark";
   };
 
-  hardware.graphics.extraPackages = [
-    pkgs.intel-compute-runtime
-    pkgs.intel-vaapi-driver
-    pkgs.intel-media-driver
-  ];
-
   programs = {
     nm-applet.enable = true;
     gamemode.enable = true;
@@ -164,6 +179,37 @@
     package = pkgs.postgresql_15;
     enableJIT = true;
   };
+
+  # Enable the NixOS printing service for HP printers:
+  services.printing = {
+    enable = true;
+    drivers = with pkgs; [ hplip ];
+    listenAddresses = [ "*:631" ];
+    allowFrom = [ "all" ];
+    browsing = true;
+    defaultShared = true;
+    openFirewall = true;
+    browsedConf = ''
+      BrowseDNSSDSubTypes _cups,_print
+      BrowseLocalProtocols all
+      BrowseRemoteProtocols all
+      CreateIPPPrinterQueues All
+      BrowseProtocols all
+    '';
+  };
+
+  # For all IPP printers (printing without installing drivers):
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+    publish = {
+      enable = true;
+      userServices = true;
+    };
+  };
+
+  programs.system-config-printer.enable = true;
 
   nix = {
     gc = {
@@ -374,19 +420,6 @@
       ];
     };
   };
-
-  programs.dconf.profiles.user.databases = [
-    {
-      lockAll = true; # prevents overriding
-      settings."org/gnome/desktop/interface" = {
-        color-scheme = "prefer-dark";
-        cursor-theme = "Bibata-Ice-Modern";
-        cursor-size = 24;
-        gtk-theme = "Catppuccin-Mocha";
-        gtk-icon-theme = "Papirus-Dark";
-      };
-    }
-  ];
 
   # Android (adb) setup
   programs.adb.enable = true;
