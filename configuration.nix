@@ -271,131 +271,58 @@
     python3Full jupyter-all python3Packages.jupyterlab
     digikam
     ffuf protonvpn-cli
-    dconf-editor xdg-utils
+    dconf-editor xdg-utils util-linux
 
-    #qutebrowser
+    qutebrowser
     rofi-wayland
 
     # OPSEC (from Kali Linux distribution):
     recon-ng theharvester maltego dmitry fierce openvas-scanner
     burpsuite zap commix reaverwps armitage mimikatz
-    
     # Network discovery and scanning
-    nmap
-    masscan
-    
+    nmap masscan
     # DNS and domain reconnaissance  
-    dnsrecon
-    fierce
-    
+    dnsrecon fierce
     # Vulnerability scanning
-    nikto
-    lynis
-    
+    nikto lynis
     # Web application testing
-    dirb
-    gobuster
-    wfuzz
-    sqlmap
-    
+    dirb gobuster wfuzz sqlmap
     # Wireless security
-    aircrack-ng
-    pixiewps
-    wifite2
-    kismet
-    macchanger
-    
+    aircrack-ng pixiewps wifite2 kismet macchanger
     # Exploitation frameworks
     metasploit
-    
     # Password cracking
-    john johnny
-    hashcat
-    thc-hydra
-    medusa
-    
+    john johnny hashcat thc-hydra medusa
     # Digital forensics
-    binwalk
-    foremost
-    sleuthkit
-    volatility2-bin volatility3
-    yara
-    
+    binwalk foremost sleuthkit volatility2-bin volatility3 yara
     # Network analysis
-    wireshark
-    tcpdump
-    tcpflow
-    tcpreplay
-    netsniff-ng
-    
+    wireshark tcpdump tcpflow tcpreplay netsniff-ng
     # Network tools
-    netcat-gnu
-    socat
-    proxychains
-    
+    netcat-gnu socat proxychains
     # Reverse engineering
-    radare2
-    cutter
-    apktool
-    
+    radare2 cutter apktool
     # SDR and radio
-    gnuradio
-    gqrx
-    inspectrum
-    hackrf
-    kalibrate-rtl
-    multimon-ng
-    
+    gnuradio gqrx inspectrum hackrf kalibrate-rtl multimon-ng
     # RFID/NFC
-    libnfc
-    mfoc
-    mfcuk
-    
+    libnfc mfoc mfcuk
     # Fuzzing
-    aflplusplus
-    spike
-    
+    aflplusplus spike
     # Misc security tools
-    chkrootkit
-    ssdeep
-    hashdeep
-    exiv2
-    steghide
-    
+    chkrootkit ssdeep hashdeep exiv2 steghide
     # Network services
-    sipp
-    sipsak
-    
+    sipp sipsak
     # Load testing
     siege
-    
     # SSL/TLS tools
-    sslscan
-    ssldump
-    sslsplit
-    
+    sslscan ssldump sslsplit
     # Database tools
-    sqlitebrowser
-    mdbtools
-    
+    sqlitebrowser mdbtools
     # Archive tools
-    fcrackzip
-    pdfcrack
-    unrar
-    
+    fcrackzip pdfcrack unrar
     # System tools
-    gparted
-    ddrescue
-    safecopy
-    extundelete
-    testdisk
-    
+    gparted ddrescue safecopy extundelete testdisk
     # Development tools
-    gdb
-    nasm
-    
-    # Various utilities
-    util-linux
+    gdb nasm
 
     # Gnome related apps + extensions for Gnome Shell:
     gnome-control-center gnome-tweaks gnome-shell-extensions evolution
