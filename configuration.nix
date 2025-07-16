@@ -49,7 +49,6 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot = {
-    #kernelPackages = inputs.nixpkgs-stable.linuxPackages_zen;
     supportedFilesystems = [ "ntfs" ];
     kernelParams = [
       "usbcore.autosuspend=-1"
