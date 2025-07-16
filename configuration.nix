@@ -71,6 +71,8 @@
     hostName = "nixos";
     networkmanager.enable = true;
     firewall.allowedTCPPorts = [ 80 8080 ];
+    firewall.allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
+    firewall.allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
   };
 
   # Set your time zone.
@@ -151,8 +153,26 @@
       gnome-online-accounts.enable = true;
       localsearch.enable = true;
       tinysparql.enable = true;
+      core-developer-tools.enable = true;
+    };
+    nginx = {
+      enable = true;
+      virtualHosts.localhost = {
+        locations."/" = {
+          return = "200 '<html><body>It works</body></html>'";
+          extraConfig = ''
+            default_type text/html;
+          '';
+        };
+      };
+    };
+    mysql = {
+      enable = true;
+      package = pkgs.mariadb;
     };
   };
+
+  services.xserver.desktopManager.xfce.enable = true;
 
   qt = {
     enable = true;
@@ -260,21 +280,24 @@
   environment.systemPackages = with pkgs; [
     usbutils sysstat bandwhich hwinfo lm_sensors lsof pciutils unixtools.netstat wget curl telegram-desktop
     chromium eclipses.eclipse-sdk transmission_4-qt android-studio
-    qtcreator ffmpeg sox audacity vlc pidgin libreoffice-fresh gimp inkscape gparted tor-browser
+    qtcreator ffmpeg sox audacity vlc libreoffice-fresh inkscape gparted tor-browser
     wine winetricks winePackages.fonts keepassxc seahorse htop btop krusader
     calibre mu dropbox yt-dlp zip unzip gnupg gnumake cmake
     watchman rustc steam hledger-ui hledger-web
     obs-studio emacs direnv fontforge discord sublime4 jadx ghidra
     gnome-builder joplin-desktop puffin tree bat git vim mullvad-vpn go cargo rustup
-    blueman hledger yarn jdk23 z-lua kile bottles obsidian ventoy-full darktable
-    rhythmbox gnucash
-    python3Full jupyter-all python3Packages.jupyterlab
+    blueman hledger yarn jdk23 z-lua kile bottles obsidian ventoy-full 
+    gnucash
+    python3Full
     digikam
-    ffuf protonvpn-cli
-    dconf-editor xdg-utils util-linux
+    ffuf protonvpn-cli protonvpn-gui
+    dconf-editor xdg-utils util-linux networkmanagerapplet python3Packages.jupyterlab
 
     qutebrowser
     rofi-wayland
+
+    # Failed after update:
+    # rhythmbox mdbtools pidgin gimp darktable gnuradio jupyter-all gqrx inspectrum 
 
     # OPSEC (from Kali Linux distribution):
     recon-ng theharvester maltego dmitry fierce openvas-scanner
@@ -302,7 +325,7 @@
     # Reverse engineering
     radare2 cutter apktool
     # SDR and radio
-    gnuradio gqrx inspectrum hackrf kalibrate-rtl multimon-ng
+    hackrf kalibrate-rtl multimon-ng
     # RFID/NFC
     libnfc mfoc mfcuk
     # Fuzzing
@@ -316,7 +339,7 @@
     # SSL/TLS tools
     sslscan ssldump sslsplit
     # Database tools
-    sqlitebrowser mdbtools
+    sqlitebrowser
     # Archive tools
     fcrackzip pdfcrack unrar
     # System tools

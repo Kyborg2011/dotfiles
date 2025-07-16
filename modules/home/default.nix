@@ -242,7 +242,10 @@
   wayland.windowManager.hyprland = {
     enable = true;
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-    plugins = [ inputs.hy3.packages.${pkgs.system}.hy3 ];
+    plugins = [
+      inputs.hy3.packages.${pkgs.system}.hy3
+      inputs.hyprland-plugins.packages.${pkgs.system}.hyprexpo
+    ];
     xwayland = {
       enable = true;
     };
