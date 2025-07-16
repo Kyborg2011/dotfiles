@@ -48,7 +48,7 @@
       (pkgs.callPackage ./custom-fonts { })
     ];
     sessionVariables = {
-      GTK_THEME = "Catppuccin-Mocha";
+      GTK_THEME = "catppuccin-mocha-blue-standard";
     };
   };
 
@@ -151,6 +151,9 @@
     defaultCacheTtl = 1800;
     enableSshSupport = true;
   };
+
+  programs.qutebrowser.enable = true;
+  programs.ranger.enable = true;
 
   programs.direnv = {
     enable = true;

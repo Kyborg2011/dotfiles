@@ -52,6 +52,7 @@
       export PATH="$HOME/Android/Sdk/emulator:$PATH"
       export PATH="/usr/local/go/bin:$HOME/go/bin:$PATH"
       export PATH="$HOME/.yarn/bin:$PATH"
+      export PATH="$HOME/.npm/bin:$PATH"
 
       # Hledger configuration
       export LEDGER_FILE="$HOME/Dropbox/09 Business/06 Ledger/main.journal"

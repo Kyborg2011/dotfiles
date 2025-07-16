@@ -16,23 +16,17 @@
     };
     hypridle = {
       url = "github:hyprwm/hypridle";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprlock = {
       url = "github:hyprwm/hyprlock";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland-contrib.url = "github:hyprwm/contrib";
     hyprpicker.url = "github:hyprwm/hyprpicker";
     hyprsunset.url = "github:hyprwm/hyprsunset";
     hyprpolkitagent.url = "github:hyprwm/hyprpolkitagent";
-    hyprpaper = {
-      url = "github:hyprwm/hyprpaper";
-    };
+    hyprpaper.url = "github:hyprwm/hyprpaper";
   };
 
   outputs = {nixpkgs, ...} @ inputs: {

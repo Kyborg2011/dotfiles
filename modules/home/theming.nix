@@ -1,6 +1,6 @@
 { config, pkgs, ...}:
 let
-  catppuccin_name = "Catppuccin-Mocha";
+  catppuccin_name = "catppuccin-mocha-blue-standard";
   catppuccin = pkgs.catppuccin-gtk.override {
     size = "standard";
     variant = "mocha";
@@ -17,15 +17,14 @@ in {
       name = "Papirus-Dark";
       package = pkgs.papirus-icon-theme;
     };
-    gtk3.extraConfig = {
-      Settings = ''
-        gtk-application-prefer-dark-theme=1
+    gtk2.extraConfig = ''
+      gtk-application-prefer-dark-theme = 1
       '';
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
     };
     gtk4.extraConfig = {
-      Settings = ''
-        gtk-application-prefer-dark-theme=1
-      '';
+      gtk-application-prefer-dark-theme = 1;
     };
     gtk3.bookmarks = let
       home = config.home.homeDirectory;

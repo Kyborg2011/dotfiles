@@ -291,8 +291,6 @@
     digikam
     ffuf protonvpn-cli protonvpn-gui
     dconf-editor xdg-utils util-linux networkmanagerapplet python3Packages.jupyterlab
-
-    qutebrowser
     rofi-wayland
 
     # Failed after update:
