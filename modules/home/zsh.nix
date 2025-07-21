@@ -24,6 +24,8 @@
     };
 
     initContent = ''
+      SHELL=${pkgs.zsh}/bin/zsh
+
       # Wayland specific configuration
       if [[ "$XDG_SESSION_DESKTOP" =~ ^(sway|i3|Hyprland|hyprland)$ ]]; then
         export _JAVA_AWT_WM_NONREPARENTING=1
@@ -48,20 +50,19 @@
       export HIST_STAMPS="dd.mm.yyyy"
 
       # Path configurations
-      #export PATH="$HOME/Android/Sdk/platform-tools:$PATH"
-      export PATH="$HOME/Android/Sdk/emulator:$PATH"
       export PATH="/usr/local/go/bin:$HOME/go/bin:$PATH"
       export PATH="$HOME/.yarn/bin:$PATH"
-      export PATH="$HOME/.npm/bin:$PATH"
+      # export PATH="$HOME/.npm/bin:$PATH"
 
       # Hledger configuration
       export LEDGER_FILE="$HOME/Dropbox/09 Business/06 Ledger/main.journal"
 
-      # Load z tool
-      #source ${pkgs.z-lua}/share/z.lua/z.lua
-
       bindkey "''${key[Up]}" up-line-or-search
       bindkey "''${key[Down]}" down-line-or-search
+      
+      zstyle ':completion:*' menu select
+      bindkey "^[[1;5C" forward-word
+      bindkey "^[[1;5D" backward-word
     '';
 
     shellAliases = {
@@ -76,5 +77,15 @@
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
+  };
+
+  # Z-Lua integration
+  programs.z-lua = {
+    enable = true;
+    enableZshIntegration = true;
+    options = [
+      "fzf"
+      "enhanced"
+    ];
   };
 }

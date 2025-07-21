@@ -111,13 +111,11 @@
   programs.virt-manager.enable = true;
 
   virtualisation = {
-    #virtualbox.host.enable = true;
+    virtualbox.host.enable = true;
     docker.enable = true;
     podman.enable = true;
     libvirtd.enable = true;
   };
-
-  programs.kdeconnect.enable = true;
 
   security = {
     polkit.enable = true;
@@ -261,15 +259,17 @@
     ];
   };
 
-  # Allow unfree packages
+  # Allow unfree packages:
   nixpkgs = {
     config = {
       allowUnfree = true;
+      allowBroken = true;
       android_sdk.accept_license = true;
       permittedInsecurePackages = [
         "openssl-1.1.1w"
         "ventoy-gtk3-1.1.05"
         "ventoy-1.1.05"
+        "olm-3.2.16"
       ];
     };
   };
@@ -278,23 +278,27 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     usbutils sysstat bandwhich hwinfo lm_sensors lsof pciutils unixtools.netstat wget curl telegram-desktop
-    chromium eclipses.eclipse-sdk transmission_4-qt android-studio
+    chromium transmission_4-gtk android-studio
     qtcreator ffmpeg sox audacity vlc libreoffice-fresh inkscape gparted tor-browser
-    wine winetricks winePackages.fonts keepassxc seahorse htop btop krusader
-    calibre mu dropbox yt-dlp zip unzip gnupg gnumake cmake
+    wine winetricks winePackages.fonts keepassxc seahorse krusader
+    calibre mu dropbox yt-dlp zip unzip gnupg gnumake cmake sublime4
     watchman rustc steam hledger-ui hledger-web
-    obs-studio emacs direnv fontforge discord sublime4 jadx ghidra
-    gnome-builder joplin-desktop puffin tree bat git vim mullvad-vpn go cargo rustup
-    blueman hledger yarn jdk23 z-lua kile bottles obsidian ventoy-full 
+    obs-studio emacs direnv fontforge discord jadx ghidra
+    gnome-builder puffin tree git vim mullvad-vpn cargo rustup
+    blueman hledger yarn jdk z-lua kile bottles obsidian ventoy-full 
     gnucash
     python3Full
     digikam
     ffuf protonvpn-cli protonvpn-gui
     dconf-editor xdg-utils util-linux networkmanagerapplet python3Packages.jupyterlab
-    rofi-wayland
+    rofi-wayland gimp jupyter-all
+    texliveFull loupe
+
+    # Utilities:
+    jq killall ripgrep fd eza bat
 
     # Failed after update:
-    # rhythmbox mdbtools pidgin gimp darktable gnuradio jupyter-all gqrx inspectrum 
+    # pidgin rhythmbox darktable
 
     # OPSEC (from Kali Linux distribution):
     recon-ng theharvester maltego dmitry fierce openvas-scanner
@@ -309,6 +313,7 @@
     dirb gobuster wfuzz sqlmap
     # Wireless security
     aircrack-ng pixiewps wifite2 kismet macchanger
+    mdbtools gnuradio gqrx inspectrum
     # Exploitation frameworks
     metasploit
     # Password cracking
@@ -353,6 +358,7 @@
     gnomeExtensions.clipboard-indicator
     gnomeExtensions.caffeine
   ];
+  environment.pathsToLink = [ "/share/zsh" ];
 
   programs = {
     dconf.enable = true;

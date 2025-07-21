@@ -19,10 +19,8 @@
       vim-airline
       vim-airline-themes
       ale
-      #vim-virtualenv
-      #vim-bufmru
       vim-cmake
-      #LanguageClient-neovim
+      vim-lsp
       vim-flog
       fzf-vim
       vim-startify

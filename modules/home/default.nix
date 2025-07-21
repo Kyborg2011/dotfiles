@@ -7,6 +7,7 @@
 }: {
 
   imports = [
+    ./mimelist.nix
     ./zsh.nix
     ./vim.nix
     ./vscode.nix
@@ -15,12 +16,13 @@
     ./hyprpanel.nix
   ];
 
-  services.gnome-keyring.enable = true;
+  news.display = "show";
 
   home = {
     username = "anthony";
     homeDirectory = "/home/anthony";
     stateVersion = "24.05";
+
     packages = with pkgs; [
       inputs.hyprland-contrib.packages.${pkgs.system}.grimblast 
       inputs.hyprpicker.packages.${pkgs.system}.hyprpicker 
@@ -31,8 +33,6 @@
       wl-clipboard
       wf-recorder
       cliphist
-      catppuccin-gtk
-      z-lua
       d2
       apacheHttpdPackages.subversion
       killall
@@ -45,11 +45,34 @@
       pavucontrol
       nerd-fonts.jetbrains-mono
       dmenu-wayland
+      waypaper
+
+      # Development:
+      figma-linux
+      github-desktop
+      icon-library
+
+      # Languages:
+      bun
+      gjs
+      typescript
+      eslint
+      nodejs
+
       (pkgs.callPackage ./custom-fonts { })
     ];
+
     sessionVariables = {
-      GTK_THEME = "catppuccin-mocha-blue-standard";
+      QT_XCB_GL_INTEGRATION = "none"; # kde-connect
+      NIXPKGS_ALLOW_UNFREE = "1";
+      NIXPKGS_ALLOW_INSECURE = "1";
+      GTK_THEME = "Colloid-Teal-Dark-Gruvbox";
     };
+
+    sessionPath = [
+      "$HOME/.local/bin"
+      "$HOME/.npm/bin"
+    ];
   };
 
   home.file.".config/Code/User/settings.json".source = lib.mkForce (
@@ -64,8 +87,12 @@
     gtk.enable = true;
   };
 
-  programs.home-manager.enable = true;
-  programs.mpv.enable = true;
+  services = {
+    kdeconnect = {
+      enable = true;
+      indicator = true;
+    };
+  };
 
   programs.wofi = {
     enable = true;
@@ -89,9 +116,7 @@
       };
 
       background = [
-        {
-          path = "/home/anthony/.config/home-manager/images/hyprlock_background.jpg";
-        }
+        { path = "/home/anthony/.config/home-manager/images/hyprlock_background.jpg"; }
       ];
 
       input-field = [
@@ -126,9 +151,7 @@
           text = "$TIME";
           font_size = 150;
           color = "rgb(b6c4ff)";
-
           position = "0%, 200px";
-
           valign = "center";
           halign = "center";
         }
@@ -136,9 +159,7 @@
           text = "cmd[update:3600000] date +'%a %b %d'";
           font_size = 20;
           color = "rgb(b6c4ff)";
-
           position = "0%, 0";
-
           valign = "center";
           halign = "center";
         }
@@ -152,12 +173,33 @@
     enableSshSupport = true;
   };
 
-  programs.qutebrowser.enable = true;
-  programs.ranger.enable = true;
+  programs = {
+    home-manager.enable = true;
+    qutebrowser.enable = true;
+    ranger.enable = true;
+    sagemath.enable = true;
+    mpv.enable = true;
+    lf.enable = true;
+    go.enable = true;
+    hexchat.enable = true;
+    htop.enable = true;
+    btop.enable = true;
+    gpg.enable = true;
+    joplin-desktop.enable = true;
+    java.enable = true;
+    eclipse = {
+      enable = true;
+      package = pkgs.eclipses.eclipse-sdk;
+    };
+    mc.enable = true;
+    nheko.enable = true;
+
+  };
 
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
+    enableZshIntegration = true;
   };
 
   programs.git = {
@@ -165,10 +207,6 @@
     package = pkgs.git;
     userName = "kyborg2011";
     userEmail = "wkyborgw@gmail.com";
-  };
-
-  programs.gpg = {
-    enable = true;
   };
 
   systemd.user.services.hypridle.Unit.After = lib.mkForce "graphical-session.target";
@@ -208,13 +246,6 @@
           on-resume = "hyprctl dispatch dpms on";           # screen on when activity is detected after timeout has fired.
         }
       ];
-    };
-  };
-
-  xdg.mimeApps = {
-    enable = true;
-    defaultApplications = {
-      "inode/directory" = "thunar.desktop";
     };
   };
 

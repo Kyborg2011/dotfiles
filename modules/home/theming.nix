@@ -1,17 +1,14 @@
 { config, pkgs, ...}:
 let
-  catppuccin_name = "catppuccin-mocha-blue-standard";
-  catppuccin = pkgs.catppuccin-gtk.override {
-    size = "standard";
-    variant = "mocha";
-  };
+  theme_name = "Colloid-Teal-Dark-Gruvbox";
+  theme_pkg = pkgs.tokyonight-gtk-theme;
 in {
   # gtk settings
   gtk = {
     enable = true;
     theme = {
-      name = catppuccin_name;
-      package = catppuccin;
+      name = theme_name;
+      package = theme_pkg;
     };
     iconTheme = {
       name = "Papirus-Dark";
