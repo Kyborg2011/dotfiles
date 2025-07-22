@@ -14,6 +14,7 @@
     ./kitty.nix
     ./theming.nix
     ./hyprpanel.nix
+    ./wallpaper-manager.nix
   ];
 
   news.display = "show";
@@ -45,7 +46,6 @@
       pavucontrol
       nerd-fonts.jetbrains-mono
       dmenu-wayland
-      waypaper
 
       # Development:
       figma-linux
@@ -66,7 +66,7 @@
       QT_XCB_GL_INTEGRATION = "none"; # kde-connect
       NIXPKGS_ALLOW_UNFREE = "1";
       NIXPKGS_ALLOW_INSECURE = "1";
-      GTK_THEME = "Colloid-Teal-Dark-Gruvbox";
+      GTK_THEME = "Tokyonight-Dark";
     };
 
     sessionPath = [
@@ -193,7 +193,6 @@
     };
     mc.enable = true;
     nheko.enable = true;
-
   };
 
   programs.direnv = {

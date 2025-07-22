@@ -3,10 +3,12 @@
 {
   programs.kitty = {
     enable = true;
+
     font = {
       name = "InputMono Nerd Font";
       size = 12; # You might need to adjust this based on the +8px cell height
     };
+    
     settings = {
       cursor = "#fbf1c7";
       scrollback_pager_history_size = 100;

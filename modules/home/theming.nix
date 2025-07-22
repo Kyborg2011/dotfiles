@@ -1,7 +1,7 @@
 { config, pkgs, ...}:
 let
-  theme_name = "Colloid-Teal-Dark-Gruvbox";
-  theme_pkg = pkgs.tokyonight-gtk-theme;
+  theme_name = "Nordic";
+  theme_pkg = pkgs.nordic;
 in {
   # gtk settings
   gtk = {

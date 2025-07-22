@@ -294,6 +294,9 @@
     rofi-wayland gimp jupyter-all
     texliveFull loupe
 
+    # Wallpaper managers on Wayland:
+    swww waypaper
+
     # Utilities:
     jq killall ripgrep fd eza bat
 

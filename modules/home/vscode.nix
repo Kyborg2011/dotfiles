@@ -8,7 +8,6 @@
     profiles.default = {
       extensions = []
         ++ (with pkgs.vscode-extensions; [
-          # Core extensions from nixpkgs
           ms-python.python
           ms-toolsai.jupyter
           ms-vscode.cpptools

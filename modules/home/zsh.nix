@@ -6,6 +6,7 @@
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
+
     oh-my-zsh = {
       enable = true;
       theme = "ys";
@@ -72,6 +73,9 @@
       night-off = "killall -q hyprsunset; hyprsunset -t 6000 &";
     };
   };
+
+  # Interesting option for learning:
+  programs.nushell.enable = true;
 
   # FZF integration
   programs.fzf = {
