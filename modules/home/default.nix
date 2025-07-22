@@ -46,6 +46,7 @@
       pavucontrol
       nerd-fonts.jetbrains-mono
       dmenu-wayland
+      hyprsysteminfo
 
       # Development:
       figma-linux
@@ -95,14 +96,6 @@
     kdeconnect = {
       enable = true;
       indicator = true;
-    };
-  };
-
-  programs.wofi = {
-    enable = true;
-    package = pkgs.wofi;
-    settings = {
-      gtk_dark = true;
     };
   };
 
@@ -191,25 +184,36 @@
     gpg.enable = true;
     joplin-desktop.enable = true;
     java.enable = true;
+    git = {
+      enable = true;
+      package = pkgs.git;
+      userName = "kyborg2011";
+      userEmail = "wkyborgw@gmail.com";
+    };
     eclipse = {
       enable = true;
       package = pkgs.eclipses.eclipse-sdk;
     };
     mc.enable = true;
     nheko.enable = true;
-  };
-
-  programs.direnv = {
-    enable = true;
-    nix-direnv.enable = true;
-    enableZshIntegration = true;
-  };
-
-  programs.git = {
-    enable = true;
-    package = pkgs.git;
-    userName = "kyborg2011";
-    userEmail = "wkyborgw@gmail.com";
+    yazi = {
+      enable = true;
+      enableZshIntegration = true;
+      shellWrapperName = "y";
+    };
+    superfile.enable = true;
+    wofi = {
+      enable = true;
+      package = pkgs.wofi;
+      settings = {
+        gtk_dark = true;
+      };
+    };
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+      enableZshIntegration = true;
+    };
   };
 
   systemd.user.services.hypridle.Unit.After = lib.mkForce "graphical-session.target";

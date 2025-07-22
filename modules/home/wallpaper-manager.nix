@@ -14,7 +14,7 @@ let
     fi
 
     # See swww-img(1)
-    RESIZE_TYPE="fit"
+    RESIZE_TYPE="fill"
     export SWWW_TRANSITION_FPS="''${SWWW_TRANSITION_FPS:-60}"
     export SWWW_TRANSITION_STEP="''${SWWW_TRANSITION_STEP:-2}"
 
@@ -32,6 +32,6 @@ let
   '';
 in {
   wayland.windowManager.hyprland.settings.exec-once = [
-    "${wallpaper-manager} \"$HOME/Dropbox/01\ AboutMe/16\ Pictures/03\ Wallpapers/\" 300"
+    "nohup ${wallpaper-manager}/bin/wallpaper-manager \"$HOME/Dropbox/01\ AboutMe/16\ Pictures/03\ Wallpapers/\" 300"
   ];
 }

@@ -292,7 +292,8 @@
     ffuf protonvpn-cli protonvpn-gui
     dconf-editor xdg-utils util-linux networkmanagerapplet python3Packages.jupyterlab
     rofi-wayland gimp jupyter-all
-    texliveFull loupe
+    texliveFull loupe sushi code-nautilus
+    vesktop webcord fractal
 
     # Wallpaper managers on Wayland:
     swww waypaper
