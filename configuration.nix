@@ -367,6 +367,10 @@
     dconf.enable = true;
     xfconf.enable = true;
     file-roller.enable = true;
+    nautilus-open-any-terminal = {
+      enable = true;
+      terminal = "kitty";
+    };
     thunar = {
       enable = true;
       plugins = with pkgs.xfce; [

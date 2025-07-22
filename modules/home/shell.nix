@@ -47,17 +47,6 @@
         export GDK_BACKEND=wayland
       fi
 
-      # History configuration
-      export HIST_STAMPS="dd.mm.yyyy"
-
-      # Path configurations
-      export PATH="/usr/local/go/bin:$HOME/go/bin:$PATH"
-      export PATH="$HOME/.yarn/bin:$PATH"
-      # export PATH="$HOME/.npm/bin:$PATH"
-
-      # Hledger configuration
-      export LEDGER_FILE="$HOME/Dropbox/09 Business/06 Ledger/main.journal"
-
       bindkey "''${key[Up]}" up-line-or-search
       bindkey "''${key[Down]}" down-line-or-search
       
