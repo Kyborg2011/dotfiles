@@ -1,4 +1,4 @@
-{ inputs, ... } :
+{ inputs, pkgs, ... } :
 
 {
   wayland.windowManager.hyprland = {
@@ -13,7 +13,7 @@
     xwayland = {
       enable = true;
     };
-    
+
     settings = {
       exec-once = [
         "hyprpanel"

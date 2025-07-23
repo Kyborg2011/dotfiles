@@ -1,7 +1,5 @@
-{
-  stdenv,
-  ...
-}:
+{ stdenv, ... }:
+
 stdenv.mkDerivation {
   name = "custom-fonts";
   src = ./.;

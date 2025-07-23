@@ -1,11 +1,6 @@
-{
-  config,
-  pkgs,
-  inputs,
-  lib,
-  ...
-}: {
+{ config, pkgs, inputs, lib, ... }:
 
+{
   imports = [
     ./mimelist.nix
     ./shell.nix
