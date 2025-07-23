@@ -302,7 +302,8 @@
     jq killall ripgrep fd eza bat
 
     # Failed after update:
-    # pidgin rhythmbox darktable
+    # pidgin darktable
+    rhythmbox
 
     # OPSEC (from Kali Linux distribution):
     recon-ng theharvester maltego dmitry fierce openvas-scanner

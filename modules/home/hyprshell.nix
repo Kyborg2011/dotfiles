@@ -1,6 +1,10 @@
 { inputs, ... } :
 
 {
+  imports = [
+    inputs.hyprshell.homeModules.hyprshell
+  ];
+  
   programs.hyprshell = {
     enable = true;
     systemd.args = "-v";
@@ -9,19 +13,21 @@
         overview = {
           key = "super_l";
           launcher = {
-            max_items = 10;
-            plugins.websearch = {
-              enable = true;
-              engines = [{
-                name = "DuckDuckGo";
-                url = "https://duckduckgo.com/?q=%s";
-                key = "d";
-              }];
+            max_items = 6;
+            plugins = {
+              calc = {
+                enable = true;
+              };
+              websearch = {
+                enable = false;
+              };
             };
           };
         };
         switch = {
           enable = false;
+          modifier = "alt";
+          show_workspaces = false;
         };
       };
     };
