@@ -16,12 +16,30 @@ in {
     };
     gtk2.extraConfig = ''
       gtk-application-prefer-dark-theme = 1
+      gtk-enable-event-sounds = 1
+      gtk-enable-input-feedback-sounds = 0
+      gtk-xft-antialias = 1
+      gtk-xft-hinting = 1
+      gtk-xft-hintstyle = "hintslight"
+      gtk-xft-rgba = "rgb"
       '';
     gtk3.extraConfig = {
       gtk-application-prefer-dark-theme = 1;
+      gtk-enable-event-sounds = 1;
+      gtk-enable-input-feedback-sounds = 0;
+      gtk-xft-antialias = 1;
+      gtk-xft-hinting = 1;
+      gtk-xft-hintstyle = "hintslight";
+      gtk-xft-rgba = "rgb";
     };
     gtk4.extraConfig = {
       gtk-application-prefer-dark-theme = 1;
+      gtk-enable-event-sounds = 1;
+      gtk-enable-input-feedback-sounds = 0;
+      gtk-xft-antialias = 1;
+      gtk-xft-hinting = 1;
+      gtk-xft-hintstyle = "hintslight";
+      gtk-xft-rgba = "rgb";
     };
     gtk3.bookmarks = let
       home = config.home.homeDirectory;

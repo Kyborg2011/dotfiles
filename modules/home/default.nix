@@ -7,6 +7,7 @@
 }: {
 
   imports = [
+    inputs.hyprshell.homeModules.hyprshell
     ./mimelist.nix
     ./shell.nix
     ./vim.nix
@@ -15,6 +16,7 @@
     ./theming.nix
     ./hyprpanel.nix
     ./wallpaper-manager.nix
+    ./hyprshell.nix
   ];
 
   news.display = "show";
@@ -25,9 +27,9 @@
     stateVersion = "24.05";
 
     packages = with pkgs; [
-      inputs.hyprland-contrib.packages.${pkgs.system}.grimblast 
-      inputs.hyprpicker.packages.${pkgs.system}.hyprpicker 
-      inputs.hyprsunset.packages.${pkgs.system}.hyprsunset 
+      inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
+      inputs.hyprpicker.packages.${pkgs.system}.hyprpicker
+      inputs.hyprsunset.packages.${pkgs.system}.hyprsunset
       inputs.hyprpolkitagent.packages.${pkgs.system}.hyprpolkitagent
       inputs.hyprpaper.packages.${pkgs.system}.hyprpaper
       wofi
@@ -293,6 +295,7 @@
     settings = {
       exec-once = [
         "hyprpanel"
+        "hyprshell run &"
         "systemctl --user start hypridle.service"
         "hyprctl setcursor Bibata-Ice-Modern 24"
       ];

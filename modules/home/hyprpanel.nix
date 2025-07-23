@@ -1,4 +1,5 @@
 { inputs, ... }:
+
 {
   programs.hyprpanel = {
     enable = true;
@@ -478,17 +479,18 @@
       "menus.dashboard.shortcuts.left.shortcut3.icon" = "󰨞";
       "menus.dashboard.shortcuts.left.shortcut3.command" = "code";
       "menus.dashboard.shortcuts.left.shortcut3.tooltip" = "Visual Studio Code";
-      "menus.dashboard.directories.left.directory3.command" = "bash -c \"thunar $HOME/dev/\"";
-      "menus.dashboard.directories.left.directory1.command" = "bash -c \"thunar $HOME/Downloads/\"";
-      "menus.dashboard.directories.left.directory2.command" = "bash -c \"thunar $HOME/Videos/\"";
-      "menus.dashboard.directories.left.directory4.command" = "bash -c \"thunar $HOME/Documents/\"";
-      "menus.dashboard.directories.left.directory5.command" = "bash -c \"thunar $HOME/Pictures/\"";
-      "menus.dashboard.directories.left.directory6.command" = "bash -c \"thunar $HOME/\"";
+      "menus.dashboard.directories.left.directory1.command" = "bash -c \"xdg-open $HOME/Downloads/\"";
+      "menus.dashboard.directories.left.directory3.command" = "bash -c \"xdg-open $HOME/dev/\"";
+      "menus.dashboard.directories.left.directory2.command" = "bash -c \"xdg-open $HOME/Videos/\"";
+      "menus.dashboard.directories.right.directory1.command" = "bash -c \"xdg-open $HOME/Documents/\"";
+      "menus.dashboard.directories.right.directory2.command" = "bash -c \"xdg-open $HOME/Pictures/\"";
+      "menus.dashboard.directories.right.directory3.command" = "bash -c \"xdg-open $HOME/\"";
       "bar.launcher.icon" = "";
       "theme.bar.buttons.modules.cpu.enableBorder" = false;
       "bar.customModules.storage.icon" = "󰋊";
       "menus.dashboard.directories.left.directory3.label" = " Dev";
       "menus.dashboard.powermenu.avatar.image" = "/home/anthony/Dropbox/01 AboutMe/16 Pictures/guy-fawkes-mask.jpeg";
+      "theme.bar.opacity" = 75;
     };
   };
 }
