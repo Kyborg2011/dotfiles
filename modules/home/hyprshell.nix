@@ -8,7 +8,6 @@
       windows = {
         overview = {
           key = "super_l";
-          mod = super;
           launcher = {
             max_items = 10;
             plugins.websearch = {
@@ -21,7 +20,9 @@
             };
           };
         };
-        switcher.enable = false;
+        switch = {
+          enable = false;
+        };
       };
     };
   };
