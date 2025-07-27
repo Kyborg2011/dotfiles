@@ -294,6 +294,10 @@
     rofi-wayland gimp jupyter-all
     texliveFull loupe sushi code-nautilus
     vesktop webcord fractal
+    rhythmbox darktable pidgin
+
+    # Markdown editors:
+    typora apostrophe kdePackages.ghostwriter
 
     # Wallpaper managers on Wayland:
     swww waypaper
@@ -302,8 +306,7 @@
     jq killall ripgrep fd eza bat
 
     # Failed after update:
-    # pidgin darktable
-    rhythmbox
+    #  
 
     # OPSEC (from Kali Linux distribution):
     recon-ng theharvester maltego dmitry fierce openvas-scanner
