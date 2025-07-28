@@ -43,16 +43,20 @@
         pkgs.intel-media-driver
       ];
       nvidia.open = false;
+      alsa.enablePersistence = true;
+      enableAllFirmware = true;
+      enableRedistributableFirmware = true;
     };
 
   ##################### BOOTLOADER ##########################
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-
   boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
     supportedFilesystems = [ "ntfs" ];
     kernelParams = [
       "usbcore.autosuspend=-1"
+      "snd-intel-dspcfg.dsp_driver=1"
     ];
+    kernelModules = [ "snd-hda-intel" ];
     loader = {
       systemd-boot.enable = false;
       efi.canTouchEfiVariables = true;
@@ -69,9 +73,13 @@
   networking = {
     hostName = "nixos";
     networkmanager.enable = true;
-    firewall.allowedTCPPorts = [ 80 8080 ];
-    firewall.allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
-    firewall.allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [ 80 8080 ];
+      allowedUDPPorts = [ 53 ];
+      allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
+      allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
+    };
   };
 
   # Set your time zone.
@@ -91,25 +99,6 @@
     LC_TIME = "ru_UA.UTF-8";
   };
 
-  services.xserver = {
-    enable = true;
-    xkb = {
-      layout = "us,ru,ua";
-      options = "grp:win_space_toggle";
-    };
-    videoDrivers = [ "nvidia" ];
-  };
-
-  # Enable sound with pipewire.
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
-
-  programs.virt-manager.enable = true;
-
   virtualisation = {
     virtualbox.host.enable = true;
     docker.enable = true;
@@ -125,6 +114,8 @@
 
   # List services that you want to enable:
   services = {
+    fwupd.enable = true;
+    thermald.enable = true;
     gvfs.enable = true;
     devmon.enable = true;
     udisks2.enable = true;
@@ -167,9 +158,27 @@
       enable = true;
       package = pkgs.mariadb;
     };
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+    };
+    xserver = {
+      enable = true;
+      xkb = {
+        layout = "us,ru,ua";
+        options = "grp:win_space_toggle";
+      };
+      videoDrivers = [ "nvidia" ];
+      desktopManager.xfce.enable = true;
+    };
+    postgresql = {
+      enable = true;
+      package = pkgs.postgresql_15;
+      enableJIT = true;
+    };
   };
-
-  services.xserver.desktopManager.xfce.enable = true;
 
   qt = {
     enable = true;
@@ -189,12 +198,34 @@
       enable = true;
       package = pkgs.nodejs;
     };
-  };
-
-  services.postgresql = {
-    enable = true;
-    package = pkgs.postgresql_15;
-    enableJIT = true;
+    system-config-printer.enable = true;
+        dconf.enable = true;
+    xfconf.enable = true;
+    file-roller.enable = true;
+    nautilus-open-any-terminal = {
+      enable = true;
+      terminal = "kitty";
+    };
+    thunar = {
+      enable = true;
+      plugins = with pkgs.xfce; [
+        thunar-volman
+        thunar-archive-plugin
+        thunar-media-tags-plugin
+      ];
+    };
+    zsh.enable = true;
+    mtr.enable = true;
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+    };
+    virt-manager.enable = true;
+    hyprland = {
+      enable = true;
+      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+      portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+    };
   };
 
   # Enable the NixOS printing service for HP printers:
@@ -214,7 +245,6 @@
       BrowseProtocols all
     '';
   };
-
   # For all IPP printers (printing without installing drivers):
   services.avahi = {
     enable = true;
@@ -225,8 +255,6 @@
       userServices = true;
     };
   };
-
-  programs.system-config-printer.enable = true;
 
   nix = {
     gc = {
@@ -285,10 +313,8 @@
     watchman rustc steam hledger-ui hledger-web
     obs-studio emacs direnv fontforge discord jadx ghidra
     gnome-builder puffin tree git vim mullvad-vpn cargo rustup
-    blueman hledger yarn jdk z-lua kile bottles obsidian ventoy-full 
-    gnucash
-    python3Full
-    digikam
+    blueman hledger yarn jdk z-lua kile bottles obsidian ventoy-full
+    gnucash python3Full digikam
     ffuf protonvpn-cli protonvpn-gui
     dconf-editor xdg-utils util-linux networkmanagerapplet python3Packages.jupyterlab
     rofi-wayland gimp jupyter-all
@@ -306,7 +332,7 @@
     jq killall ripgrep fd eza bat
 
     # Failed after update:
-    #  
+    # no pkgs currently!
 
     # OPSEC (from Kali Linux distribution):
     recon-ng theharvester maltego dmitry fierce openvas-scanner
@@ -368,24 +394,6 @@
   ];
   environment.pathsToLink = [ "/share/zsh" ];
 
-  programs = {
-    dconf.enable = true;
-    xfconf.enable = true;
-    file-roller.enable = true;
-    nautilus-open-any-terminal = {
-      enable = true;
-      terminal = "kitty";
-    };
-    thunar = {
-      enable = true;
-      plugins = with pkgs.xfce; [
-        thunar-volman
-        thunar-archive-plugin
-        thunar-media-tags-plugin
-      ];
-    };
-  };
-
   # Android (adb) setup
   programs.adb.enable = true;
   services.udev.extraRules =
@@ -409,25 +417,12 @@
   };
 
   # System-level ZSH configuration
-  programs.zsh.enable = true;
   environment.shells = with pkgs; [ zsh ];
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  programs.mtr.enable = true;
-  programs.gnupg.agent = {
+  system.autoUpgrade = {
     enable = true;
-    enableSSHSupport = true;
+    allowReboot = false;
   };
-
-  programs.hyprland = {
-    enable = true;
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-  };
-
-  system.autoUpgrade.enable = true;
-  system.autoUpgrade.allowReboot = false;
 
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
