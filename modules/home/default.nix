@@ -21,12 +21,21 @@
     homeDirectory = "/home/anthony";
     stateVersion = "24.05";
 
+    pointerCursor = {
+      x11.enable = true;
+      gtk.enable = true;
+      name = "Bibata-Modern-Ice";
+      package = pkgs.bibata-cursors;
+      size = 24;
+    };
+
     packages = with pkgs; [
       inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
       inputs.hyprpicker.packages.${pkgs.system}.hyprpicker
       inputs.hyprsunset.packages.${pkgs.system}.hyprsunset
       inputs.hyprpolkitagent.packages.${pkgs.system}.hyprpolkitagent
       inputs.hyprpaper.packages.${pkgs.system}.hyprpaper
+
       wofi
       wl-clipboard
       wf-recorder
@@ -67,6 +76,7 @@
       NIXPKGS_ALLOW_INSECURE = "1";
       LEDGER_FILE = "$HOME/Dropbox/09 Business/06 Ledger/main.journal";
       HIST_STAMPS = "dd.mm.yyyy";
+      ELECTRON_OZONE_PLATFORM_HINT = "auto"; 
     };
 
     sessionPath = [
@@ -76,24 +86,23 @@
       "/usr/local/go/bin"
       "$HOME/go/bin"
     ];
-  };
 
-  home.file.".config/Code/User/settings.json".source = lib.mkForce (
-    config.lib.file.mkOutOfStoreSymlink "/etc/nixos/modules/home/dotfiles/Code/settings.json"
-  );
-
-  home.pointerCursor = {
-    x11.enable = true;
-    name = "Bibata-Modern-Ice";
-    package = pkgs.bibata-cursors;
-    size = 24;
-    gtk.enable = true;
+    file = {
+      ".config/Code/User/settings.json".source = lib.mkForce (
+        config.lib.file.mkOutOfStoreSymlink "/etc/nixos/modules/home/dotfiles/Code/settings.json"
+      );
+    };
   };
 
   services = {
     kdeconnect = {
       enable = true;
       indicator = true;
+    };
+    gpg-agent = {
+      enable = true;
+      defaultCacheTtl = 1800;
+      enableSshSupport = true;
     };
   };
 
@@ -111,7 +120,7 @@
       };
 
       background = [
-        { path = "/home/anthony/.config/home-manager/images/hyprlock_background.jpg"; }
+        { path = "${config.home.homeDirectory}/.config/home-manager/images/hyprlock_background.jpg"; }
       ];
 
       input-field = [
@@ -119,22 +128,17 @@
           size = "300, 50";
           valign = "bottom";
           position = "0%, 200px";
-
           outline_thickness = 1;
-
           outer_color = "rgba(0, 0, 0, 1.0)";
           inner_color = "rgb(f2f3f4)";
           font_color = "rgba(0, 0, 0, 1.0)";
           check_color = "rgba(0, 0, 0, 1.0)";
           fail_color = "rgba(255, 0, 0, 0.8)";
-
           fade_on_empty = false;
           placeholder_text = "Enter Password";
-
           dots_spacing = 0.2;
           dots_center = true;
           dots_fade_time = 100;
-
           shadow_color = "rgba(0, 0, 0, 0.1)";
           shadow_size = 7;
           shadow_passes = 1;
@@ -160,12 +164,6 @@
         }
       ];
     };
-  };
-
-  services.gpg-agent = {
-    enable = true;
-    defaultCacheTtl = 1800;
-    enableSshSupport = true;
   };
 
   programs = {
@@ -220,6 +218,7 @@
   services.hypridle = {
     enable = true;
     package = inputs.hypridle.packages.${pkgs.system}.hypridle;
+
     settings = {
       general = {
         lock_cmd = "hyprlock";
@@ -233,18 +232,15 @@
           on-timeout = "brightnessctl -s set 10";         # set monitor backlight to minimum, avoid 0 on OLED monitor.
           on-resume = "brightnessctl -r";                 # monitor backlight restore.
         }
-
         {
           timeout = 150;                                            # 2.5min.
           on-timeout = "brightnessctl -sd rgb:kbd_backlight set 0"; # turn off keyboard backlight.
           on-resume = "brightnessctl -rd rgb:kbd_backlight";        # turn on keyboard backlight.
         }
-
         {
           timeout = 300;                                    # 5min
           on-timeout = "loginctl lock-session";             # lock screen when timeout has passed
         }
-
         {
           timeout = 330;                                    # 5.5min
           on-timeout = "hyprctl dispatch dpms off";         # screen off when timeout has passed
@@ -268,13 +264,4 @@
   };
 
   fonts.fontconfig.enable = true;
-
-  dconf.settings = {
-    "org/gnome/desktop/wm/preferences" = {
-      disable-workarounds = false;
-    };
-    "org/gnome/desktop/interface" = {
-      color-scheme = "prefer-dark";
-    };
-  };
 }

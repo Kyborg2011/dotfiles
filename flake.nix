@@ -5,13 +5,13 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1&ref=refs/tags/v0.50.0";
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1&ref=refs/tags/v0.49.0";
     hy3 = {
-      url = "github:outfoxxed/hy3?ref=hl0.50.0";
+      url = "github:outfoxxed/hy3?ref=hl0.49.0";
       inputs.hyprland.follows = "hyprland";
     };
     hyprland-plugins = {
-      url = "git+https://github.com/hyprwm/hyprland-plugins?submodules=1&ref=refs/tags/v0.50.0";
+      url = "git+https://github.com/hyprwm/hyprland-plugins?submodules=1&ref=refs/tags/v0.49.0";
       inputs.hyprland.follows = "hyprland";
     };
     hypridle = {

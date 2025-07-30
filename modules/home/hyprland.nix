@@ -6,7 +6,7 @@
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
 
     plugins = [
-      inputs.hy3.packages.${pkgs.system}.hy3
+      #inputs.hy3.packages.${pkgs.system}.hy3
       inputs.hyprland-plugins.packages.${pkgs.system}.hyprexpo
     ];
 
@@ -59,9 +59,13 @@
         "noshadow on, class:MATLAB, title:DefaultOverlayManager.JWindow"
       ];
     };
-    extraConfig = (builtins.readFile ./dotfiles/hypr/hyprland.conf);
+
+    extraConfig = ''
+      plugin = ${inputs.hy3.packages.${pkgs.system}.hy3}/lib/libhy3.so
+    '' + (builtins.readFile ./dotfiles/hypr/hyprland.conf);
+
     systemd = {
-      enable = false;
+      enable = true;
       variables = ["--all"];
       extraCommands = [
         "systemctl --user stop graphical-session.target"
