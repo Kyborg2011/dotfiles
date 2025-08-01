@@ -6,7 +6,11 @@
     settings = {
       "bar.layouts" = {
         "*" = {
-          left = [ "dashboard" "workspaces" "windowtitle" ];
+          left = [
+            "dashboard"
+            "workspaces"
+            "windowtitle"
+          ];
           middle = [ "media" ];
           right = [
             "volume"

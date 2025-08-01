@@ -7,12 +7,19 @@
   
   programs.hyprshell = {
     enable = true;
-    systemd.args = "-v";
+
+    systemd = {
+      enable = true;
+      args = "-v";
+    };
+
     settings = {
       windows = {
         overview = {
+          enable = true;
           key = "super_l";
           launcher = {
+            enable = true;
             max_items = 6;
             plugins = {
               calc = {
@@ -21,13 +28,14 @@
               websearch = {
                 enable = false;
               };
+              applications.show_actions_submenu = true;
             };
           };
         };
         switch = {
-          enable = false;
+          enable = true;
           modifier = "alt";
-          show_workspaces = false;
+          show_workspaces = true;
         };
       };
     };

@@ -1,4 +1,5 @@
 { pkgs, config, ... }:
+
 let
   wallpaper-manager = pkgs.writeShellScriptBin "wallpaper-manager" ''
     #! ${pkgs.runtimeShell}

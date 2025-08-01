@@ -25,7 +25,7 @@
           };
         };
       };
-      /*printers = {
+      printers = {
         ensureDefaultPrinter = hp;
         ensurePrinters = [
           {
@@ -36,23 +36,35 @@
             location = "Study";
           }
         ];
-      };*/
+      };
       graphics.extraPackages = [
         pkgs.intel-compute-runtime
         pkgs.intel-vaapi-driver
         pkgs.intel-media-driver
       ];
       nvidia.open = false;
+      alsa.enablePersistence = true;
+      enableAllFirmware = true;
+      enableRedistributableFirmware = true;
     };
 
   ##################### BOOTLOADER ##########################
-  boot.kernelPackages = pkgs.linuxPackages_6_12;
-
   boot = {
-    supportedFilesystems = [ "ntfs" ];
+    kernelPackages = pkgs.linuxPackages_xanmod_stable;
     kernelParams = [
       "usbcore.autosuspend=-1"
+      "snd-intel-dspcfg.dsp_driver=1"
     ];
+    kernelModules = [ "snd-hda-intel" ];
+    kernel.sysctl = {
+      "vm.swappiness" = 180; # zram is relatively cheap, prefer swap
+      "vm.page-cluster" = 0; # zram is in memory, no need to readahead
+      "vm.dirty_background_bytes" = 128 * 1024 * 1024; # Start asynchronously writing at 128 MiB dirty memory
+      "vm.dirty_ratio" = 50; # Start synchronously writing at 50% dirty memory
+      "vm.dirty_bytes" = 64 * 1024 * 1024;
+      "vm.vfs_cache_pressure" = 500;
+    };
+    supportedFilesystems = [ "ntfs" ];
     loader = {
       systemd-boot.enable = false;
       efi.canTouchEfiVariables = true;
@@ -66,12 +78,45 @@
     };
   };
 
+  nix = {
+    gc = {
+      automatic = true;
+      dates = "03:15";
+    };
+    settings = {
+      experimental-features = "nix-command flakes";
+      auto-optimise-store = true;
+      warn-dirty = false;
+    };
+  };
+  documentation.nixos.enable = true;
+
+  # Allow unfree packages:
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+      allowBroken = true;
+      android_sdk.accept_license = true;
+      permittedInsecurePackages = [
+        "openssl-1.1.1w"
+        "ventoy-gtk3-1.1.05"
+        "ventoy-1.1.05"
+        "olm-3.2.16"
+        "libsoup-2.74.3"
+      ];
+    };
+  };
+
   networking = {
     hostName = "nixos";
     networkmanager.enable = true;
-    firewall.allowedTCPPorts = [ 80 8080 ];
-    firewall.allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
-    firewall.allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [ 80 8080 ];
+      allowedUDPPorts = [ 53 ];
+      allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
+      allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
+    };
   };
 
   # Set your time zone.
@@ -91,27 +136,6 @@
     LC_TIME = "ru_UA.UTF-8";
   };
 
-  services.xserver = {
-    enable = true;
-    xkb = {
-      layout = "us,ru,ua";
-      options = "grp:win_space_toggle";
-    };
-    videoDrivers = [ "intel" "nvidia" ];
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
-  };
-
-  # Enable sound with pipewire.
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
-
-  programs.virt-manager.enable = true;
-
   virtualisation = {
     virtualbox.host.enable = true;
     docker.enable = true;
@@ -125,8 +149,47 @@
     rtkit.enable = true;
   };
 
+  programs = {
+    nm-applet.enable = true;
+    gamemode.enable = true;
+    firefox.enable = true;
+    steam = {
+      enable = true;
+      remotePlay.openFirewall = true;
+    };
+    npm = {
+      enable = true;
+      package = pkgs.nodejs;
+    };
+    system-config-printer.enable = true;
+    dconf.enable = true;
+    xfconf.enable = true;
+    file-roller.enable = true;
+    nautilus-open-any-terminal = {
+      enable = true;
+      terminal = "kitty";
+    };
+    thunar = {
+      enable = true;
+      plugins = with pkgs.xfce; [
+        thunar-volman
+        thunar-archive-plugin
+        thunar-media-tags-plugin
+      ];
+    };
+    zsh.enable = true;
+    mtr.enable = true;
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+    };
+    virt-manager.enable = true;
+  };
+
   # List services that you want to enable:
   services = {
+    fwupd.enable = true;
+    thermald.enable = true;
     gvfs.enable = true;
     devmon.enable = true;
     udisks2.enable = true;
@@ -167,34 +230,28 @@
       enable = true;
       package = pkgs.mariadb;
     };
-  };
-
-  services.xserver.desktopManager.xfce.enable = true;
-
-  qt = {
-    enable = true;
-    platformTheme = "gnome";
-    style = "adwaita-dark";
-  };
-
-  programs = {
-    nm-applet.enable = true;
-    gamemode.enable = true;
-    firefox.enable = true;
-    steam = {
+    pipewire = {
       enable = true;
-      remotePlay.openFirewall = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
     };
-    npm = {
+    xserver = {
       enable = true;
-      package = pkgs.nodejs;
+      xkb = {
+        layout = "us,ru,ua";
+        options = "grp:win_space_toggle";
+      };
+      videoDrivers = [ "nvidia" ];
+      displayManager.gdm.enable = true;
+      desktopManager.gnome.enable = true;
+      desktopManager.xfce.enable = true;
     };
-  };
-
-  services.postgresql = {
-    enable = true;
-    package = pkgs.postgresql_15;
-    enableJIT = true;
+    postgresql = {
+      enable = true;
+      package = pkgs.postgresql_15;
+      enableJIT = true;
+    };
   };
 
   # Enable the NixOS printing service for HP printers:
@@ -214,7 +271,6 @@
       BrowseProtocols all
     '';
   };
-
   # For all IPP printers (printing without installing drivers):
   services.avahi = {
     enable = true;
@@ -226,30 +282,13 @@
     };
   };
 
-  programs.system-config-printer.enable = true;
-
-  nix = {
-    gc = {
-      automatic = true;
-      dates = "03:15";
-    };
-    settings = {
-      experimental-features = "nix-command flakes";
-      auto-optimise-store = true;
-      warn-dirty = false;
-    };
-  };
-  documentation.nixos.enable = true;
-
-  xdg.icons.enable = true;
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.anthony = {
     isNormalUser = true;
     description = "Anthony";
     extraGroups = [
-      "networkmanager"
       "wheel"
+      "networkmanager"
       "adbusers"
       "kvm"
       "video"
@@ -262,41 +301,37 @@
     ];
   };
 
-  # Allow unfree packages:
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-      allowBroken = true;
-      android_sdk.accept_license = true;
-      permittedInsecurePackages = [
-        "openssl-1.1.1w"
-        "ventoy-gtk3-1.1.05"
-        "ventoy-1.1.05"
-        "olm-3.2.16"
-      ];
-    };
+  xdg.icons.enable = true;
+
+  qt = {
+    enable = true;
+    platformTheme = "gnome";
+    style = "adwaita-dark";
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    usbutils sysstat bandwhich hwinfo lm_sensors lsof pciutils unixtools.netstat wget curl telegram-desktop
-    chromium transmission_4-gtk
+    usbutils sysstat bandwhich hwinfo lm_sensors lsof pciutils unixtools.netstat
+    wget curl telegram-desktop chromium transmission_4-gtk
     qtcreator ffmpeg sox vlc libreoffice-fresh inkscape gparted tor-browser
     wine winetricks winePackages.fonts keepassxc seahorse krusader
     calibre mu dropbox yt-dlp zip unzip gnupg gnumake cmake
     watchman rustc steam hledger-ui hledger-web
     obs-studio emacs direnv fontforge discord jadx ghidra
     gnome-builder puffin tree git vim mullvad-vpn cargo rustup
-    blueman hledger yarn jdk z-lua kile bottles obsidian ventoy-full 
-    gnucash
-    python3Full
-    digikam
+    blueman hledger yarn jdk z-lua kile bottles obsidian ventoy-full
+    gnucash python3Full digikam
     ffuf protonvpn-cli protonvpn-gui
-    dconf-editor xdg-utils util-linux networkmanagerapplet python3Packages.jupyterlab
+    dconf-editor xdg-utils util-linux networkmanagerapplet
+    python3Packages.jupyterlab
     rofi-wayland gimp jupyter-all
     texliveFull loupe sushi code-nautilus
     vesktop webcord fractal
+    rhythmbox darktable pidgin audacity
+
+    # Markdown editors:
+    typora apostrophe kdePackages.ghostwriter
 
     # Wallpaper managers on Wayland:
     swww waypaper
@@ -305,8 +340,7 @@
     jq killall ripgrep fd eza bat
 
     # Failed after update:
-    # pidgin darktable audacity sublime4 volatility3
-    rhythmbox
+    # sublime4 volatility3
 
     # OPSEC (from Kali Linux distribution):
     recon-ng theharvester maltego dmitry fierce openvas-scanner
@@ -360,7 +394,6 @@
     # Gnome related apps + extensions for Gnome Shell:
     gnome-control-center gnome-tweaks gnome-shell-extensions evolution
     gnomeExtensions.dash-to-dock
-    gnomeExtensions.gsconnect
     gnomeExtensions.applications-menu
     gnomeExtensions.workspace-indicator
     gnomeExtensions.clipboard-indicator
@@ -368,22 +401,10 @@
   ];
   environment.pathsToLink = [ "/share/zsh" ];
 
-  programs = {
-    dconf.enable = true;
-    xfconf.enable = true;
-    file-roller.enable = true;
-    nautilus-open-any-terminal = {
-      enable = true;
-      terminal = "kitty";
-    };
-    thunar = {
-      enable = true;
-      plugins = with pkgs.xfce; [
-        thunar-volman
-        thunar-archive-plugin
-        thunar-media-tags-plugin
-      ];
-    };
+  programs.hyprland = {
+    enable = true;
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
   };
 
   # Android (adb) setup
@@ -409,60 +430,48 @@
   };
 
   # System-level ZSH configuration
-  programs.zsh.enable = true;
-  environment.shells = with pkgs; [ zsh ];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  programs.mtr.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-  };
-
-  programs.hyprland = {
-    enable = true;
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-  };
-
-  system.autoUpgrade.enable = true;
-  system.autoUpgrade.allowReboot = false;
-
-  programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [
-    jdk17
-    uutils-coreutils-noprefix
-    xorg.xorgserver
-    xorg.libX11
-    gtk3
-    libglibutil
-    glib
-    glibc
-    javaPackages.openjfx17
-    freetype
-    libxkbcommon
-    wayland
-    fontconfig
-    xorg.libXtst
-    xorg.libXi
-    xorg.libXrender
-    xorg.libXext
-    fuse
-    xorg.libxcb
+  environment.shells = with pkgs; [
+    zsh
+    nushell
   ];
+
+  system.autoUpgrade = {
+    enable = true;
+    allowReboot = false;
+  };
+
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      jdk17
+      uutils-coreutils-noprefix
+      xorg.xorgserver
+      xorg.libX11
+      gtk3
+      libglibutil
+      glib
+      glibc
+      javaPackages.openjfx17
+      freetype
+      libxkbcommon
+      wayland
+      fontconfig
+      xorg.libXtst
+      xorg.libXi
+      xorg.libXrender
+      xorg.libXext
+      fuse
+      xorg.libxcb
+    ];
+  };
 
   users.defaultUserShell = pkgs.zsh;
 
   # Config taken from here: https://github.com/pfaj/nixos-config/blob/master/modules/nixos/zram.nix
-  zramSwap.enable = true;
-  zramSwap.memoryPercent = 100;
-  boot.kernel.sysctl."vm.swappiness" = 180; # zram is relatively cheap, prefer swap
-  boot.kernel.sysctl."vm.page-cluster" = 0; # zram is in memory, no need to readahead
-  boot.kernel.sysctl."vm.dirty_background_bytes" = 128 * 1024 * 1024; # Start asynchronously writing at 128 MiB dirty memory
-  boot.kernel.sysctl."vm.dirty_ratio" = 50; # Start synchronously writing at 50% dirty memory
-  boot.kernel.sysctl."vm.dirty_bytes" = 64 * 1024 * 1024;
-  boot.kernel.sysctl."vm.vfs_cache_pressure" = 500;
+  zramSwap = {
+    enable = true;
+    memoryPercent = 100;
+  };
   systemd.oomd.enable = false; # With 32 GiB of RAM and zram enabled OOM is unlikely
 
   # This value determines the NixOS release from which the default
