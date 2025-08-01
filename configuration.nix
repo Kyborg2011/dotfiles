@@ -25,7 +25,7 @@
           };
         };
       };
-      printers = {
+      /*printers = {
         ensureDefaultPrinter = hp;
         ensurePrinters = [
           {
@@ -36,7 +36,7 @@
             location = "Study";
           }
         ];
-      };
+      };*/
       graphics.extraPackages = [
         pkgs.intel-compute-runtime
         pkgs.intel-vaapi-driver
@@ -46,7 +46,7 @@
     };
 
   ##################### BOOTLOADER ##########################
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_6_12;
 
   boot = {
     supportedFilesystems = [ "ntfs" ];
@@ -97,7 +97,9 @@
       layout = "us,ru,ua";
       options = "grp:win_space_toggle";
     };
-    videoDrivers = [ "nvidia" ];
+    videoDrivers = [ "intel" "nvidia" ];
+    displayManager.gdm.enable = true;
+    desktopManager.gnome.enable = true;
   };
 
   # Enable sound with pipewire.
@@ -137,8 +139,6 @@
     flatpak.enable = true;
     pulseaudio.enable = false;
     blueman.enable = true;
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
     mullvad-vpn = {
       enable = true;
       package = pkgs.mullvad-vpn;
@@ -252,6 +252,9 @@
       "wheel"
       "adbusers"
       "kvm"
+      "video"
+      "render"
+      "input"
     ];
     packages = with pkgs; [
       google-chrome
@@ -278,10 +281,10 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     usbutils sysstat bandwhich hwinfo lm_sensors lsof pciutils unixtools.netstat wget curl telegram-desktop
-    chromium transmission_4-gtk android-studio
-    qtcreator ffmpeg sox audacity vlc libreoffice-fresh inkscape gparted tor-browser
+    chromium transmission_4-gtk
+    qtcreator ffmpeg sox vlc libreoffice-fresh inkscape gparted tor-browser
     wine winetricks winePackages.fonts keepassxc seahorse krusader
-    calibre mu dropbox yt-dlp zip unzip gnupg gnumake cmake sublime4
+    calibre mu dropbox yt-dlp zip unzip gnupg gnumake cmake
     watchman rustc steam hledger-ui hledger-web
     obs-studio emacs direnv fontforge discord jadx ghidra
     gnome-builder puffin tree git vim mullvad-vpn cargo rustup
@@ -302,7 +305,7 @@
     jq killall ripgrep fd eza bat
 
     # Failed after update:
-    # pidgin darktable
+    # pidgin darktable audacity sublime4 volatility3
     rhythmbox
 
     # OPSEC (from Kali Linux distribution):
@@ -324,7 +327,7 @@
     # Password cracking
     john johnny hashcat thc-hydra medusa
     # Digital forensics
-    binwalk foremost sleuthkit volatility2-bin volatility3 yara
+    binwalk foremost sleuthkit volatility2-bin yara
     # Network analysis
     wireshark tcpdump tcpflow tcpreplay netsniff-ng
     # Network tools

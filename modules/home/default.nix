@@ -44,6 +44,7 @@
       nerd-fonts.jetbrains-mono
       dmenu-wayland
       hyprsysteminfo
+      mc
 
       # Development:
       figma-linux
@@ -192,7 +193,6 @@
       enable = true;
       package = pkgs.eclipses.eclipse-sdk;
     };
-    mc.enable = true;
     nheko.enable = true;
     yazi = {
       enable = true;
