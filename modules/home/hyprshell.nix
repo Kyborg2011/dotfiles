@@ -33,9 +33,8 @@
           };
         };
         switch = {
-          enable = true;
-          modifier = "alt";
-          show_workspaces = true;
+          enable = false;
+          show_workspaces = false;
         };
       };
     };

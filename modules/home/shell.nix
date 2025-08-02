@@ -53,6 +53,20 @@
       zstyle ':completion:*' menu select
       bindkey "^[[1;5C" forward-word
       bindkey "^[[1;5D" backward-word
+
+      # Disable arrow autocompletion:
+      bindkey "^[[C" forward-char
+      bindkey "^[OC" forward-char
+      # Use Ctrl+Tab for autocompletion instead:
+      bindkey "^X^I" expand-or-complete
+      
+      # Autocompletion settings:
+      setopt NO_AUTO_MENU
+      setopt NO_MENU_COMPLETE
+      setopt AUTO_LIST
+      
+      # Disable ctrl+shift+v emphasizing:
+      zle_highlight+=(paste:none)
     '';
 
     shellAliases = {

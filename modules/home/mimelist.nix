@@ -9,15 +9,12 @@ in {
     associations.added = defaultApplications;
     defaultApplications = {
       "inode/directory" = file-manager;
-
       "x-scheme-handler/http" = browser;
       "x-scheme-handler/https" = browser;
       "application/xhtml+xml" = browser;
       "text/html" = browser;
-
       "x-scheme-handler/magnet" = torrent;
       "application/pdf" = browser;
-
       "image/jpeg" = image-viewer;
       "image/bmp" = image-viewer;
       "image/gif" = image-viewer;

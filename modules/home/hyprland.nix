@@ -54,12 +54,14 @@
         "nm-applet --indicator"
         "hyprpm reload -n"
         "dropbox"
-        "[workspace 1; size 70% 100%; move 0 0] $browser"
-        "[workspace 1; size 30% 100%; move 70% 0] sleep 3 && $terminal"
-        "[workspace 2; size 65% 100%; move 0 0] google-chrome-stable"
-        "[workspace 2; size 35% 100%; move 65% 0] Telegram"
-        "[workspace 3; size 100% 100%; move 0 0] android-studio"
-        "[workspace 5; size 100% 100%; move 0 0] okular"
+        "[workspace 1 silent] $terminal"
+        "[workspace 1 silent] sleep 3 && $browser"
+        "[workspace 2 silent] google-chrome-stable"
+        "[workspace 2 silent] telegram-desktop"
+        "[workspace 3 silent] studio"
+        "[workspace 4 silent] code"
+        "[workspace 5 silent] okular"
+        "[workspace 6 silent] evolution"
         "dbus-update-activation-environment --systemd --all"
         "systemctl --user import-environment QT_QPA_PLATFORMTHEME WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
       ];
@@ -129,7 +131,7 @@
 
       # https://wiki.hyprland.org/Configuring/Variables/#animations
       animations = {
-        enabled = true;
+        enabled = "yes";
         # Default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
         bezier = [
           "easeOutQuint,0.23,1,0.32,1"
@@ -198,14 +200,17 @@
         kb_rules = "";
         follow_mouse = 1;
         sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
+        scroll_method = "2fg";
         touchpad = {
           natural_scroll = false;
+          clickfinger_behavior = true;
         };
       };
 
       # https://wiki.hyprland.org/Configuring/Variables/#gestures
       gestures = {
         workspace_swipe = true;
+        workspace_swipe_forever = true;
       };
 
       ###################
@@ -331,20 +336,6 @@
         ", mouse_up, hy3:focustab, r, require_hovered"
       ];
 
-      # Resize submap
-      submap = {
-        resize = {
-          binde = [
-            ", right, resizeactive, 10 0"
-            ", left, resizeactive, -10 0"
-            ", up, resizeactive, 0 -10"
-            ", down, resizeactive, 0 10"
-          ];
-          bind = ", escape, submap, reset";
-        };
-        reset = {};
-      };
-
       ##############################
       ### WINDOWS AND WORKSPACES ###
       ##############################
@@ -429,6 +420,28 @@
         };
       };
     };
+
+    extraConfig = ''
+      # Resize submap:
+      #
+      # will switch to a submap called resize
+      bind = $mainMod, R, submap, resize
+
+      # will start a submap called "resize"
+      submap = resize
+
+      # sets repeatable binds for resizing the active window
+      binde = , right, resizeactive, 10 0
+      binde = , left, resizeactive, -10 0
+      binde = , up, resizeactive, 0 -10
+      binde = , down, resizeactive, 0 10
+
+      # use reset to go back to the global submap
+      bind = , escape, submap, reset 
+
+      # will reset the submap, which will return to the global submap
+      submap = reset
+    '';
 
     systemd = {
       enable = true;

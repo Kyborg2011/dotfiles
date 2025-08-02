@@ -17,14 +17,17 @@ in {
   # gtk settings
   gtk = {
     enable = true;
+    
     theme = {
       name = theme_name;
       package = theme_pkg;
     };
+
     iconTheme = {
       name = "Papirus-Dark";
       package = pkgs.papirus-icon-theme;
     };
+
     gtk2.extraConfig = ''
       gtk-application-prefer-dark-theme = 1
       gtk-enable-event-sounds = 1
@@ -33,7 +36,8 @@ in {
       gtk-xft-hinting = 1
       gtk-xft-hintstyle = "hintslight"
       gtk-xft-rgba = "rgb"
-      '';
+    '';
+
     gtk3 = {
       extraConfig = gtk_extra_config;
       bookmarks = [
@@ -48,6 +52,7 @@ in {
         "file://${home}/dev Dev"
       ];
     };
+
     gtk4.extraConfig = gtk_extra_config;
   };
 

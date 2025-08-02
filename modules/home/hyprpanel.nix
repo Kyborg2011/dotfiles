@@ -478,7 +478,7 @@
       "menus.dashboard.shortcuts.left.shortcut1.command" = "firefox";
       "menus.dashboard.shortcuts.left.shortcut1.tooltip" = "Firefox";
       "menus.dashboard.shortcuts.left.shortcut2.icon" = "";
-      "menus.dashboard.shortcuts.left.shortcut2.command" = "Telegram";
+      "menus.dashboard.shortcuts.left.shortcut2.command" = "telegram-desktop";
       "menus.dashboard.shortcuts.left.shortcut2.tooltip" = "Telegram";
       "menus.dashboard.shortcuts.left.shortcut3.icon" = "󰨞";
       "menus.dashboard.shortcuts.left.shortcut3.command" = "code";

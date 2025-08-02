@@ -37,12 +37,32 @@
           }
         ];
       };
-      graphics.extraPackages = [
-        pkgs.intel-compute-runtime
-        pkgs.intel-vaapi-driver
-        pkgs.intel-media-driver
-      ];
-      nvidia.open = false;
+      graphics = {
+        enable = true;
+        enable32Bit = true;
+        extraPackages = with pkgs; [ 
+          intel-media-driver
+          intel-compute-runtime
+          intel-vaapi-driver
+          nvidia-vaapi-driver
+          libvdpau-va-gl
+        ];
+      };
+      nvidia = {
+        modesetting.enable = true;
+        powerManagement.enable = true;
+        powerManagement.finegrained = false;
+        open = false; # For old GPUs like Nvidia Quadro M1200
+        nvidiaSettings = true;
+        # Force Intel GPU for display:
+        prime = {
+          intelBusId = "PCI:0:2:0";
+          nvidiaBusId = "PCI:1:0:0";
+          # Use one of the following options:
+          sync.enable = true;  # for perfomance
+          # offload.enable = true;  # for powersave
+        };
+      };
       alsa.enablePersistence = true;
       enableAllFirmware = true;
       enableRedistributableFirmware = true;
@@ -152,7 +172,6 @@
   programs = {
     nm-applet.enable = true;
     gamemode.enable = true;
-    firefox.enable = true;
     steam = {
       enable = true;
       remotePlay.openFirewall = true;
@@ -242,10 +261,12 @@
         layout = "us,ru,ua";
         options = "grp:win_space_toggle";
       };
-      videoDrivers = [ "nvidia" ];
+      videoDrivers = [ "modesetting" "nvidia" ];
       displayManager.gdm.enable = true;
-      desktopManager.gnome.enable = true;
-      desktopManager.xfce.enable = true;
+      desktopManager = {
+        gnome.enable = true;
+        xfce.enable = true;
+      };
     };
     postgresql = {
       enable = true;
@@ -328,7 +349,7 @@
     rofi-wayland gimp jupyter-all
     texliveFull loupe sushi code-nautilus
     vesktop webcord fractal
-    rhythmbox darktable pidgin audacity
+    rhythmbox darktable pidgin audacity sublime4
 
     # Markdown editors:
     typora apostrophe kdePackages.ghostwriter
@@ -337,10 +358,10 @@
     swww waypaper
 
     # Utilities:
-    jq killall ripgrep fd eza bat
+    jq killall ripgrep fd eza bat wirelesstools
 
     # Failed after update:
-    # sublime4 volatility3
+    # 
 
     # OPSEC (from Kali Linux distribution):
     recon-ng theharvester maltego dmitry fierce openvas-scanner
@@ -361,7 +382,7 @@
     # Password cracking
     john johnny hashcat thc-hydra medusa
     # Digital forensics
-    binwalk foremost sleuthkit volatility2-bin yara
+    binwalk foremost sleuthkit volatility2-bin yara volatility3
     # Network analysis
     wireshark tcpdump tcpflow tcpreplay netsniff-ng
     # Network tools
