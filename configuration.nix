@@ -234,6 +234,7 @@
       localsearch.enable = true;
       tinysparql.enable = true;
       core-developer-tools.enable = true;
+      gnome-browser-connector.enable = true;
     };
     nginx = {
       enable = true;

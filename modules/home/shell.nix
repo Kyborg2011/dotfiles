@@ -76,9 +76,9 @@
       ohmyzsh = "vim ~/.oh-my-zsh";
       night = "killall -q hyprsunset; hyprsunset -t 4900 &";
       night-off = "killall -q hyprsunset; hyprsunset -t 6000 &";
-      firefox = "firefox-devedition";
+      firefox = "firefox-devedition --profile ~/.mozilla/firefox/dev-edition-default";
       tree = "eza --tree";
-      ll = "eza -la --sort name --group-directories-first --no-permissions --no-filesize --no-user --no-time";
+      ll = "eza --group-directories-first --icons -al";
       l = "ls";
       ":q" = "exit";
       q = "exit";
@@ -86,6 +86,7 @@
       gc = "git commit";
       ga = "git add";
       gr = "git reset --soft HEAD~1";
+      gp = "git push";
     };
   };
 

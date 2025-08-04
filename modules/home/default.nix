@@ -12,6 +12,7 @@
     ./hyprpanel.nix
     ./hyprshell.nix
     ./wallpaper-manager.nix
+    ./browser.nix
   ];
 
   news.display = "show";
@@ -98,10 +99,6 @@
       ".config/Code/User/settings.json".source = lib.mkForce (
         config.lib.file.mkOutOfStoreSymlink "/etc/nixos/modules/home/dotfiles/Code/settings.json"
       );
-      firefox-mod-blur = {
-        target = ".mozilla/firefox/default/chrome/firefox-mod-blur";
-        source = inputs.firefox-mod-blur;
-      };
     };
   };
 
@@ -221,27 +218,6 @@
       enableZshIntegration = true;
     };
     aerc.enable = true;
-  };
-
-  programs.firefox = {
-    enable = true;
-    package = pkgs.firefox-devedition;
-    profiles.default = {
-      name = "Default";
-      settings = {
-        "browser.tabs.loadInBackground" = true;
-        "widget.gtk.rounded-bottom-corners.enabled" = true;
-        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-        "svg.context-properties.content.enabled" = true;
-        "browser.fullscreen.autohide" = false;
-      };
-      userChrome = ''
-        @import "firefox-mod-blur/userChrome.css";
-      '';
-      userContent = ''
-        @import "firefox-mod-blur/userContent.css";
-      '';
-    };
   };
 
   systemd.user.services.hypridle.Unit.After = lib.mkForce "graphical-session.target";

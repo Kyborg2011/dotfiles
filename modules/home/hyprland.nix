@@ -62,6 +62,7 @@
         "[workspace 4 silent] code"
         "[workspace 5 silent] okular"
         "[workspace 6 silent] evolution"
+        "jetbrains-toolbox"
         "dbus-update-activation-environment --systemd --all"
         "systemctl --user import-environment QT_QPA_PLATFORMTHEME WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
       ];
