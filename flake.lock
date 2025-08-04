@@ -48,6 +48,22 @@
         "type": "github"
       }
     },
+    "firefox-mod-blur": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1753394832,
+        "narHash": "sha256-W82y0qKR8yPdS6Fj6Ngw07qdNmswD7Od73qbc0x0gPE=",
+        "owner": "datguypiko",
+        "repo": "Firefox-Mod-Blur",
+        "rev": "2b34b564bf96cd03fd41377409c7df191ad82dab",
+        "type": "github"
+      },
+      "original": {
+        "owner": "datguypiko",
+        "repo": "Firefox-Mod-Blur",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -1364,6 +1380,7 @@
     },
     "root": {
       "inputs": {
+        "firefox-mod-blur": "firefox-mod-blur",
         "home-manager": "home-manager",
         "hy3": "hy3",
         "hypridle": "hypridle",

@@ -11,7 +11,7 @@
     "editor.fontFamily": "'Input Mono', 'Droid Sans Mono', 'monospace', monospace",
     "editor.fontSize": 14,
     "editor.lineHeight": 25,
-    "workbench.iconTheme": "Monokai Pro (Filter Spectrum) Icons",
+    "workbench.iconTheme": "Monokai Pro Icons",
     "[sql]": {
         "editor.defaultFormatter": "mtxr.sqltools"
     },
@@ -43,9 +43,11 @@
     "[css]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "workbench.colorTheme": "Monokai Pro (Filter Spectrum)",
+    "workbench.colorTheme": "Gruvbox Dark Hard",
     "github.copilot.chat.agent.thinkingTool": true,
     "terminal.external.linuxExec": "kitty",
     "terminal.integrated.drawBoldTextInBrightColors": false,
-    "python.defaultInterpreterPath": "/etc/profiles/per-user/anthony/bin/python"
+    "python.defaultInterpreterPath": "/etc/profiles/per-user/anthony/bin/python",
+    "update.mode": "none",
+    "nixEnvSelector.useFlakes": true
 }

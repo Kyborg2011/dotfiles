@@ -5,6 +5,7 @@
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1&ref=refs/tags/v0.50.0";
     hy3 = {
       url = "github:outfoxxed/hy3?ref=hl0.50.0";
@@ -31,6 +32,11 @@
     hyprsunset.url = "github:hyprwm/hyprsunset";
     hyprpolkitagent.url = "github:hyprwm/hyprpolkitagent";
     hyprpaper.url = "github:hyprwm/hyprpaper";
+
+    firefox-mod-blur = {
+      url = "github:datguypiko/Firefox-Mod-Blur";
+      flake = false;
+    };
   };
 
   outputs = {nixpkgs, ...} @ inputs: {

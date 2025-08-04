@@ -221,6 +221,7 @@
     flatpak.enable = true;
     pulseaudio.enable = false;
     blueman.enable = true;
+    sysprof.enable = true;
     mullvad-vpn = {
       enable = true;
       package = pkgs.mullvad-vpn;
@@ -361,7 +362,6 @@
     jq killall ripgrep fd eza bat wirelesstools
 
     # Failed after update:
-    # 
 
     # OPSEC (from Kali Linux distribution):
     recon-ng theharvester maltego dmitry fierce openvas-scanner

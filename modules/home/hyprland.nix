@@ -131,7 +131,7 @@
 
       # https://wiki.hyprland.org/Configuring/Variables/#animations
       animations = {
-        enabled = "yes";
+        enabled = true;
         # Default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
         bezier = [
           "easeOutQuint,0.23,1,0.32,1"
@@ -172,8 +172,8 @@
 
       # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
       dwindle = {
-        pseudotile = true; # Master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
-        preserve_split = true; # You probably want this
+        pseudotile = true;
+        preserve_split = true;
       };
 
       # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
@@ -185,6 +185,10 @@
       misc = {
         force_default_wallpaper = -1; # Set to 0 or 1 to disable the anime mascot wallpapers
         disable_hyprland_logo = false; # If true disables the random hyprland logo / anime girl background. :(
+      };
+
+      binds = {
+        allow_workspace_cycles = true;
       };
 
       #############

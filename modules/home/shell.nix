@@ -67,6 +67,8 @@
       
       # Disable ctrl+shift+v emphasizing:
       zle_highlight+=(paste:none)
+
+      unsetopt BEEP
     '';
 
     shellAliases = {
@@ -74,6 +76,16 @@
       ohmyzsh = "vim ~/.oh-my-zsh";
       night = "killall -q hyprsunset; hyprsunset -t 4900 &";
       night-off = "killall -q hyprsunset; hyprsunset -t 6000 &";
+      firefox = "firefox-devedition";
+      tree = "eza --tree";
+      ll = "eza -la --sort name --group-directories-first --no-permissions --no-filesize --no-user --no-time";
+      l = "ls";
+      ":q" = "exit";
+      q = "exit";
+      gs = "git status";
+      gc = "git commit";
+      ga = "git add";
+      gr = "git reset --soft HEAD~1";
     };
   };
 

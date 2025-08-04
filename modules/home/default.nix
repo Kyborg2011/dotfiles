@@ -80,7 +80,9 @@
       NIXPKGS_ALLOW_INSECURE = "1";
       LEDGER_FILE = "$HOME/Dropbox/09 Business/06 Ledger/main.journal";
       HIST_STAMPS = "dd.mm.yyyy";
-      ELECTRON_OZONE_PLATFORM_HINT = "auto"; 
+      ELECTRON_OZONE_PLATFORM_HINT = "auto";
+      _ZL_MATCH_MODE = 1;
+      BROWSER = "firefox";
     };
 
     sessionPath = [
@@ -96,6 +98,10 @@
       ".config/Code/User/settings.json".source = lib.mkForce (
         config.lib.file.mkOutOfStoreSymlink "/etc/nixos/modules/home/dotfiles/Code/settings.json"
       );
+      firefox-mod-blur = {
+        target = ".mozilla/firefox/default/chrome/firefox-mod-blur";
+        source = inputs.firefox-mod-blur;
+      };
     };
   };
 
@@ -115,7 +121,6 @@
   programs.hyprlock = {
     enable = true;
     package = inputs.hyprlock.packages.${pkgs.system}.hyprlock;
-
     settings = {
       general = {
         disable_loading_bar = true;
@@ -221,6 +226,22 @@
   programs.firefox = {
     enable = true;
     package = pkgs.firefox-devedition;
+    profiles.default = {
+      name = "Default";
+      settings = {
+        "browser.tabs.loadInBackground" = true;
+        "widget.gtk.rounded-bottom-corners.enabled" = true;
+        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+        "svg.context-properties.content.enabled" = true;
+        "browser.fullscreen.autohide" = false;
+      };
+      userChrome = ''
+        @import "firefox-mod-blur/userChrome.css";
+      '';
+      userContent = ''
+        @import "firefox-mod-blur/userContent.css";
+      '';
+    };
   };
 
   systemd.user.services.hypridle.Unit.After = lib.mkForce "graphical-session.target";
@@ -229,7 +250,6 @@
   services.hypridle = {
     enable = true;
     package = inputs.hypridle.packages.${pkgs.system}.hypridle;
-
     settings = {
       general = {
         lock_cmd = "hyprlock";
