@@ -449,13 +449,16 @@
     VISUAL = "vim";
     GDM_LANG = "en_US.UTF-8";
     LANG = "en_US.UTF-8";
+    BROWSER = 
+      let
+        ff_wrapper = pkgs.writeShellScriptBin "firefox-dev" ''
+          ${pkgs.firefox-devedition.outPath}/bin/firefox-devedition --profile /home/anthony/.mozilla/firefox/dev-edition-default "$@"
+        '';
+      in "${ff_wrapper}/bin/firefox-dev";
   };
 
   # System-level ZSH configuration
-  environment.shells = with pkgs; [
-    zsh
-    nushell
-  ];
+  environment.shells = with pkgs; [ zsh nushell ];
 
   system.autoUpgrade = {
     enable = true;

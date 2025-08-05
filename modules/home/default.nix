@@ -83,7 +83,6 @@
       HIST_STAMPS = "dd.mm.yyyy";
       ELECTRON_OZONE_PLATFORM_HINT = "auto";
       _ZL_MATCH_MODE = 1;
-      BROWSER = "firefox";
     };
 
     sessionPath = [

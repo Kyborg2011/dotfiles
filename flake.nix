@@ -52,7 +52,7 @@
           home-manager.extraSpecialArgs = {
             inherit inputs;
           };
-          home-manager.backupFileExtension = "bkp2";
+          home-manager.backupFileExtension = "bkp4";
         }
       ];
     };

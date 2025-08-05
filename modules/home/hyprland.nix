@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... } :
+{ config, inputs, pkgs, ... } :
 
 {
   wayland.windowManager.hyprland = {
@@ -31,7 +31,7 @@
       "$fileManager" = "nautilus";
       "$menu" = "wofi --show drun";
       "$term" = "kitty";
-      "$browser" = "firefox";
+      "$browser" = "/nix/store/pji8j9w5zpy77lc1j9gi1s6szg2s8qyh-firefox-dev/bin/firefox-dev";
       "$editor" = "vim";
       "$launcher" = "wofi --show drun";
       "$clipboard" = "cliphist list | wofi -S dmenu | cliphist decode | wl-copy";
@@ -55,11 +55,11 @@
         "hyprpm reload -n"
         "dropbox"
         "[workspace 1 silent] $terminal"
-        "[workspace 1 silent] sleep 3 && $browser"
+        "[workspace 1 silent] $browser"
         "[workspace 2 silent] google-chrome-stable"
         "[workspace 2 silent] telegram-desktop"
-        "[workspace 3 silent] studio"
-        "[workspace 4 silent] code"
+        "[workspace 3 silent] ${config.home.homeDirectory}/.local/share/JetBrains/Toolbox/apps/android-studio/bin/studio"
+        "[workspace 4] code"
         "[workspace 5 silent] okular"
         "[workspace 6 silent] evolution"
         "jetbrains-toolbox"
