@@ -31,7 +31,7 @@
       "$fileManager" = "nautilus";
       "$menu" = "wofi --show drun";
       "$term" = "kitty";
-      "$browser" = "/nix/store/pji8j9w5zpy77lc1j9gi1s6szg2s8qyh-firefox-dev/bin/firefox-dev";
+      "$browser" = "firefox-dev"; # /nix/store/pji8j9w5zpy77lc1j9gi1s6szg2s8qyh-firefox-dev/bin/firefox-dev
       "$editor" = "vim";
       "$launcher" = "wofi --show drun";
       "$clipboard" = "cliphist list | wofi -S dmenu | cliphist decode | wl-copy";

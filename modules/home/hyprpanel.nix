@@ -475,7 +475,7 @@
       "bar.media.show_active_only" = true;
       "bar.customModules.ram.icon" = "";
       "menus.dashboard.shortcuts.left.shortcut1.icon" = "";
-      "menus.dashboard.shortcuts.left.shortcut1.command" = "/nix/store/pji8j9w5zpy77lc1j9gi1s6szg2s8qyh-firefox-dev/bin/firefox-dev";
+      "menus.dashboard.shortcuts.left.shortcut1.command" = "firefox-dev";
       "menus.dashboard.shortcuts.left.shortcut1.tooltip" = "Firefox";
       "menus.dashboard.shortcuts.left.shortcut2.icon" = "";
       "menus.dashboard.shortcuts.left.shortcut2.command" = "telegram-desktop";

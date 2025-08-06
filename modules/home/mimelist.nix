@@ -1,5 +1,5 @@
 let
-  browser = "firefox-dev.desktop";
+  browser = "firefox-dev.desktop"; # google-chrome.desktop
   file-manager = "org.gnome.Nautilus.desktop";
   image-viewer = "org.gnome.Loupe.desktop";
   torrent = "transmission-gtk.desktop";

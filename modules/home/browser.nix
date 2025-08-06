@@ -27,6 +27,7 @@ in {
         path = profile_path;
         settings = {
           "browser.search.region" = "UA";
+          "browser.tabs.closeWindowWithLastTab" = false;
           "distribution.searchplugins.defaultLocale" = "ru-UA";
           "general.useragent.locale" = "ru-UA";
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
@@ -39,7 +40,7 @@ in {
   xdg.desktopEntries."firefox-dev" = {
     name = "Firefox Developer Edition";
     comment = "Firefox Developer Edition with custom profile";
-    exec = "/nix/store/pji8j9w5zpy77lc1j9gi1s6szg2s8qyh-firefox-dev/bin/firefox-dev";
+    exec = "firefox-dev"; # /nix/store/pji8j9w5zpy77lc1j9gi1s6szg2s8qyh-firefox-dev/bin/firefox-dev
     categories = [ "Network" "WebBrowser" ];
     terminal = false;
   };

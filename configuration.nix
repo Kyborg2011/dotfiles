@@ -25,18 +25,6 @@
           };
         };
       };
-      printers = {
-        ensureDefaultPrinter = hp;
-        ensurePrinters = [
-          {
-            name = hp;
-            deviceUri = "ipp://${hostName}/ipp";
-            model = "everywhere";
-            description = lib.replaceStrings [ "_" ] [ " " ] hp;
-            location = "Study";
-          }
-        ];
-      };
       graphics = {
         enable = true;
         enable32Bit = true;
@@ -74,6 +62,8 @@
     kernelParams = [
       "usbcore.autosuspend=-1"
       "snd-intel-dspcfg.dsp_driver=1"
+      "systemd.log_level=debug" 
+      "systemd.log_target=console"
     ];
     kernelModules = [ "snd-hda-intel" ];
     kernel.sysctl = {
@@ -132,8 +122,8 @@
     networkmanager.enable = true;
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 80 8080 ];
-      allowedUDPPorts = [ 53 ];
+      allowedTCPPorts = [ 80 8080 631 ];
+      allowedUDPPorts = [ 53 631 ];
       allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
       allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
     };
@@ -157,7 +147,10 @@
   };
 
   virtualisation = {
-    virtualbox.host.enable = true;
+    virtualbox.host = {
+      enable = true;
+      enableExtensionPack = false; # Disable autostart of services
+    };
     docker.enable = true;
     podman.enable = true;
     libvirtd.enable = true;
@@ -165,7 +158,14 @@
 
   security = {
     polkit.enable = true;
-    pam.services.astal-auth = {};
+    # unlock keyring on login
+    pam.services = {
+      astal-auth = {};
+      gdm.enableGnomeKeyring = true;
+      gdm-password.enableGnomeKeyring = true;
+      login.enableGnomeKeyring = true;
+      passwd.enableGnomeKeyring = true;
+    };
     rtkit.enable = true;
   };
 
@@ -280,12 +280,13 @@
   # Enable the NixOS printing service for HP printers:
   services.printing = {
     enable = true;
-    drivers = with pkgs; [ hplip ];
+    drivers = with pkgs; [ hplip gutenprint ];
     listenAddresses = [ "*:631" ];
     allowFrom = [ "all" ];
     browsing = true;
     defaultShared = true;
     openFirewall = true;
+    logLevel = "debug";
     browsedConf = ''
       BrowseDNSSDSubTypes _cups,_print
       BrowseLocalProtocols all
@@ -348,10 +349,11 @@
     ffuf protonvpn-cli protonvpn-gui
     dconf-editor xdg-utils util-linux networkmanagerapplet
     python3Packages.jupyterlab
-    rofi-wayland gimp jupyter-all
+    rofi-wayland gimp3-with-plugins jupyter-all
     texliveFull loupe sushi code-nautilus
     vesktop webcord fractal
     rhythmbox darktable pidgin audacity sublime4
+    nix-index systemd libsecret
 
     # Markdown editors:
     typora apostrophe kdePackages.ghostwriter
@@ -420,6 +422,11 @@
     gnomeExtensions.workspace-indicator
     gnomeExtensions.clipboard-indicator
     gnomeExtensions.caffeine
+
+    # Firefox Developer Edition wrapper to use with profile:
+    (writeShellScriptBin "firefox-dev" ''
+      exec ${firefox-devedition}/bin/firefox-devedition --profile /home/anthony/.mozilla/firefox/dev-edition-default "$@"
+    '')
   ];
   environment.pathsToLink = [ "/share/zsh" ];
 
@@ -443,22 +450,37 @@
       SUBSYSTEM=="usb", ATTR{idVendor}=="${idVendor}", ATTR{idProduct}=="${idProduct}", SYMLINK+="android_fastboot"
     '';
 
-  # System-wide environment variables
+  # System-wide environment variables:
   environment.variables = {
     EDITOR = "vim";
     VISUAL = "vim";
     GDM_LANG = "en_US.UTF-8";
     LANG = "en_US.UTF-8";
-    BROWSER = 
-      let
-        ff_wrapper = pkgs.writeShellScriptBin "firefox-dev" ''
-          ${pkgs.firefox-devedition.outPath}/bin/firefox-devedition --profile /home/anthony/.mozilla/firefox/dev-edition-default "$@"
-        '';
-      in "${ff_wrapper}/bin/firefox-dev";
+    XDG_RUNTIME_DIR = "/run/user/$UID";
+  };
+
+  # System-wide session environment variables:
+  environment.sessionVariables = {
+    GNOME_KEYRING_CONTROL = "/run/user/$UID/keyring";
+    SSH_AUTH_SOCK = "/run/user/$UID/keyring/ssh";
+    GNOME_KEYRING_PID = "";
   };
 
   # System-level ZSH configuration
   environment.shells = with pkgs; [ zsh nushell ];
+
+  # Reduce timeouts for faster completion:
+  systemd.extraConfig = ''
+    DefaultTimeoutStopSec=30s
+    DefaultTimeoutStartSec=30s
+    UserStopDelaySec=10s
+    LogLevel=debug
+    LogTarget=console
+  '';
+  systemd.user.extraConfig = ''
+    DefaultTimeoutStopSec=30s
+    DefaultTimeoutStartSec=30s
+  '';
 
   system.autoUpgrade = {
     enable = true;
@@ -471,22 +493,30 @@
       jdk17
       uutils-coreutils-noprefix
       xorg.xorgserver
-      xorg.libX11
       gtk3
       libglibutil
       glib
       glibc
       javaPackages.openjfx17
-      freetype
-      libxkbcommon
-      wayland
-      fontconfig
-      xorg.libXtst
-      xorg.libXi
-      xorg.libXrender
-      xorg.libXext
       fuse
       xorg.libxcb
+
+      # For Android Studio through JetBrains Toolbox:
+      libsecret
+      gnome-keyring
+      glib
+      dbus
+      libGL
+      libxkbcommon
+      wayland
+      xorg.libX11
+      xorg.libXext
+      xorg.libXi
+      xorg.libXrandr
+      xorg.libXrender
+      xorg.libXtst
+      fontconfig
+      freetype
     ];
   };
 
