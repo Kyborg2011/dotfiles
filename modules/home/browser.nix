@@ -26,12 +26,15 @@ in {
         isDefault = true;
         path = profile_path;
         settings = {
+          "browser.fullscreen.autohide" = false;
           "browser.search.region" = "UA";
           "browser.tabs.closeWindowWithLastTab" = false;
+          "browser.tabs.loadInBackground" = true;
           "distribution.searchplugins.defaultLocale" = "ru-UA";
           "general.useragent.locale" = "ru-UA";
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
           "svg.context-properties.content.enabled" = true;
+          "widget.gtk.rounded-bottom-corners.enabled" = true;
         };
       };
     };
@@ -40,7 +43,7 @@ in {
   xdg.desktopEntries."firefox-dev" = {
     name = "Firefox Developer Edition";
     comment = "Firefox Developer Edition with custom profile";
-    exec = "firefox-dev"; # /nix/store/pji8j9w5zpy77lc1j9gi1s6szg2s8qyh-firefox-dev/bin/firefox-dev
+    exec = "firefox-dev";
     categories = [ "Network" "WebBrowser" ];
     terminal = false;
   };

@@ -13,6 +13,7 @@
     ./hyprshell.nix
     ./wallpaper-manager.nix
     ./browser.nix
+    ./rofi.nix
   ];
 
   news.display = "show";

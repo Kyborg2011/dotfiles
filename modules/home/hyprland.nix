@@ -1,6 +1,14 @@
 { config, inputs, pkgs, ... } :
 
-{
+let
+  hyprlayout-fix = pkgs.writeShellScriptBin "hyprlayout-fix" ''
+    #! ${pkgs.runtimeShell}
+    sleep 10
+    hyprctl dispatch resizewindowpixel "exact 38% 100%,title:^(.*Telegram.*)$"
+    hyprctl dispatch resizewindowpixel "exact 31% 100%,title:^(.*Kitty.*)$"
+    hyprctl dispatch movetoworkspacesilent "special,floating"
+  '';
+in {
   wayland.windowManager.hyprland = {
     enable = true;
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
@@ -20,7 +28,7 @@
       ################
       
       # See https://wiki.hyprland.org/Configuring/Monitors/
-      monitor = ",preferred,auto,auto";
+      monitor = [ ",preferred,auto,auto" ];
 
       ###################
       ### MY PROGRAMS ###
@@ -31,9 +39,9 @@
       "$fileManager" = "nautilus";
       "$menu" = "wofi --show drun";
       "$term" = "kitty";
-      "$browser" = "firefox-dev"; # /nix/store/pji8j9w5zpy77lc1j9gi1s6szg2s8qyh-firefox-dev/bin/firefox-dev
+      "$browser" = "firefox-dev";
       "$editor" = "vim";
-      "$launcher" = "wofi --show drun";
+      "$launcher" = "${pkgs.rofi}/bin/rofi -show combi -combi-modes "window,run,drun,filebrowser,ssh" -modes combi";
       "$clipboard" = "cliphist list | wofi -S dmenu | cliphist decode | wl-copy";
 
       #################
@@ -59,12 +67,12 @@
         "[workspace 2 silent] google-chrome-stable"
         "[workspace 2 silent] telegram-desktop"
         "[workspace 3 silent] ${config.home.homeDirectory}/.local/share/JetBrains/Toolbox/apps/android-studio/bin/studio"
-        "[workspace 4] code"
         "[workspace 5 silent] okular"
         "[workspace 6 silent] evolution"
         "jetbrains-toolbox"
         "dbus-update-activation-environment --systemd --all"
         "systemctl --user import-environment QT_QPA_PLATFORMTHEME WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+        "nohup ${hyprlayout-fix}/bin/hyprlayout-fix &"
       ];
 
       #############################
@@ -216,6 +224,8 @@
       gestures = {
         workspace_swipe = true;
         workspace_swipe_forever = true;
+        workspace_swipe_touch = true;
+        workspace_swipe_use_r = true;
       };
 
       ###################
@@ -226,9 +236,10 @@
       "$mainMod" = "SUPER"; # Sets "Windows" key as main modifier
 
       bind = [
+        "$mainMod, exec, $launcher"
+        "ALT, F1, exec, $launcher"
         "$mainMod, W, exec, $browser"
         "$mainMod, F, exec, $fileManager"
-        "ALT, F1, exec, $launcher"
         "ALT, C, exec, $clipboard"
         "$mainMod, T, exec, $term"
         
@@ -255,8 +266,10 @@
         "$mainMod+SHIFT, a, hy3:changefocus, lower"
         "$mainMod, e, hy3:expand, expand"
         "$mainMod+SHIFT, e, hy3:expand, base"
-        "$mainMod, z, movetoworkspace, special"
-        "$mainMod+SHIFT, z, togglespecialworkspace"
+        "$mainMod+SHIFT, z, movetoworkspacesilent, special"
+        "$mainMod, z, togglespecialworkspace"
+
+        "ALT, Tab, exec, hyprctl dispatch focuscurrentorlast; hyprctl dispatch alterzorder top"
         
         ",XF86AudioPlay, exec, playerctl play-pause"
         ",XF86AudioStop, exec, playerctl -a stop"

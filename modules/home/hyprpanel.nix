@@ -495,6 +495,7 @@
       "menus.dashboard.directories.left.directory3.label" = " Dev";
       "menus.dashboard.powermenu.avatar.image" = "/home/anthony/Dropbox/01 AboutMe/16 Pictures/guy-fawkes-mask.jpeg";
       "theme.bar.opacity" = 75;
+      "bar.workspaces.ignored" = "^-\d+$";
     };
   };
 }

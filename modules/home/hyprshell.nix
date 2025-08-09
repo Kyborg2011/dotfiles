@@ -5,7 +5,7 @@
     inputs.hyprshell.homeModules.hyprshell
   ];
   
-  programs.hyprshell = {
+  /*programs.hyprshell = {
     enable = true;
 
     systemd = {
@@ -38,5 +38,5 @@
         };
       };
     };
-  };
+  };*/
 }

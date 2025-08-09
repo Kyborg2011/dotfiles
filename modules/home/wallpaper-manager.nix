@@ -15,9 +15,9 @@ let
     fi
 
     # See swww-img(1)
-    RESIZE_TYPE="fit"
-    export SWWW_TRANSITION_FPS="''${SWWW_TRANSITION_FPS:-60}"
-    export SWWW_TRANSITION_STEP="''${SWWW_TRANSITION_STEP:-2}"
+    #RESIZE_TYPE="fit"
+    #export SWWW_TRANSITION_FPS="''${SWWW_TRANSITION_FPS:-60}"
+    #export SWWW_TRANSITION_STEP="''${SWWW_TRANSITION_STEP:-2}"
 
     while true; do
         find "$1" -type f \
@@ -26,14 +26,15 @@ let
         done \
         | sort -n | cut -d':' -f2- \
         | while read -r img; do
-            swww img --resize="$RESIZE_TYPE" "$img"
+            #swww img --resize="$RESIZE_TYPE" "$img"
+            hyprctl hyprpaper reload ,"$img"
             sleep "''${2:-$DEFAULT_INTERVAL}"
         done
     done
   '';
 in {
   wayland.windowManager.hyprland.settings.exec-once = [
-    "swww-daemon"
+    "hyprpaper"
     "nohup ${wallpaper-manager}/bin/wallpaper-manager \"$HOME/Dropbox/01\ AboutMe/16\ Pictures/03\ Wallpapers/\" 300"
   ];
 }

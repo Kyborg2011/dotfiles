@@ -66,6 +66,7 @@
       "systemd.log_target=console"
     ];
     kernelModules = [ "snd-hda-intel" ];
+    extraModulePackages = with config.boot.kernelPackages; [ virtualbox ];
     kernel.sysctl = {
       "vm.swappiness" = 180; # zram is relatively cheap, prefer swap
       "vm.page-cluster" = 0; # zram is in memory, no need to readahead
@@ -147,17 +148,19 @@
   };
 
   virtualisation = {
+    docker.enable = true;
+    libvirtd.enable = true;
+    spiceUSBRedirection.enable = true;
+    podman.enable = true;
     virtualbox.host = {
       enable = true;
       enableExtensionPack = false; # Disable autostart of services
     };
-    docker.enable = true;
-    podman.enable = true;
-    libvirtd.enable = true;
   };
 
   security = {
     polkit.enable = true;
+    rtkit.enable = true;
     # unlock keyring on login
     pam.services = {
       astal-auth = {};
@@ -166,7 +169,6 @@
       login.enableGnomeKeyring = true;
       passwd.enableGnomeKeyring = true;
     };
-    rtkit.enable = true;
   };
 
   programs = {
@@ -210,18 +212,28 @@
     fwupd.enable = true;
     thermald.enable = true;
     gvfs.enable = true;
+    envfs.enable = true;
+    timesyncd.enable = true;
     devmon.enable = true;
     udisks2.enable = true;
     upower.enable = true;
     power-profiles-daemon.enable = true;
     accounts-daemon.enable = true;
-    openssh.enable = true;
     tumbler.enable = true;
     libinput.enable = true;
     flatpak.enable = true;
     pulseaudio.enable = false;
     blueman.enable = true;
     sysprof.enable = true;
+    openssh = {
+      enable = true;
+      # require public key authentication for better security
+      settings = {
+        PasswordAuthentication = false;
+        KbdInteractiveAuthentication = false;
+        #PermitRootLogin = "yes";
+      };
+    };
     mullvad-vpn = {
       enable = true;
       package = pkgs.mullvad-vpn;
@@ -318,10 +330,8 @@
       "video"
       "render"
       "input"
-    ];
-    packages = with pkgs; [
-      google-chrome
-      kdePackages.okular
+      "libvirtd" # Needed for Virt Manager
+      "vboxusers" # Needed for Virtualbox
     ];
   };
 
@@ -336,7 +346,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    usbutils sysstat bandwhich hwinfo lm_sensors lsof pciutils unixtools.netstat
+    usbutils sysstat bandwhich hwinfo lm_sensors lsof pciutils ethtool dnsutils unixtools.netstat
     wget curl telegram-desktop chromium transmission_4-gtk
     qtcreator ffmpeg sox vlc libreoffice-fresh inkscape gparted tor-browser
     wine winetricks winePackages.fonts keepassxc seahorse krusader
@@ -349,11 +359,40 @@
     ffuf protonvpn-cli protonvpn-gui
     dconf-editor xdg-utils util-linux networkmanagerapplet
     python3Packages.jupyterlab
-    rofi-wayland gimp3-with-plugins jupyter-all
+    gimp3-with-plugins jupyter-all
     texliveFull loupe sushi code-nautilus
     vesktop webcord fractal
     rhythmbox darktable pidgin audacity sublime4
-    nix-index systemd libsecret
+    nix-index systemd libsecret xorg.xhost polkit_gnome
+    desktop-file-utils iotop iftop
+    kdePackages.marble qgis
+
+    (google-chrome.override {
+      # enable video encoding and hardware acceleration, along with several
+      # suitable for my configuration
+      # change it if you have any issues
+      # note the spaces, they are required
+      # Vulkan is not stable, likely because of drivers
+      commandLineArgs = ""
+        + " --enable-accelerated-video-decode"
+        + " --enable-accelerated-mjpeg-decode"
+        + " --enable-gpu-compositing"
+        + " --enable-gpu-rasterization" # dont enable in about:flags
+        + " --enable-native-gpu-memory-buffers"
+        + " --enable-raw-draw"
+        + " --enable-zero-copy" # dont enable in about:flags
+        + " --ignore-gpu-blocklist" # dont enable in about:flags
+        # + " --use-vulkan"
+        + " --enable-features="
+            + "VaapiVideoEncoder,"
+            + "CanvasOopRasterization,"
+            # + "Vulkan"
+        ;
+    })
+    kdePackages.okular
+
+    # Virtualization:
+    distrobox boxbuddy
 
     # Markdown editors:
     typora apostrophe kdePackages.ghostwriter
@@ -428,7 +467,6 @@
       exec ${firefox-devedition}/bin/firefox-devedition --profile /home/anthony/.mozilla/firefox/dev-edition-default "$@"
     '')
   ];
-  environment.pathsToLink = [ "/share/zsh" ];
 
   programs.hyprland = {
     enable = true;
@@ -450,6 +488,11 @@
       SUBSYSTEM=="usb", ATTR{idVendor}=="${idVendor}", ATTR{idProduct}=="${idProduct}", SYMLINK+="android_fastboot"
     '';
 
+  # System-wide $PATH configuration:
+  environment.pathsToLink = [
+    "/share/zsh"
+    "/home/anthony/.local/share/JetBrains/Toolbox/scripts"
+  ];
   # System-wide environment variables:
   environment.variables = {
     EDITOR = "vim";
@@ -458,7 +501,6 @@
     LANG = "en_US.UTF-8";
     XDG_RUNTIME_DIR = "/run/user/$UID";
   };
-
   # System-wide session environment variables:
   environment.sessionVariables = {
     GNOME_KEYRING_CONTROL = "/run/user/$UID/keyring";
@@ -481,6 +523,20 @@
     DefaultTimeoutStopSec=30s
     DefaultTimeoutStartSec=30s
   '';
+  # Polkit starting systemd service - needed for apps requesting root access
+  systemd.user.services.polkit-gnome-authentication-agent-1 = {
+    description = "polkit-gnome-authentication-agent-1";
+    wantedBy = [ "graphical-session.target" ];
+    wants = [ "graphical-session.target" ];
+    after = [ "graphical-session.target" ];
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+      Restart = "on-failure";
+      RestartSec = 1;
+      TimeoutStopSec = 10;
+    };
+  };
 
   system.autoUpgrade = {
     enable = true;
