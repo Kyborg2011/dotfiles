@@ -72,16 +72,22 @@
     '';
 
     shellAliases = {
+      rebuild = "sudo nixos-rebuild switch --flake /etc/nixos --show-trace --upgrade";
+      garbage-collect = "sudo nix-collect-garbage -d";
+      fix-store = "sudo nix-store --verify --check-contents --repair";
+
       zshconfig = "vim ~/.zshrc";
       ohmyzsh = "vim ~/.oh-my-zsh";
+
       night = "killall -q hyprsunset; hyprsunset -t 4900 &";
       night-off = "killall -q hyprsunset; hyprsunset -t 6000 &";
-      firefox = "firefox-devedition --profile ~/.mozilla/firefox/dev-edition-default";
+
       tree = "eza --tree";
       ll = "eza --group-directories-first --icons -al";
-      l = "ls";
+
       ":q" = "exit";
       q = "exit";
+
       gs = "git status";
       gc = "git commit";
       ga = "git add";

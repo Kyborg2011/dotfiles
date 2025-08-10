@@ -11,7 +11,7 @@
     "editor.fontFamily": "'Input Mono', 'Droid Sans Mono', 'monospace', monospace",
     "editor.fontSize": 14,
     "editor.lineHeight": 25,
-    "workbench.iconTheme": "Monokai Pro Icons",
+    "workbench.iconTheme": "Monokai Pro (Filter Spectrum) Icons",
     "[sql]": {
         "editor.defaultFormatter": "mtxr.sqltools"
     },
@@ -43,7 +43,7 @@
     "[css]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "workbench.colorTheme": "Gruvbox Dark Hard",
+    "workbench.colorTheme": "Cobalt2",
     "github.copilot.chat.agent.thinkingTool": true,
     "terminal.external.linuxExec": "kitty",
     "terminal.integrated.drawBoldTextInBrightColors": false,

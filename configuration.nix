@@ -366,6 +366,7 @@
     nix-index systemd libsecret xorg.xhost polkit_gnome
     desktop-file-utils iotop iftop
     kdePackages.marble qgis
+    nixfmt-rfc-style
 
     (google-chrome.override {
       # enable video encoding and hardware acceleration, along with several

@@ -10,7 +10,7 @@
     ./theming.nix
     ./hyprland.nix
     ./hyprpanel.nix
-    ./hyprshell.nix
+    #./hyprshell.nix
     ./wallpaper-manager.nix
     ./browser.nix
     ./rofi.nix
@@ -77,6 +77,7 @@
     ];
 
     sessionVariables = {
+      BROWSER = "firefox-dev";
       QT_XCB_GL_INTEGRATION = "none"; # kde-connect
       NIXPKGS_ALLOW_UNFREE = "1";
       NIXPKGS_ALLOW_INSECURE = "1";
@@ -84,15 +85,14 @@
       HIST_STAMPS = "dd.mm.yyyy";
       ELECTRON_OZONE_PLATFORM_HINT = "auto";
       _ZL_MATCH_MODE = 1;
-      BROWSER = "firefox-dev";
     };
 
     sessionPath = [
+      "/usr/local/go/bin"
       "$HOME/.local/bin"
       "$HOME/.local/share/JetBrains/Toolbox/scripts"
       "$HOME/.npm/bin"
       "$HOME/.yarn/bin"
-      "/usr/local/go/bin"
       "$HOME/go/bin"
     ];
 

@@ -2,10 +2,13 @@
 
 let
   hyprlayout-fix = pkgs.writeShellScriptBin "hyprlayout-fix" ''
-    #! ${pkgs.runtimeShell}
-    sleep 10
-    hyprctl dispatch resizewindowpixel "exact 38% 100%,title:^(.*Telegram.*)$"
-    hyprctl dispatch resizewindowpixel "exact 31% 100%,title:^(.*Kitty.*)$"
+    while ! hyprctl clients | grep "jetbrains-toolbox"
+    do
+      sleep 1
+      echo "waiting for openning of windows..."
+    done
+    hyprctl dispatch resizewindowpixel "exact 38% 100%,class:org.telegram.desktop"
+    hyprctl dispatch resizewindowpixel "exact 31% 100%,class:kitty"
     hyprctl dispatch movetoworkspacesilent "special,floating"
   '';
 in {
@@ -26,14 +29,12 @@ in {
       ################
       ### MONITORS ###
       ################
-      
       # See https://wiki.hyprland.org/Configuring/Monitors/
       monitor = [ ",preferred,auto,auto" ];
 
       ###################
       ### MY PROGRAMS ###
       ###################
-      
       # Set programs that you use
       "$terminal" = "kitty";
       "$fileManager" = "nautilus";
@@ -41,13 +42,12 @@ in {
       "$term" = "kitty";
       "$browser" = "firefox-dev";
       "$editor" = "vim";
-      "$launcher" = "${pkgs.rofi}/bin/rofi -show combi -combi-modes "window,run,drun,filebrowser,ssh" -modes combi";
+      "$launcher" = "${pkgs.rofi-wayland}/bin/rofi -show drun -modes \"window,run,drun,filebrowser,ssh\"";
       "$clipboard" = "cliphist list | wofi -S dmenu | cliphist decode | wl-copy";
 
       #################
       ### AUTOSTART ###
       #################
-      
       # Autostart necessary processes (like notifications daemons, status bars, etc.)
       # Or execute your favorite apps at launch like this:
       exec = [
@@ -62,14 +62,15 @@ in {
         "nm-applet --indicator"
         "hyprpm reload -n"
         "dropbox"
+        "jetbrains-toolbox"
         "[workspace 1 silent] $terminal"
         "[workspace 1 silent] $browser"
         "[workspace 2 silent] google-chrome-stable"
         "[workspace 2 silent] telegram-desktop"
         "[workspace 3 silent] ${config.home.homeDirectory}/.local/share/JetBrains/Toolbox/apps/android-studio/bin/studio"
+        "[workspace 4 silent] code"
         "[workspace 5 silent] okular"
         "[workspace 6 silent] evolution"
-        "jetbrains-toolbox"
         "dbus-update-activation-environment --systemd --all"
         "systemctl --user import-environment QT_QPA_PLATFORMTHEME WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "nohup ${hyprlayout-fix}/bin/hyprlayout-fix &"
@@ -78,7 +79,6 @@ in {
       #############################
       ### ENVIRONMENT VARIABLES ###
       #############################
-      
       # See https://wiki.hyprland.org/Configuring/Environment-variables/
       env = [
         "XCURSOR_SIZE,24"
@@ -99,9 +99,7 @@ in {
       #####################
       ### LOOK AND FEEL ###
       #####################
-      
       # Refer to https://wiki.hyprland.org/Configuring/Variables/
-      
       # https://wiki.hyprland.org/Configuring/Variables/#general
       general = {
         gaps_in = 5;
@@ -120,6 +118,7 @@ in {
       # https://wiki.hyprland.org/Configuring/Variables/#decoration
       decoration = {
         rounding = 5;
+
         # Change transparency of focused and unfocused windows
         active_opacity = 1.0;
         inactive_opacity = 1.0;
@@ -129,6 +128,7 @@ in {
           render_power = 3;
           color = "rgba(1a1a1aee)";
         };
+
         # https://wiki.hyprland.org/Configuring/Variables/#blur
         blur = {
           enabled = true;
@@ -141,6 +141,7 @@ in {
       # https://wiki.hyprland.org/Configuring/Variables/#animations
       animations = {
         enabled = true;
+
         # Default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
         bezier = [
           "easeOutQuint,0.23,1,0.32,1"
@@ -178,7 +179,6 @@ in {
       # windowrulev2 = rounding 0, floating:0, onworkspace:w[tv1]
       # windowrulev2 = bordersize 0, floating:0, onworkspace:f[1]
       # windowrulev2 = rounding 0, floating:0, onworkspace:f[1]
-
       # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
       dwindle = {
         pseudotile = true;
@@ -203,7 +203,6 @@ in {
       #############
       ### INPUT ###
       #############
-      
       # https://wiki.hyprland.org/Configuring/Variables/#input
       input = {
         kb_layout = "us,ru,ua";
@@ -231,22 +230,21 @@ in {
       ###################
       ### KEYBINDINGS ###
       ###################
-      
       # See https://wiki.hyprland.org/Configuring/Keywords/
       "$mainMod" = "SUPER"; # Sets "Windows" key as main modifier
 
       bind = [
-        "$mainMod, exec, $launcher"
+        "$mainMod, SUPER_L, exec, $launcher"
         "ALT, F1, exec, $launcher"
         "$mainMod, W, exec, $browser"
         "$mainMod, F, exec, $fileManager"
-        "ALT, C, exec, $clipboard"
         "$mainMod, T, exec, $term"
+        "ALT, C, exec, $clipboard"
         
         "$mainMod, I, pin"
-        "$mainMod SHIFT, M, exit,"
+        "$mainMod+SHIFT, M, exit,"
         "$mainMod+SHIFT, Space, togglefloating,"
-        "$mainMod SHIFT, C, exec, hyprctl reload"
+        "$mainMod+SHIFT, C, exec, hyprctl reload"
         
         "$mainMod+SHIFT, m, exit"
         
