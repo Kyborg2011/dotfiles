@@ -10,51 +10,51 @@
       ./hardware-configuration.nix
     ];
 
-  hardware = 
-    let
-      hp = "HP_150nw_NixOS";
-      hostName = "192.168.88.29";
-    in
-    {
-      bluetooth = {
-        enable = true;
-        powerOnBoot = true;
-        settings = {
-          General = {
-            Experimental = true;
-          };
+  ###################### HARDWARE ###########################
+  hardware = {
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+      settings = {
+        General = {
+          Experimental = true;
         };
       };
-      graphics = {
-        enable = true;
-        enable32Bit = true;
-        extraPackages = with pkgs; [ 
-          intel-media-driver
-          intel-compute-runtime
-          intel-vaapi-driver
-          nvidia-vaapi-driver
-          libvdpau-va-gl
-        ];
-      };
-      nvidia = {
-        modesetting.enable = true;
-        powerManagement.enable = true;
-        powerManagement.finegrained = false;
-        open = false; # For old GPUs like Nvidia Quadro M1200
-        nvidiaSettings = true;
-        # Force Intel GPU for display:
-        prime = {
-          intelBusId = "PCI:0:2:0";
-          nvidiaBusId = "PCI:1:0:0";
-          # Use one of the following options:
-          sync.enable = true;  # for perfomance
-          # offload.enable = true;  # for powersave
-        };
-      };
-      alsa.enablePersistence = true;
-      enableAllFirmware = true;
-      enableRedistributableFirmware = true;
     };
+
+    graphics = {
+      enable = true;
+      enable32Bit = true;
+      extraPackages = with pkgs; [
+        intel-media-driver
+        intel-compute-runtime
+        intel-vaapi-driver
+        nvidia-vaapi-driver
+        libvdpau-va-gl
+      ];
+    };
+
+    nvidia = {
+      modesetting.enable = true;
+      powerManagement.enable = true;
+      powerManagement.finegrained = false;
+      open = false; # For old GPUs like Nvidia Quadro M1200!
+      nvidiaSettings = true;
+
+      # Force Intel GPU for display:
+      prime = {
+        intelBusId = "PCI:0:2:0";
+        nvidiaBusId = "PCI:1:0:0";
+        # Use one of the following options:
+        sync.enable = true;  # for perfomance
+        # offload.enable = true;  # for powersave
+      };
+    };
+
+    alsa.enablePersistence = true;
+
+    enableAllFirmware = true;
+  };
 
   ##################### BOOTLOADER ##########################
   boot = {
@@ -65,7 +65,12 @@
       "systemd.log_level=debug" 
       "systemd.log_target=console"
     ];
-    kernelModules = [ "snd-hda-intel" ];
+    kernelModules = [
+      "snd-hda-intel"
+      "usbnet"
+      "cdc_ether"
+      "r8152"
+    ];
     extraModulePackages = with config.boot.kernelPackages; [ virtualbox ];
     kernel.sysctl = {
       "vm.swappiness" = 180; # zram is relatively cheap, prefer swap
@@ -92,11 +97,11 @@
   nix = {
     gc = {
       automatic = true;
-      dates = "03:15";
+      dates = "weekly";
+      options = "--delete-older-than 30d";
     };
     settings = {
       experimental-features = "nix-command flakes";
-      auto-optimise-store = true;
       warn-dirty = false;
     };
   };
@@ -121,6 +126,7 @@
   networking = {
     hostName = "nixos";
     networkmanager.enable = true;
+    
     firewall = {
       enable = true;
       allowedTCPPorts = [ 80 8080 631 ];
@@ -365,7 +371,7 @@
     rhythmbox darktable pidgin audacity sublime4
     nix-index systemd libsecret xorg.xhost polkit_gnome
     desktop-file-utils iotop iftop
-    kdePackages.marble qgis
+    kdePackages.marble kdePackages.qtwayland qgis
     nixfmt-rfc-style
 
     (google-chrome.override {
