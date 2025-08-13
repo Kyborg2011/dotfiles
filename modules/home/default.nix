@@ -10,7 +10,6 @@
     ./theming.nix
     ./hyprland.nix
     ./hyprpanel.nix
-    #./hyprshell.nix
     ./wallpaper-manager.nix
     ./browser.nix
     ./rofi.nix
@@ -72,8 +71,8 @@
       eslint
       nodejs
 
-      # Custom font (Input Mono):
-      (pkgs.callPackage ./custom-fonts { })
+      # Custom fonts (Input Mono + Rofi custom theme fonts):
+      (pkgs.callPackage ./custom-fonts { inherit inputs; })
     ];
 
     sessionVariables = {

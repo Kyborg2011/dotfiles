@@ -23,10 +23,6 @@
       url = "github:hyprwm/hyprlock";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    /*hyprshell = {
-      url = "github:H3rmt/hyprshell?ref=hyprshell-release";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };*/
     hyprland-contrib.url = "github:hyprwm/contrib";
     hyprpicker.url = "github:hyprwm/hyprpicker";
     hyprsunset.url = "github:hyprwm/hyprsunset";
@@ -35,6 +31,10 @@
 
     firefox-mod-blur = {
       url = "github:datguypiko/Firefox-Mod-Blur";
+      flake = false;
+    };
+    rofi-theme = {
+      url = "github:adi1090x/rofi";
       flake = false;
     };
   };

@@ -9,6 +9,8 @@ let
     done
     hyprctl dispatch resizewindowpixel "exact 38% 100%,class:org.telegram.desktop"
     hyprctl dispatch resizewindowpixel "exact 31% 100%,class:kitty"
+    hyprctl dispatch focuswindow class:kitty
+    hyprctl dispatch swapwindow r
     hyprctl dispatch movetoworkspacesilent "special,floating"
   '';
 in {
@@ -42,7 +44,7 @@ in {
       "$term" = "kitty";
       "$browser" = "firefox-dev";
       "$editor" = "vim";
-      "$launcher" = "${pkgs.rofi-wayland}/bin/rofi -show drun -modes \"window,run,drun,filebrowser,ssh\"";
+      "$launcher" = "${pkgs.rofi-wayland}/bin/rofi -show drun -theme $HOME/.config/rofi/launchers/type-2/style-7.rasi";
       "$clipboard" = "cliphist list | wofi -S dmenu | cliphist decode | wl-copy";
 
       #################

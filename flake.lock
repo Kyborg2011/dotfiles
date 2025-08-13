@@ -1260,11 +1260,11 @@
     },
     "nixpkgs_7": {
       "locked": {
-        "lastModified": 1754767907,
-        "narHash": "sha256-8OnUzRQZkqtUol9vuUuQC30hzpMreKptNyET2T9lB6g=",
+        "lastModified": 1754937576,
+        "narHash": "sha256-3sWA5WJybUE16kIMZ3+uxcxKZY/JRR4DFBqLdSLBo7w=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "c5f08b62ed75415439d48152c2a784e36909b1bc",
+        "rev": "ddae11e58c0c345bf66efbddbf2192ed0e58f896",
         "type": "github"
       },
       "original": {
@@ -1297,6 +1297,22 @@
         "type": "github"
       }
     },
+    "rofi-theme": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1753542257,
+        "narHash": "sha256-iUX0Quae06tGd7gDgXZo1B3KYgPHU+ADPBrowHlv02A=",
+        "owner": "adi1090x",
+        "repo": "rofi",
+        "rev": "093c1a79f58daab358199c4246de50357e5bf462",
+        "type": "github"
+      },
+      "original": {
+        "owner": "adi1090x",
+        "repo": "rofi",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "firefox-mod-blur": "firefox-mod-blur",
@@ -1311,7 +1327,8 @@
         "hyprpicker": "hyprpicker",
         "hyprpolkitagent": "hyprpolkitagent",
         "hyprsunset": "hyprsunset",
-        "nixpkgs": "nixpkgs_7"
+        "nixpkgs": "nixpkgs_7",
+        "rofi-theme": "rofi-theme"
       }
     },
     "systems": {

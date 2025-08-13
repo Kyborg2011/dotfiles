@@ -353,7 +353,8 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     usbutils sysstat bandwhich hwinfo lm_sensors lsof pciutils ethtool dnsutils unixtools.netstat
-    wget curl telegram-desktop chromium transmission_4-gtk
+    lshw-gui lshw wget curl
+    telegram-desktop chromium transmission_4-gtk
     qtcreator ffmpeg sox vlc libreoffice-fresh inkscape gparted tor-browser
     wine winetricks winePackages.fonts keepassxc seahorse krusader
     calibre mu dropbox yt-dlp zip unzip gnupg gnumake cmake
@@ -372,7 +373,7 @@
     nix-index systemd libsecret xorg.xhost polkit_gnome
     desktop-file-utils iotop iftop
     kdePackages.marble kdePackages.qtwayland qgis
-    nixfmt-rfc-style
+    nixfmt-rfc-style kdePackages.okular qalculate-gtk
 
     (google-chrome.override {
       # enable video encoding and hardware acceleration, along with several
@@ -396,7 +397,6 @@
             # + "Vulkan"
         ;
     })
-    kdePackages.okular
 
     # Virtualization:
     distrobox boxbuddy
@@ -408,7 +408,7 @@
     swww waypaper
 
     # Utilities:
-    jq killall ripgrep fd eza bat wirelesstools
+    jq killall ripgrep fd eza bat wirelesstools dust
 
     # Failed after update:
 

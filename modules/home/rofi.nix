@@ -1,7 +1,12 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
-  programs.rofi = {
+  home.packages = with pkgs; [ rofi-wayland ];
+  home.file = {
+    ".config/rofi".source = "${inputs.rofi-theme}/files";
+  };
+  
+  /*programs.rofi = {
     enable = true;
     package = pkgs.rofi-wayland;
 
@@ -179,5 +184,5 @@
       };
 
     terminal = "${pkgs.kitty}/bin/kitty";
-  };
+  };*/
 }
