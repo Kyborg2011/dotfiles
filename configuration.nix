@@ -211,6 +211,7 @@
       enableSSHSupport = true;
     };
     virt-manager.enable = true;
+    ydotool.enable = true;
   };
 
   # List services that you want to enable:
@@ -336,6 +337,7 @@
       "video"
       "render"
       "input"
+      "uinput" # Needed for Ydotool
       "libvirtd" # Needed for Virt Manager
       "vboxusers" # Needed for Virtualbox
     ];

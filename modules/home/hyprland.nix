@@ -7,11 +7,14 @@ let
       sleep 1
       echo "waiting for openning of windows..."
     done
+    hyprctl dispatch movetoworkspacesilent "special,floating"
     hyprctl dispatch resizewindowpixel "exact 38% 100%,class:org.telegram.desktop"
     hyprctl dispatch resizewindowpixel "exact 31% 100%,class:kitty"
-    hyprctl dispatch focuswindow class:kitty
-    hyprctl dispatch swapwindow r
-    hyprctl dispatch movetoworkspacesilent "special,floating"
+    hyprctl dispatch focuswindow "class:kitty"
+    hyprctl dispatch "hy3:movewindow" r
+    hyprctl dispatch focuswindow "class:org.telegram.desktop"
+    hyprctl dispatch "hy3:movewindow" r
+    hyprctl dispatch workspace 4
   '';
 in {
   wayland.windowManager.hyprland = {
@@ -44,7 +47,7 @@ in {
       "$term" = "kitty";
       "$browser" = "firefox-dev";
       "$editor" = "vim";
-      "$launcher" = "${pkgs.rofi-wayland}/bin/rofi -show drun -theme $HOME/.config/rofi/launchers/type-2/style-7.rasi";
+      "$launcher" = "${pkgs.rofi-wayland}/bin/rofi -show drun -theme $HOME/.config/rofi/launchers/type-1/style-6.rasi";
       "$clipboard" = "cliphist list | wofi -S dmenu | cliphist decode | wl-copy";
 
       #################
