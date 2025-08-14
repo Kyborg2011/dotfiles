@@ -36,6 +36,7 @@
       inputs.hyprsunset.packages.${pkgs.system}.hyprsunset
       inputs.hyprpolkitagent.packages.${pkgs.system}.hyprpolkitagent
       inputs.hyprpaper.packages.${pkgs.system}.hyprpaper
+      hyprdim
 
       wofi
       wl-clipboard

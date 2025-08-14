@@ -47,7 +47,7 @@ in {
       "$term" = "kitty";
       "$browser" = "firefox-dev";
       "$editor" = "vim";
-      "$launcher" = "${pkgs.rofi-wayland}/bin/rofi -show drun -theme $HOME/.config/rofi/launchers/type-1/style-6.rasi";
+      "$launcher" = "${pkgs.rofi-wayland}/bin/rofi -show drun -theme $HOME/.config/rofi/launchers/type-7/style-4.rasi";
       "$clipboard" = "cliphist list | wofi -S dmenu | cliphist decode | wl-copy";
 
       #################
@@ -60,6 +60,7 @@ in {
       ];
       
       exec-once = [
+        "hyprdim &"
         "hyprpanel"
         "systemctl --user start hyprshell.service"
         "systemctl --user start hypridle.service"
