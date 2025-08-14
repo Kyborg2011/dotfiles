@@ -7,6 +7,7 @@ let
       sleep 1
       echo "waiting for openning of windows..."
     done
+    sleep 1
     hyprctl dispatch movetoworkspacesilent "special,floating"
     hyprctl dispatch resizewindowpixel "exact 38% 100%,class:org.telegram.desktop"
     hyprctl dispatch resizewindowpixel "exact 31% 100%,class:kitty"
@@ -14,7 +15,6 @@ let
     hyprctl dispatch "hy3:movewindow" r
     hyprctl dispatch focuswindow "class:org.telegram.desktop"
     hyprctl dispatch "hy3:movewindow" r
-    hyprctl dispatch workspace 4
   '';
 in {
   wayland.windowManager.hyprland = {
@@ -73,7 +73,6 @@ in {
         "[workspace 2 silent] google-chrome-stable"
         "[workspace 2 silent] telegram-desktop"
         "[workspace 3 silent] ${config.home.homeDirectory}/.local/share/JetBrains/Toolbox/apps/android-studio/bin/studio"
-        "[workspace 4 silent] code"
         "[workspace 5 silent] okular"
         "[workspace 6 silent] evolution"
         "dbus-update-activation-environment --systemd --all"
@@ -99,6 +98,8 @@ in {
         "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
         "SDL_VIDEODRIVER,x11"
         "MOZ_ENABLE_WAYLAND,1"
+        "WLR_NO_HARDWARE_CURSORS,1"
+        "MOZ_WEBRENDER,1"
       ];
 
       #####################
@@ -368,9 +369,11 @@ in {
       windowrulev2 = [
         # telegram media viewer
         "float, title:^(Media viewer)$"
-        # gnome calculator
+        # gnome calculator class:
         "float, class:^(org.gnome.Calculator)$"
         "size 360 490, class:^(org.gnome.Calculator)$"
+        # qalculate float:
+        "float, class:^(qalculate.*)$"
         # allow tearing in games
         "immediate, class:^(osu\!|cs2)$"
         # make Firefox/Zen PiP window floating and sticky

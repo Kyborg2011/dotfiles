@@ -40,7 +40,6 @@
       powerManagement.finegrained = false;
       open = false; # For old GPUs like Nvidia Quadro M1200!
       nvidiaSettings = true;
-
       # Force Intel GPU for display:
       prime = {
         intelBusId = "PCI:0:2:0";
@@ -52,7 +51,6 @@
     };
 
     alsa.enablePersistence = true;
-
     enableAllFirmware = true;
   };
 
@@ -62,8 +60,8 @@
     kernelParams = [
       "usbcore.autosuspend=-1"
       "snd-intel-dspcfg.dsp_driver=1"
-      "systemd.log_level=debug" 
-      "systemd.log_target=console"
+      #"systemd.log_level=debug" 
+      #"systemd.log_target=console"
     ];
     kernelModules = [
       "snd-hda-intel"
@@ -126,7 +124,6 @@
   networking = {
     hostName = "nixos";
     networkmanager.enable = true;
-    
     firewall = {
       enable = true;
       allowedTCPPorts = [ 80 8080 631 ];
@@ -357,7 +354,7 @@
     usbutils sysstat bandwhich hwinfo lm_sensors lsof pciutils ethtool dnsutils unixtools.netstat
     lshw-gui lshw wget curl
     telegram-desktop chromium transmission_4-gtk
-    qtcreator ffmpeg sox vlc libreoffice-fresh inkscape gparted tor-browser
+    qtcreator ffmpeg-full sox vlc libreoffice-fresh inkscape gparted tor-browser
     wine winetricks winePackages.fonts keepassxc seahorse krusader
     calibre mu dropbox yt-dlp zip unzip gnupg gnumake cmake
     watchman rustc steam hledger-ui hledger-web
@@ -376,6 +373,7 @@
     desktop-file-utils iotop iftop
     kdePackages.marble kdePackages.qtwayland qgis
     nixfmt-rfc-style kdePackages.okular qalculate-gtk
+    speedtest-cli
 
     (google-chrome.override {
       # enable video encoding and hardware acceleration, along with several
@@ -521,12 +519,12 @@
   environment.shells = with pkgs; [ zsh nushell ];
 
   # Reduce timeouts for faster completion:
+  # LogLevel=debug
+  # LogTarget=console
   systemd.extraConfig = ''
     DefaultTimeoutStopSec=30s
     DefaultTimeoutStartSec=30s
     UserStopDelaySec=10s
-    LogLevel=debug
-    LogTarget=console
   '';
   systemd.user.extraConfig = ''
     DefaultTimeoutStopSec=30s
