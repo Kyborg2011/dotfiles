@@ -56,6 +56,9 @@
     
     # Open actions configuration
     extraConfig = ''
+      # Instead of ctrl+shift+home:
+      map ctrl+shift+h scroll_home
+
       # Tail a log file (*.log) in a new OS Window and reduce its font size
       protocol file
       ext log

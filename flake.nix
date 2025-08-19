@@ -37,6 +37,10 @@
       url = "github:adi1090x/rofi";
       flake = false;
     };
+    vifm-colors = {
+      url = "github:vifm/vifm-colors";
+      flake = false;
+    };
   };
 
   outputs = {nixpkgs, ...} @ inputs: {

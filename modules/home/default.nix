@@ -13,6 +13,7 @@
     ./wallpaper-manager.nix
     ./browser.nix
     ./rofi.nix
+    ./vifm.nix
   ];
 
   news.display = "show";
@@ -88,6 +89,7 @@
     };
 
     sessionPath = [
+      "/usr/local/bin"
       "/usr/local/go/bin"
       "$HOME/.local/bin"
       "$HOME/.local/share/JetBrains/Toolbox/scripts"

@@ -27,6 +27,15 @@
     initContent = ''
       SHELL=${pkgs.zsh}/bin/zsh
 
+      # Shell wrapper for yazi file manager:
+      function y() {
+        local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+        yazi "$@" --cwd-file="$tmp"
+        IFS= read -r -d ''' cwd < "$tmp"
+        [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+        rm -f -- "$tmp"
+      }
+
       # Wayland specific configuration
       if [[ "$XDG_SESSION_DESKTOP" =~ ^(sway|i3|Hyprland|hyprland)$ ]]; then
         export _JAVA_AWT_WM_NONREPARENTING=1
@@ -46,6 +55,11 @@
         export NIXOS_OZONE_WL=1
         export GDK_BACKEND=wayland
       fi
+
+      ADDITIONAL_CFGS=$(find $HOME/zshrc -name '*.sh')
+      for FILE in $ADDITIONAL_CFGS; do
+          source $FILE
+      done
 
       bindkey "''${key[Up]}" up-line-or-search
       bindkey "''${key[Down]}" down-line-or-search

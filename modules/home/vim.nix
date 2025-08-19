@@ -20,7 +20,6 @@
       vim-airline-themes
       ale
       vim-cmake
-      vim-lsp
       vim-flog
       fzf-vim
       vim-startify
@@ -31,6 +30,7 @@
       vim-ledger
       tagbar
       YouCompleteMe
+      neomutt-vim
     ];
     settings = {
       background = "dark";

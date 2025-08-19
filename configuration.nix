@@ -373,7 +373,7 @@
     desktop-file-utils iotop iftop
     kdePackages.marble kdePackages.qtwayland qgis
     nixfmt-rfc-style kdePackages.okular qalculate-gtk
-    speedtest-cli
+    speedtest-cli neomutt poppler
 
     (google-chrome.override {
       # enable video encoding and hardware acceleration, along with several
@@ -409,8 +409,6 @@
 
     # Utilities:
     jq killall ripgrep fd eza bat wirelesstools dust
-
-    # Failed after update:
 
     # OPSEC (from Kali Linux distribution):
     recon-ng theharvester maltego dmitry fierce openvas-scanner
@@ -500,6 +498,7 @@
     "/share/zsh"
     "/home/anthony/.local/share/JetBrains/Toolbox/scripts"
   ];
+
   # System-wide environment variables:
   environment.variables = {
     EDITOR = "vim";
