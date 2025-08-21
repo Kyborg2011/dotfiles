@@ -7,8 +7,8 @@
 
   programs.vifm = {
     enable = true;
-    extraConfig = ''
-      colorscheme gruvbox
+    extraConfig = (builtins.readFile ./dotfiles/vifmrc) + ''
+      source ${inputs.vifm-devicons}/favicons.vifm
     '';
   };
 }

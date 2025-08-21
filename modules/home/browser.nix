@@ -30,6 +30,7 @@ in {
           "browser.search.region" = "UA";
           "browser.tabs.closeWindowWithLastTab" = false;
           "browser.tabs.loadInBackground" = true;
+          "browser.tabs.insertAfterCurrent" = true;
           "distribution.searchplugins.defaultLocale" = "ru-UA";
           "general.useragent.locale" = "ru-UA";
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;

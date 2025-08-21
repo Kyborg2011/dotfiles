@@ -307,11 +307,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1753252360,
-        "narHash": "sha256-PFAJoEqQWMlo1J+yZb+4HixmhbRVmmNl58e/AkLYDDI=",
+        "lastModified": 1755680610,
+        "narHash": "sha256-g7/g5o0spemkZCzPa8I21RgCmN0Kv41B5z9Z5HQWraY=",
         "owner": "hyprwm",
         "repo": "contrib",
-        "rev": "6839b23345b71db17cd408373de4f5605bf589b8",
+        "rev": "04721247f417256ca96acf28cdfe946cf1006263",
         "type": "github"
       },
       "original": {
@@ -1260,11 +1260,11 @@
     },
     "nixpkgs_7": {
       "locked": {
-        "lastModified": 1755471983,
-        "narHash": "sha256-axUoWcm4cNQ36jOlnkD9D40LTfSQgk8ExfHSRm3rTtg=",
+        "lastModified": 1755593991,
+        "narHash": "sha256-BA9MuPjBDx/WnpTJ0EGhStyfE7hug8g85Y3Ju9oTsM4=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "48f4c982de68d966421d2b6f1ddbeb6227cc5ceb",
+        "rev": "a58390ab6f1aa810eb8e0f0fc74230e7cc06de03",
         "type": "github"
       },
       "original": {
@@ -1328,7 +1328,9 @@
         "hyprpolkitagent": "hyprpolkitagent",
         "hyprsunset": "hyprsunset",
         "nixpkgs": "nixpkgs_7",
-        "rofi-theme": "rofi-theme"
+        "rofi-theme": "rofi-theme",
+        "vifm-colors": "vifm-colors",
+        "vifm-devicons": "vifm-devicons"
       }
     },
     "systems": {
@@ -1433,6 +1435,38 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default-linux",
+        "type": "github"
+      }
+    },
+    "vifm-colors": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1709114208,
+        "narHash": "sha256-6kuU1+j1M5122FE8yVMlNwym/+Ea5s90LiYFTklQQZE=",
+        "owner": "vifm",
+        "repo": "vifm-colors",
+        "rev": "cc809544b923de258d5e1836fbf503de14c9a9e1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vifm",
+        "repo": "vifm-colors",
+        "type": "github"
+      }
+    },
+    "vifm-devicons": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1753871182,
+        "narHash": "sha256-Y1Bnshcihpy3ICskCPqYedlY6uDgMV6ZJkPU/JwIL4M=",
+        "owner": "thimc",
+        "repo": "vifm_devicons",
+        "rev": "802a468338c9e5a187f1197822164fe655678550",
+        "type": "github"
+      },
+      "original": {
+        "owner": "thimc",
+        "repo": "vifm_devicons",
         "type": "github"
       }
     },

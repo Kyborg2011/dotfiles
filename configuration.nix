@@ -229,6 +229,8 @@
     pulseaudio.enable = false;
     blueman.enable = true;
     sysprof.enable = true;
+    yubikey-agent.enable = true;
+    pcscd.enable = true;
     openssh = {
       enable = true;
       # require public key authentication for better security
@@ -374,6 +376,7 @@
     kdePackages.marble kdePackages.qtwayland qgis
     nixfmt-rfc-style kdePackages.okular qalculate-gtk
     speedtest-cli neomutt poppler
+    yubikey-manager yubikey-personalization yubioath-flutter
 
     (google-chrome.override {
       # enable video encoding and hardware acceleration, along with several
@@ -492,6 +495,8 @@
       SUBSYSTEM=="usb", ATTR{idVendor}=="${idVendor}", ATTR{idProduct}=="${idProduct}", SYMLINK+="android_adb"
       SUBSYSTEM=="usb", ATTR{idVendor}=="${idVendor}", ATTR{idProduct}=="${idProduct}", SYMLINK+="android_fastboot"
     '';
+
+  services.udev.packages = [ pkgs.yubikey-personalization ];
 
   # System-wide $PATH configuration:
   environment.pathsToLink = [

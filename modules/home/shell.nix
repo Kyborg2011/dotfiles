@@ -36,6 +36,16 @@
         rm -f -- "$tmp"
       }
 
+      # Shell wrapper for vifm file manager:
+      function vicd() {
+        local dst="$(command vifm --choose-dir - "$@")"
+        if [ -z "$dst" ]; then
+          echo 'Directory picking cancelled/failed'
+          return 1
+        fi
+        cd "$dst"
+      }
+
       # Wayland specific configuration
       if [[ "$XDG_SESSION_DESKTOP" =~ ^(sway|i3|Hyprland|hyprland)$ ]]; then
         export _JAVA_AWT_WM_NONREPARENTING=1

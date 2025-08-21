@@ -41,6 +41,10 @@
       url = "github:vifm/vifm-colors";
       flake = false;
     };
+    vifm-devicons = {
+      url = "github:thimc/vifm_devicons";
+      flake = false;
+    };
   };
 
   outputs = {nixpkgs, ...} @ inputs: {
