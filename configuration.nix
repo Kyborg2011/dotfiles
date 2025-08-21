@@ -377,6 +377,7 @@
     nixfmt-rfc-style kdePackages.okular qalculate-gtk
     speedtest-cli neomutt poppler
     yubikey-manager yubikey-personalization yubioath-flutter
+    lynx
 
     (google-chrome.override {
       # enable video encoding and hardware acceleration, along with several
