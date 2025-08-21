@@ -342,13 +342,10 @@ fileviewer {*.tar},<application/x-tar> tar -tf %c
 fileviewer {*.cpio},<application/x-cpio> cpio -t < %c
 fileviewer {*.rpm},<application/x-rpm> rpm -q --list %c%q 2> /dev/null
 
-fileviewer *.png, *.jpg, *.gif
+fileviewer *.jpg,*.png,*.gif
     \ kitty +icat --silent --transfer-mode=stream --place=%pwx%ph@%pxx%py %c %N
     \ %pc
     \ kitty icat --clear --silent %pd
-
-" For any other files:
-filetype * xdg-open
 
 " Syntax highlighting in preview
 "
@@ -373,7 +370,7 @@ filetype * xdg-open
 " uncommenting one of lines below will result in ignoring 'vi[x]cmd' option
 " for unknown file types.
 " For *nix:
-" filetype * xdg-open
+filetype * xdg-open
 " For OS X:
 " filetype * open
 " For Windows:
