@@ -3,17 +3,39 @@
 let
   profile_path = "dev-edition-default";
   ff = ".mozilla/firefox";
+  userContent = builtins.replaceStrings [ "ASSETS" ] [ "file://${inputs.firefox-mod-blur}/ASSETS" ]
+    (
+      (builtins.readFile "${inputs.firefox-mod-blur}/EXTRA THEMES/Spill/spill-style-part2-file.css") + "\n" +
+      (builtins.readFile "${inputs.firefox-mod-blur}/userContent.css")
+    );
+  userChrome = builtins.replaceStrings [ "ASSETS" ] [ "file://${inputs.firefox-mod-blur}/ASSETS" ]
+    (
+      (builtins.readFile "${inputs.firefox-mod-blur}/EXTRA THEMES/Spill/spill-style-part1-file.css") + "\n" +
+      (builtins.readFile "${inputs.firefox-mod-blur}/EXTRA MODS/Icon and Button Mods/Menu icon change/menu_icon_change_to_firefox.css") + "\n" +
+      (builtins.readFile "${inputs.firefox-mod-blur}/EXTRA MODS/Icon and Button Mods/uBlock icon change/ublock-icon-change.css") + "\n" +
+      (builtins.readFile "${inputs.firefox-mod-blur}/EXTRA MODS/Tabs Bar Mods/Pinned Tabs - no background color/pinned_tabs_no_bg_color.css") + "\n" +
+      (builtins.readFile "${inputs.firefox-mod-blur}/EXTRA MODS/Bookmarks Bar Mods/Popout bookmarks bar/popout_bookmarks_bar_on_hover.css") + "\n" +
+      (builtins.readFile "${inputs.firefox-mod-blur}/EXTRA MODS/Bookmarks Bar Mods/Bookmarks bar same color as toolbar/bookmarks_bar_same_color_as_toolbar.css") + "\n" +
+      (builtins.readFile "${inputs.firefox-mod-blur}/EXTRA MODS/Icon and Button Mods/Hide list-all-tabs button/only_show_list-all-tabs_when_tabs_overflowing.css") + "\n" +
+      (builtins.readFile "${inputs.firefox-mod-blur}/EXTRA MODS/Tabs Bar Mods/Colored sound playing tab/colored_soundplaying_tab.css") + "\n" +
+      (builtins.readFile "${inputs.firefox-mod-blur}/EXTRA MODS/Icon and Button Mods/Icons in main menu/icons_in_main_menu.css") + "\n" +
+      (builtins.readFile "${inputs.firefox-mod-blur}/EXTRA MODS/Compact extensions menu/Style 2/cleaner_extensions_menu.css") + "\n" +
+      (builtins.readFile "${inputs.firefox-mod-blur}/userChrome.css") + ''
+        @media (prefers-color-scheme: dark) {
+          menu,
+          menuitem {
+            &:where([_moz-menuactive]:not([disabled="true"])) {
+              color: rgba(255, 255, 255, 0.9) !important;
+            }
+          }
+        }
+      ''
+    );
 in {
   home.file = {
-    "${ff}/${profile_path}/chrome/userChrome.css".source = "${inputs.firefox-mod-blur}/userChrome.css";
-    "${ff}/${profile_path}/chrome/userContent.css".source = "${inputs.firefox-mod-blur}/userContent.css";
-    "${ff}/${profile_path}/chrome/ASSETS".source = "${inputs.firefox-mod-blur}/ASSETS";
-    "${ff}/${profile_path}/chrome/wallpaper-edition.css".source = "${inputs.firefox-mod-blur}/EXTRA THEMES/Wallpaper Edition/Style 2/wallpaper-edition.css";
-    "${ff}/${profile_path}/chrome/bookmarks_bar_same_color_as_toolbar.css".source = "${inputs.firefox-mod-blur}/EXTRA MODS/Bookmarks Bar Mods/Bookmarks bar same color as toolbar/bookmarks_bar_same_color_as_toolbar.css";
-    "${ff}/${profile_path}/chrome/only_show_list-all-tabs_when_tabs_overflowing.css".source = "${inputs.firefox-mod-blur}/EXTRA MODS/Icon and Button Mods/Hide list-all-tabs button/only_show_list-all-tabs_when_tabs_overflowing.css";
-    "${ff}/${profile_path}/chrome/colored_soundplaying_tab.css".source = "${inputs.firefox-mod-blur}/EXTRA MODS/Tabs Bar Mods/Colored sound playing tab/colored_soundplaying_tab.css";
-    "${ff}/${profile_path}/chrome/icons_in_main_menu.css".source = "${inputs.firefox-mod-blur}/EXTRA MODS/Icon and Button Mods/Icons in main menu/icons_in_main_menu.css";
-    "${ff}/${profile_path}/chrome/cleaner_extensions_menu.css".source = "${inputs.firefox-mod-blur}/EXTRA MODS/Compact extensions menu/Style 2/cleaner_extensions_menu.css";
+    "${ff}/${profile_path}/chrome/userChrome.css".text = userChrome;
+    "${ff}/${profile_path}/chrome/userContent.css".text = userContent;
+    #"${ff}/${profile_path}/chrome/ASSETS".source = "${inputs.firefox-mod-blur}/ASSETS";
   };
 
   programs.firefox = {

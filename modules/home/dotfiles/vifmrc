@@ -342,10 +342,15 @@ fileviewer {*.tar},<application/x-tar> tar -tf %c
 fileviewer {*.cpio},<application/x-cpio> cpio -t < %c
 fileviewer {*.rpm},<application/x-rpm> rpm -q --list %c%q 2> /dev/null
 
-fileviewer *.jpg,*.png,*.gif
-    \ kitty +icat --silent --transfer-mode=stream --place=%pwx%ph@%pxx%py %c %N
-    \ %pc
-    \ kitty icat --clear --silent %pd
+set previewoptions=hardgraphicsclear
+fileviewer {*.pdf},<application/pdf> timg -p kitty --frames=1 -g%pwx%ph %c %pd
+fileviewer {*.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm},<image/*>
+        \ timg -p kitty -g%pwx%ph %c %pd
+
+"fileviewer {*.bmp,*.png,*.jpg,*.jpeg,*.gif,*.xpm}
+"    \ kitten icat --silent --scale-up --place=%pwx%ph@%pxx%py %c >/dev/tty </dev/tty %N
+"    \ %pc
+"    \ kitten icat --silent --clear >/dev/tty </dev/tty %N
 
 " Syntax highlighting in preview
 "

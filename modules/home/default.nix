@@ -59,6 +59,7 @@
       mc
       signal-desktop
       kdePackages.filelight
+      timg
 
       # Development:
       figma-linux
@@ -221,6 +222,13 @@
       enableZshIntegration = true;
     };
     aerc.enable = true;
+    emacs = {
+      enable = true;
+      package = pkgs.emacs-pgtk;  # Emacs with pure GTK support. Better for Wayland.
+      extraConfig = ''
+        (setq standard-indent 2)
+      '';
+    };
   };
 
   systemd.user.services.hypridle.Unit.After = lib.mkForce "graphical-session.target";

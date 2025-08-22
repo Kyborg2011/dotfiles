@@ -360,7 +360,7 @@
     wine winetricks winePackages.fonts keepassxc seahorse krusader
     calibre mu dropbox yt-dlp zip unzip gnupg gnumake cmake
     watchman rustc steam hledger-ui hledger-web
-    obs-studio emacs direnv fontforge discord jadx ghidra
+    obs-studio direnv fontforge discord jadx ghidra
     gnome-builder puffin tree git vim mullvad-vpn cargo rustup
     blueman hledger yarn jdk z-lua kile bottles obsidian ventoy-full
     gnucash python3Full digikam
