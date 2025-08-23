@@ -376,7 +376,7 @@
     kdePackages.marble kdePackages.qtwayland qgis
     nixfmt-rfc-style kdePackages.okular qalculate-gtk
     speedtest-cli neomutt poppler
-    yubikey-manager yubikey-personalization yubioath-flutter
+    yubikey-manager yubikey-personalization yubioath-flutter yubico-piv-tool
     lynx
 
     (google-chrome.override {

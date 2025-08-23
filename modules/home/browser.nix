@@ -15,12 +15,14 @@ let
       (builtins.readFile "${inputs.firefox-mod-blur}/EXTRA MODS/Icon and Button Mods/uBlock icon change/ublock-icon-change.css") + "\n" +
       (builtins.readFile "${inputs.firefox-mod-blur}/EXTRA MODS/Tabs Bar Mods/Pinned Tabs - no background color/pinned_tabs_no_bg_color.css") + "\n" +
       (builtins.readFile "${inputs.firefox-mod-blur}/EXTRA MODS/Bookmarks Bar Mods/Popout bookmarks bar/popout_bookmarks_bar_on_hover.css") + "\n" +
-      (builtins.readFile "${inputs.firefox-mod-blur}/EXTRA MODS/Bookmarks Bar Mods/Bookmarks bar same color as toolbar/bookmarks_bar_same_color_as_toolbar.css") + "\n" +
+      (builtins.readFile "${inputs.firefox-mod-blur}/EXTRA MODS/Bookmarks Bar Mods/Remove folder icons from bookmars/remove_folder_icons_from_bookmarks.css") + "\n" +
+      (builtins.readFile "${inputs.firefox-mod-blur}/EXTRA MODS/Bookmarks Bar Mods/Transparent bookmarks bar/transparent_bookmarks_bar.css") + "\n" +
       (builtins.readFile "${inputs.firefox-mod-blur}/EXTRA MODS/Icon and Button Mods/Hide list-all-tabs button/only_show_list-all-tabs_when_tabs_overflowing.css") + "\n" +
       (builtins.readFile "${inputs.firefox-mod-blur}/EXTRA MODS/Tabs Bar Mods/Colored sound playing tab/colored_soundplaying_tab.css") + "\n" +
       (builtins.readFile "${inputs.firefox-mod-blur}/EXTRA MODS/Icon and Button Mods/Icons in main menu/icons_in_main_menu.css") + "\n" +
       (builtins.readFile "${inputs.firefox-mod-blur}/EXTRA MODS/Compact extensions menu/Style 2/cleaner_extensions_menu.css") + "\n" +
       (builtins.readFile "${inputs.firefox-mod-blur}/userChrome.css") + ''
+        /* Fix bug in context menu (dark mode): */
         @media (prefers-color-scheme: dark) {
           menu,
           menuitem {
@@ -35,7 +37,6 @@ in {
   home.file = {
     "${ff}/${profile_path}/chrome/userChrome.css".text = userChrome;
     "${ff}/${profile_path}/chrome/userContent.css".text = userContent;
-    #"${ff}/${profile_path}/chrome/ASSETS".source = "${inputs.firefox-mod-blur}/ASSETS";
   };
 
   programs.firefox = {
