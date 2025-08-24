@@ -98,12 +98,6 @@
       "$HOME/.yarn/bin"
       "$HOME/go/bin"
     ];
-
-    file = {
-      ".config/Code/User/settings.json".source = lib.mkForce (
-        config.lib.file.mkOutOfStoreSymlink "/etc/nixos/modules/home/dotfiles/Code/settings.json"
-      );
-    };
   };
 
   services = {

@@ -499,11 +499,7 @@
 
   services.udev.packages = [ pkgs.yubikey-personalization ];
 
-  # System-wide $PATH configuration:
-  environment.pathsToLink = [
-    "/share/zsh"
-    "/home/anthony/.local/share/JetBrains/Toolbox/scripts"
-  ];
+  environment.pathsToLink = [ "/share/zsh" ];
 
   # System-wide environment variables:
   environment.variables = {
@@ -512,12 +508,16 @@
     GDM_LANG = "en_US.UTF-8";
     LANG = "en_US.UTF-8";
     XDG_RUNTIME_DIR = "/run/user/$UID";
+    PATH = [
+      "/home/anthony/.local/share/JetBrains/Toolbox/scripts"
+    ];
   };
   # System-wide session environment variables:
   environment.sessionVariables = {
     GNOME_KEYRING_CONTROL = "/run/user/$UID/keyring";
     SSH_AUTH_SOCK = "/run/user/$UID/keyring/ssh";
     GNOME_KEYRING_PID = "";
+    TERMINAL = "kitty";
   };
 
   # System-level ZSH configuration
