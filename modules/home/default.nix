@@ -57,7 +57,6 @@
       dmenu-wayland
       hyprsysteminfo
       mc
-      signal-desktop
       kdePackages.filelight
       timg
 

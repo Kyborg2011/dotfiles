@@ -60,7 +60,7 @@ in {
       ];
       
       exec-once = [
-        "hyprdim &"
+        #"hyprdim &"
         "hyprpanel"
         "systemctl --user start hyprshell.service"
         "systemctl --user start hypridle.service"

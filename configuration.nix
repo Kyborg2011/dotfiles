@@ -100,6 +100,7 @@
     };
     settings = {
       experimental-features = "nix-command flakes";
+      auto-optimise-store = true;
       warn-dirty = false;
     };
   };
@@ -209,6 +210,15 @@
     };
     virt-manager.enable = true;
     ydotool.enable = true;
+    appimage = {
+      enable = true;
+      binfmt = true;
+      package = pkgs.appimage-run.override {
+        extraPkgs = pkgs: [
+          # missing libraries here, e.g.: `pkgs.libepoxy`
+        ];
+      };
+    };
   };
 
   # List services that you want to enable:
@@ -369,7 +379,7 @@
     python3Packages.jupyterlab
     gimp3-with-plugins jupyter-all
     texliveFull loupe sushi code-nautilus
-    vesktop webcord fractal
+    vesktop fractal
     rhythmbox darktable pidgin audacity sublime4
     nix-index systemd libsecret xorg.xhost polkit_gnome
     desktop-file-utils iotop iftop
@@ -377,7 +387,7 @@
     nixfmt-rfc-style kdePackages.okular qalculate-gtk
     speedtest-cli neomutt poppler
     yubikey-manager yubikey-personalization yubioath-flutter yubico-piv-tool
-    lynx
+    lynx ctags
 
     (google-chrome.override {
       # enable video encoding and hardware acceleration, along with several
