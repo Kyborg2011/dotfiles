@@ -1,4 +1,4 @@
-{ config, inputs, pkgs, ... } :
+{ config, inputs, pkgs, lib, ... } :
 
 let
   hyprlayout-fix = pkgs.writeShellScriptBin "hyprlayout-fix" ''
@@ -478,4 +478,99 @@ in {
       ];
     };
   };
+
+  programs.hyprlock = {
+    enable = true;
+    package = inputs.hyprlock.packages.${pkgs.system}.hyprlock;
+    settings = {
+      general = {
+        disable_loading_bar = true;
+        immediate_render = true;
+        hide_cursor = false;
+        no_fade_in = false;
+        enable_fingerprint = false;
+      };
+
+      background = [
+        { path = "${config.home.homeDirectory}/.config/home-manager/images/hyprlock_background.jpg"; }
+      ];
+
+      input-field = [
+        {
+          size = "300, 50";
+          valign = "bottom";
+          position = "0%, 200px";
+          outline_thickness = 1;
+          outer_color = "rgba(0, 0, 0, 1.0)";
+          inner_color = "rgb(f2f3f4)";
+          font_color = "rgba(0, 0, 0, 1.0)";
+          check_color = "rgba(0, 0, 0, 1.0)";
+          fail_color = "rgba(255, 0, 0, 0.8)";
+          fade_on_empty = false;
+          placeholder_text = "Enter Password";
+          dots_spacing = 0.2;
+          dots_center = true;
+          dots_fade_time = 100;
+          shadow_color = "rgba(0, 0, 0, 0.1)";
+          shadow_size = 7;
+          shadow_passes = 1;
+        }
+      ];
+
+      label = [
+        {
+          text = "$TIME";
+          font_size = 150;
+          color = "rgb(b6c4ff)";
+          position = "0%, 200px";
+          valign = "center";
+          halign = "center";
+        }
+        {
+          text = "cmd[update:3600000] date +'%a %b %d'";
+          font_size = 20;
+          color = "rgb(b6c4ff)";
+          position = "0%, 0";
+          valign = "center";
+          halign = "center";
+        }
+      ];
+    };
+  };
+
+  services.hypridle = {
+    enable = true;
+    package = inputs.hypridle.packages.${pkgs.system}.hypridle;
+    settings = {
+      general = {
+        lock_cmd = "hyprlock";
+        before_sleep_cmd = "loginctl lock-session";    # lock before suspend.
+        after_sleep_cmd = "hyprctl dispatch dpms on";  # to avoid having to press a key twice to turn on the display.
+      };
+      listener = [
+        {
+          timeout = 150;                                  # 2.5min.
+          on-timeout = "brightnessctl -s set 10";         # set monitor backlight to minimum, avoid 0 on OLED monitor.
+          on-resume = "brightnessctl -r";                 # monitor backlight restore.
+        }
+        {
+          timeout = 150;                                            # 2.5min.
+          on-timeout = "brightnessctl -sd rgb:kbd_backlight set 0"; # turn off keyboard backlight.
+          on-resume = "brightnessctl -rd rgb:kbd_backlight";        # turn on keyboard backlight.
+        }
+        {
+          timeout = 300;                                    # 5min
+          on-timeout = "loginctl lock-session";             # lock screen when timeout has passed
+        }
+        {
+          timeout = 330;                                    # 5.5min
+          on-timeout = "hyprctl dispatch dpms off";         # screen off when timeout has passed
+          on-resume = "hyprctl dispatch dpms on";           # screen on when activity is detected after timeout has fired.
+        }
+      ];
+    };
+  };
+
+  systemd.user.services.hypridle.Unit.After = lib.mkForce "graphical-session.target";
+  systemd.user.services.hyprpaper.Unit.After = lib.mkForce "graphical-session.target";
 }

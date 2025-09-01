@@ -368,15 +368,14 @@
     telegram-desktop chromium transmission_4-gtk
     qtcreator ffmpeg-full sox vlc libreoffice-fresh inkscape gparted tor-browser
     wine winetricks winePackages.fonts keepassxc seahorse krusader
-    calibre mu dropbox yt-dlp zip unzip gnupg gnumake cmake
-    watchman rustc steam hledger-ui hledger-web
+    calibre mu dropbox yt-dlp zip unzip gnupg gnumake
+    watchman steam hledger-ui hledger-web
     obs-studio direnv fontforge discord jadx ghidra
-    gnome-builder puffin tree git vim mullvad-vpn cargo rustup
+    gnome-builder puffin tree git vim mullvad-vpn
     blueman hledger yarn jdk z-lua kile bottles obsidian ventoy-full
-    gnucash python3Full digikam
+    gnucash digikam
     ffuf protonvpn-cli protonvpn-gui
     dconf-editor xdg-utils util-linux networkmanagerapplet
-    python3Packages.jupyterlab
     gimp3-with-plugins jupyter-all
     texliveFull loupe sushi code-nautilus
     vesktop fractal
@@ -387,7 +386,17 @@
     nixfmt-rfc-style kdePackages.okular qalculate-gtk
     speedtest-cli neomutt poppler
     yubikey-manager yubikey-personalization yubioath-flutter yubico-piv-tool
-    lynx ctags
+    lynx ctags ddd
+
+    # Python3 environment with some other pkgs (including jupyterlab):
+    (python3.withPackages(ps: [
+      ps.python-lsp-server
+      ps.pylsp-mypy ps.pyls-isort
+      ps.pydocstyle ps.pylint
+      ps.jupyterlab ps.jupyterlab-lsp
+      ps.numpy ps.pandas ps.matplotlib
+      ps.scipy ps.sympy ps.plotly
+    ]))
 
     (google-chrome.override {
       # enable video encoding and hardware acceleration, along with several
@@ -422,7 +431,7 @@
     swww waypaper
 
     # Utilities:
-    jq killall ripgrep fd eza bat wirelesstools dust
+    jq killall ripgrep fd bat wirelesstools dust
 
     # OPSEC (from Kali Linux distribution):
     recon-ng theharvester maltego dmitry fierce openvas-scanner
@@ -545,6 +554,7 @@
     DefaultTimeoutStopSec=30s
     DefaultTimeoutStartSec=30s
   '';
+  
   # Polkit starting systemd service - needed for apps requesting root access
   systemd.user.services.polkit-gnome-authentication-agent-1 = {
     description = "polkit-gnome-authentication-agent-1";

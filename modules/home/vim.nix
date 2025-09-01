@@ -3,6 +3,8 @@
 {
   programs.vim = {
     enable = true;
+    defaultEditor = true;
+
     plugins = with pkgs.vimPlugins; [
       vim-sensible
       vim-unimpaired
@@ -12,6 +14,7 @@
       nerdtree
       nerdtree-git-plugin
       vim-nerdtree-syntax-highlight
+      nerdcommenter
       vim-devicons
       goyo-vim
       limelight-vim
@@ -33,30 +36,40 @@
       neomutt-vim
       vim-nix
       vim-bufferline
-      #vim-gutentags
       LanguageClient-neovim
+      vim-numbertoggle
+      rainbow
+      sparkup
+      #vim-gutentags
     ];
+
     settings = {
-      background = "dark";
       number = true;
+      expandtab = true;
+      modeline = true;
+      history = 1000;
+      shiftwidth = 4;
+      tabstop = 4;
+      background = "dark";
     };
+
     extraConfig = ''
       set nocompatible
       set autoindent
       set cursorline
       set foldmethod=indent
       set nofoldenable
-      set modeline
-      set expandtab
-      set tabstop=4
-      set shiftwidth=4
       set diffopt+=vertical
-
-      " Exuberant Ctags:
-      let g:gutentags_trace = 1
+      set hlsearch
 
       syntax on
       colorscheme gruvbox
+
+      " Exuberant Ctags:
+      "let g:gutentags_trace = 1
+
+      " Rainbow Parentheses Improved plugin settings:
+      let g:rainbow_active = 1
 
       " Airline settings:
       let g:airline_theme='molokai'
@@ -65,6 +78,14 @@
 
       " Gitgutter settings:
       let g:gitgutter_set_sign_backgrounds=0
+
+      " ALE settings:
+      let b:ale_fixers = {'javascript': ['prettier', 'eslint']}
+      let g:ale_fix_on_save = 1
+      let g:ale_completion_enabled = 1
+      let g:ale_sign_error = "✗"
+      let g:ale_sign_warning = "⚠"
+      let g:ale_linters = { 'rust': ['analyzer'], 'python': ['pylint', 'pylsp'], 'c': ['ccls'], 'javascript': ['flow'] }
 
       " Sets the working directory to the current file's directory:
       autocmd BufEnter * lcd %:p:h
@@ -78,6 +99,18 @@
       nnoremap <C-n> :NERDTree<CR>
       nnoremap <C-t> :NERDTreeToggle<CR>
       nnoremap <C-f> :NERDTreeFind<CR>
+
+      " LanguageClient keybindings:
+      let g:LanguageClient_serverCommands = {
+        \ 'python': ['pyls']
+        \ }
+      nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+      nnoremap <silent> gh :call LanguageClient_textDocument_hover()<CR>
+      nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+      nnoremap <silent> gr :call LanguageClient_textDocument_references()<CR>
+      nnoremap <silent> gs :call LanguageClient_textDocument_documentSymbol()<CR>
+      nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+      nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<CR>
 
       " Start NERDTree when vim starts with no file arguments, but do not hide default vim startup window:
       autocmd StdinReadPre * let s:std_in=1
@@ -94,13 +127,4 @@
       endif
     '';
   };
-
-  home.packages = with pkgs; [
-    fzf
-    git
-    nodejs
-    python3
-    cmake
-    gcc
-  ];
 }

@@ -100,17 +100,10 @@
       garbage-collect = "sudo nix-collect-garbage -d";
       fix-store = "sudo nix-store --verify --check-contents --repair";
 
-      zshconfig = "vim ~/.zshrc";
-      ohmyzsh = "vim ~/.oh-my-zsh";
-
       night = "killall -q hyprsunset; hyprsunset -t 4900 &";
       night-off = "killall -q hyprsunset; hyprsunset -t 6000 &";
 
       tree = "eza --tree";
-      ll = "eza --group-directories-first --icons -al";
-
-      ":q" = "exit";
-      q = "exit";
 
       gs = "git status";
       gc = "git commit";
@@ -123,13 +116,13 @@
   # Interesting option for learning:
   programs.nushell.enable = true;
 
-  # FZF integration
+  # FZF integration:
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
   };
 
-  # Z-Lua integration
+  # Z-Lua integration:
   programs.z-lua = {
     enable = true;
     enableZshIntegration = true;
@@ -137,5 +130,22 @@
       "fzf"
       "enhanced"
     ];
+  };
+
+  # Eza integration:
+  programs.eza = {
+    enable = true;
+    enableZshIntegration = true;
+    icons = "always";
+    colors = "always";
+    git = true;
+    extraOptions = [ "--group-directories-first"  ];
+  };
+
+  # Direnv integration:
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+    enableZshIntegration = true;
   };
 }
