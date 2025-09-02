@@ -65,9 +65,6 @@
       syntax on
       colorscheme gruvbox
 
-      " Exuberant Ctags:
-      "let g:gutentags_trace = 1
-
       " Rainbow Parentheses Improved plugin settings:
       let g:rainbow_active = 1
 
@@ -94,11 +91,14 @@
       autocmd BufRead,BufNewFile * set signcolumn=yes
       autocmd FileType tagbar,nerdtree set signcolumn=no
 
-      " NERDTree keybindings:
+      " NERDTree keybindings (default <leader> is '\'):
       nnoremap <leader>n :NERDTreeFocus<CR>
-      nnoremap <C-n> :NERDTree<CR>
       nnoremap <C-t> :NERDTreeToggle<CR>
-      nnoremap <C-f> :NERDTreeFind<CR>
+
+      " fzf.vim keybindings:
+      nnoremap <leader>f :Files<CR>
+      nnoremap <leader>b :Buffers<CR>
+      nnoremap <leader>c :Commits<CR>
 
       " LanguageClient keybindings:
       let g:LanguageClient_serverCommands = {
