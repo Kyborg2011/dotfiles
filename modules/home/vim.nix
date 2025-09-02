@@ -40,7 +40,8 @@
       vim-numbertoggle
       rainbow
       sparkup
-      #vim-gutentags
+      vim-gutentags
+      vim-cool
     ];
 
     settings = {
@@ -54,13 +55,14 @@
     };
 
     extraConfig = ''
-      set nocompatible
       set autoindent
       set cursorline
-      set foldmethod=indent
       set nofoldenable
-      set diffopt+=vertical
       set hlsearch
+      set wildmenu
+      set wildmode=list:longest,list:full
+      set diffopt+=vertical
+      set foldmethod=indent
 
       syntax on
       colorscheme gruvbox
@@ -84,6 +86,16 @@
       let g:ale_sign_warning = "⚠"
       let g:ale_linters = { 'rust': ['analyzer'], 'python': ['pylint', 'pylsp'], 'c': ['ccls'], 'javascript': ['flow'] }
 
+      " Gutentags settings:
+      let g:gutentags_ctags_tagfile = '.tags'
+      let g:gutentags_cache_dir = expand('~/.cache/vim/ctags/')
+      let g:gutentags_generate_on_new = 1
+      let g:gutentags_generate_on_missing = 1
+      let g:gutentags_generate_on_write = 1
+      let g:gutentags_generate_on_empty_buffer = 0
+      let g:gutentags_ctags_executable = '${pkgs.ctags}/bin/ctags'
+      set statusline+=%{gutentags#statusline()}
+
       " Sets the working directory to the current file's directory:
       autocmd BufEnter * lcd %:p:h
 
@@ -91,7 +103,8 @@
       autocmd BufRead,BufNewFile * set signcolumn=yes
       autocmd FileType tagbar,nerdtree set signcolumn=no
 
-      " NERDTree keybindings (default <leader> is '\'):
+      " DEFAULT <leader> IS '\'
+      " NERDTree keybindings:
       nnoremap <leader>n :NERDTreeFocus<CR>
       nnoremap <C-t> :NERDTreeToggle<CR>
 
@@ -99,6 +112,8 @@
       nnoremap <leader>f :Files<CR>
       nnoremap <leader>b :Buffers<CR>
       nnoremap <leader>c :Commits<CR>
+      nnoremap <leader>t :Tags<CR>
+      nnoremap <leader>x :Commands<CR>
 
       " LanguageClient keybindings:
       let g:LanguageClient_serverCommands = {
