@@ -386,7 +386,7 @@
     nixfmt-rfc-style kdePackages.okular qalculate-gtk
     speedtest-cli neomutt poppler
     yubikey-manager yubikey-personalization yubioath-flutter yubico-piv-tool
-    lynx ctags ddd
+    lynx universal-ctags ddd
 
     # Python3 environment with some other pkgs (including jupyterlab):
     (python3.withPackages(ps: [
@@ -554,7 +554,7 @@
     DefaultTimeoutStopSec=30s
     DefaultTimeoutStartSec=30s
   '';
-  
+
   # Polkit starting systemd service - needed for apps requesting root access
   systemd.user.services.polkit-gnome-authentication-agent-1 = {
     description = "polkit-gnome-authentication-agent-1";

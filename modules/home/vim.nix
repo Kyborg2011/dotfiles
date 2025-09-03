@@ -10,6 +10,7 @@
       vim-unimpaired
       vim-fugitive
       vim-surround
+      vim-repeat
       vim-github-dashboard
       nerdtree
       nerdtree-git-plugin
@@ -42,6 +43,7 @@
       sparkup
       vim-gutentags
       vim-cool
+      undotree
     ];
 
     settings = {
@@ -93,7 +95,7 @@
       let g:gutentags_generate_on_missing = 1
       let g:gutentags_generate_on_write = 1
       let g:gutentags_generate_on_empty_buffer = 0
-      let g:gutentags_ctags_executable = '${pkgs.ctags}/bin/ctags'
+      let g:gutentags_ctags_executable = '${pkgs.universal-ctags}/bin/ctags'
       set statusline+=%{gutentags#statusline()}
 
       " Sets the working directory to the current file's directory:
@@ -114,6 +116,9 @@
       nnoremap <leader>c :Commits<CR>
       nnoremap <leader>t :Tags<CR>
       nnoremap <leader>x :Commands<CR>
+
+      " Undotree keybinding:
+      nnoremap <leader>u :UndotreeToggle<CR>
 
       " LanguageClient keybindings:
       let g:LanguageClient_serverCommands = {
