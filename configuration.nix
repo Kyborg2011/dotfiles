@@ -99,11 +99,26 @@
       options = "--delete-older-than 30d";
     };
     settings = {
+      substituters = [
+        "https://nix-community.cachix.org"
+        "https://cache.nixos.org"
+        "https://hyprland.cachix.org"
+      ];
+      trusted-substituters = [
+        "https://cache.nixos.org"
+        "https://hyprland.cachix.org"
+        "https://nix-community.cachix.org"
+      ];
+      trusted-public-keys = [
+        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ];
       experimental-features = "nix-command flakes";
       auto-optimise-store = true;
       warn-dirty = false;
     };
   };
+  
   documentation.nixos.enable = true;
 
   # Allow unfree packages:
@@ -421,6 +436,11 @@
         ;
     })
 
+    # Firefox Developer Edition wrapper to use with profile:
+    (writeShellScriptBin "firefox-dev" ''
+      exec ${firefox-devedition}/bin/firefox-devedition --profile /home/anthony/.mozilla/firefox/dev-edition-default "$@"
+    '')
+
     # Virtualization:
     distrobox boxbuddy
 
@@ -489,11 +509,6 @@
     gnomeExtensions.workspace-indicator
     gnomeExtensions.clipboard-indicator
     gnomeExtensions.caffeine
-
-    # Firefox Developer Edition wrapper to use with profile:
-    (writeShellScriptBin "firefox-dev" ''
-      exec ${firefox-devedition}/bin/firefox-devedition --profile /home/anthony/.mozilla/firefox/dev-edition-default "$@"
-    '')
   ];
 
   programs.hyprland = {

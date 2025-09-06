@@ -140,6 +140,12 @@
       nnoremap  <silent>   <tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>
       nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
 
+      " Disable arrow keys in normal mode to encourage hjkl usage:
+      noremap <Up> <NOP>
+      noremap <Down> <NOP>
+      noremap <Left> <NOP>
+      noremap <Right> <NOP>
+
       if (empty($TMUX) && getenv('TERM_PROGRAM') != 'Apple_Terminal')
         if (has("nvim"))
           let $NVIM_TUI_ENABLE_TRUE_COLOR=1
