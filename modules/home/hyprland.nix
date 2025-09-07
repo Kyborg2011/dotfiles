@@ -47,7 +47,7 @@ in {
       "$term" = "kitty";
       "$browser" = "firefox-dev";
       "$editor" = "vim";
-      "$launcher" = "${pkgs.rofi-wayland}/bin/rofi -show drun -theme $HOME/.config/rofi/launchers/type-7/style-4.rasi";
+      "$launcher" = "${pkgs.rofi-wayland}/bin/rofi -show drun -theme $HOME/.config/rofi-launcher.rasi";
       "$clipboard" = "cliphist list | wofi -S dmenu | cliphist decode | wl-copy";
 
       #################

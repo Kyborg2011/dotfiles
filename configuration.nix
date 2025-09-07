@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, inputs, pkgs, ... }:
+{ config, lib, inputs, pkgs, pkgs-unstable, ... }:
 
 {
   imports =
@@ -133,6 +133,7 @@
         "ventoy-1.1.05"
         "olm-3.2.16"
         "libsoup-2.74.3"
+        "googleearth-pro-7.3.6.10201"
       ];
     };
   };
@@ -193,18 +194,14 @@
   programs = {
     nm-applet.enable = true;
     gamemode.enable = true;
-    steam = {
-      enable = true;
-      remotePlay.openFirewall = true;
-    };
-    npm = {
-      enable = true;
-      package = pkgs.nodejs;
-    };
     system-config-printer.enable = true;
     dconf.enable = true;
     xfconf.enable = true;
     file-roller.enable = true;
+    zsh.enable = true;
+    mtr.enable = true;
+    virt-manager.enable = true;
+    ydotool.enable = true;
     nautilus-open-any-terminal = {
       enable = true;
       terminal = "kitty";
@@ -217,14 +214,18 @@
         thunar-media-tags-plugin
       ];
     };
-    zsh.enable = true;
-    mtr.enable = true;
     gnupg.agent = {
       enable = true;
       enableSSHSupport = true;
     };
-    virt-manager.enable = true;
-    ydotool.enable = true;
+    steam = {
+      enable = true;
+      remotePlay.openFirewall = true;
+    };
+    npm = {
+      enable = true;
+      package = pkgs.nodejs;
+    };
     appimage = {
       enable = true;
       binfmt = true;
@@ -375,6 +376,31 @@
     style = "adwaita-dark";
   };
 
+  environment = {
+    localBinInPath = true;
+    homeBinInPath = true;
+    # System-level ZSH configuration
+    shells = with pkgs; [ zsh nushell ];
+    pathsToLink = [ "/share/zsh" ];
+    # System-wide session environment variables:
+    sessionVariables = {
+      GNOME_KEYRING_CONTROL = "/run/user/$UID/keyring";
+      SSH_AUTH_SOCK = "/run/user/$UID/keyring/ssh";
+      GNOME_KEYRING_PID = "";
+      TERMINAL = "kitty";
+    };
+    variables = {
+      EDITOR = "vim";
+      VISUAL = "vim";
+      GDM_LANG = "en_US.UTF-8";
+      LANG = "en_US.UTF-8";
+      XDG_RUNTIME_DIR = "/run/user/$UID";
+      PATH = [
+        "/home/anthony/.local/share/JetBrains/Toolbox/scripts"
+      ];
+    };
+  };
+  
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -402,6 +428,7 @@
     speedtest-cli neomutt poppler
     yubikey-manager yubikey-personalization yubioath-flutter yubico-piv-tool
     lynx universal-ctags ddd
+    googleearth-pro signal-desktop
 
     # Python3 environment with some other pkgs (including jupyterlab):
     (python3.withPackages(ps: [
@@ -438,18 +465,15 @@
 
     # Firefox Developer Edition wrapper to use with profile:
     (writeShellScriptBin "firefox-dev" ''
-      exec ${firefox-devedition}/bin/firefox-devedition --profile /home/anthony/.mozilla/firefox/dev-edition-default "$@"
+      exec ${pkgs-unstable.firefox-devedition}/bin/firefox-devedition --profile "/home/anthony/.mozilla/firefox/dev-edition-default" "$@"
     '')
 
     # Virtualization:
     distrobox boxbuddy
-
     # Markdown editors:
     typora apostrophe kdePackages.ghostwriter
-
     # Wallpaper managers on Wayland:
     swww waypaper
-
     # Utilities:
     jq killall ripgrep fd bat wirelesstools dust
 
@@ -532,30 +556,6 @@
     '';
 
   services.udev.packages = [ pkgs.yubikey-personalization ];
-
-  environment.pathsToLink = [ "/share/zsh" ];
-
-  # System-wide environment variables:
-  environment.variables = {
-    EDITOR = "vim";
-    VISUAL = "vim";
-    GDM_LANG = "en_US.UTF-8";
-    LANG = "en_US.UTF-8";
-    XDG_RUNTIME_DIR = "/run/user/$UID";
-    PATH = [
-      "/home/anthony/.local/share/JetBrains/Toolbox/scripts"
-    ];
-  };
-  # System-wide session environment variables:
-  environment.sessionVariables = {
-    GNOME_KEYRING_CONTROL = "/run/user/$UID/keyring";
-    SSH_AUTH_SOCK = "/run/user/$UID/keyring/ssh";
-    GNOME_KEYRING_PID = "";
-    TERMINAL = "kitty";
-  };
-
-  # System-level ZSH configuration
-  environment.shells = with pkgs; [ zsh nushell ];
 
   # Reduce timeouts for faster completion:
   # LogLevel=debug

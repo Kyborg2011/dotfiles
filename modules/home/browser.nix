@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, pkgs-unstable, inputs, ... }:
 
 let
   concatFilesContent = sourceSubstr: targetSubstr: files:
@@ -46,7 +46,7 @@ in {
 
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox-devedition;
+    package = pkgs-unstable.firefox-devedition;
     profileVersion = null;
     profiles = {
       default = {

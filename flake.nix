@@ -1,6 +1,8 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -47,22 +49,25 @@
     };
   };
 
-  outputs = {nixpkgs, ...} @ inputs: {
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-      specialArgs = { inherit inputs; };
-      modules = [
-        ./configuration.nix
-        inputs.home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.anthony = import ./modules/home;
-          home-manager.extraSpecialArgs = {
-            inherit inputs;
-          };
-          home-manager.backupFileExtension = "bkp4";
-        }
-      ];
+  outputs = {nixpkgs, ...} @ inputs: 
+    let
+      system = "x86_64-linux";
+      pkgs-unstable = import inputs.nixpkgs-unstable { inherit system; };
+      specialArgs = { inherit inputs pkgs-unstable; };
+    in {
+      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+        inherit specialArgs;
+        modules = [
+          ./configuration.nix
+          inputs.home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.anthony = import ./modules/home;
+            home-manager.extraSpecialArgs = specialArgs;
+            home-manager.backupFileExtension = "bkp4";
+          }
+        ];
+      };
     };
-  };
 }

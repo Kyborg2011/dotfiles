@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, lib, ... }:
+{ config, pkgs, pkgs-unstable, inputs, lib, ... }:
 
 {
   imports = [
@@ -95,7 +95,6 @@
     sessionPath = [
       "/usr/local/bin"
       "/usr/local/go/bin"
-      "$HOME/.local/bin"
       "$HOME/.local/share/JetBrains/Toolbox/scripts"
       "$HOME/.npm/bin"
       "$HOME/.yarn/bin"
