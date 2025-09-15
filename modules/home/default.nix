@@ -49,9 +49,14 @@
       nerd-fonts.jetbrains-mono
       dmenu-wayland
       mc
-      kdePackages.filelight
       timg
-      tldr
+
+      # Disk space management tools:
+      ncdu dust kdePackages.filelight
+
+      # Dev tools:
+      tldr wget curl
+      jq killall ripgrep fd bat
 
       # Development:
       figma-linux
@@ -68,7 +73,7 @@
       nodePackages.prettier
       cargo rustc rustfmt rust-analyzer
       ccls
-      cmake gcc
+      cmake gcc gdb
 
       # Custom fonts (Input Mono + Rofi custom theme fonts):
       (pkgs.callPackage ./custom-fonts { inherit inputs; })

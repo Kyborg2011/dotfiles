@@ -404,8 +404,9 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    usbutils sysstat bandwhich hwinfo lm_sensors lsof pciutils inetutils ethtool dnsutils unixtools.netstat
-    lshw-gui lshw wget curl ncdu
+    usbutils sysstat bandwhich hwinfo lm_sensors lsof
+    pciutils inetutils ethtool dnsutils unixtools.netstat
+    lshw-gui lshw
     telegram-desktop chromium transmission_4-gtk
     qtcreator ffmpeg-full sox vlc libreoffice-fresh inkscape gparted tor-browser
     wine winetricks winePackages.fonts keepassxc seahorse krusader
@@ -421,14 +422,15 @@
     texliveFull loupe sushi code-nautilus
     vesktop fractal
     rhythmbox darktable pidgin audacity sublime4
-    nix-index systemd libsecret xorg.xhost polkit_gnome
+    systemd libsecret xorg.xhost polkit_gnome
     desktop-file-utils iotop iftop
-    kdePackages.marble kdePackages.qtwayland qgis
-    nixfmt-rfc-style kdePackages.okular qalculate-gtk
-    speedtest-cli neomutt poppler
+    qalculate-gtk speedtest-cli neomutt poppler
     yubikey-manager yubikey-personalization yubioath-flutter yubico-piv-tool
     lynx universal-ctags ddd
-    googleearth-pro signal-desktop
+    googleearth-pro signal-desktop wirelesstools
+
+    # Additional Nix tools:
+    nurl nix-init nix-index nixfmt-rfc-style
 
     # Python3 environment with some other pkgs (including jupyterlab):
     (python3.withPackages(ps: [
@@ -471,11 +473,9 @@
     # Virtualization:
     distrobox boxbuddy
     # Markdown editors:
-    typora apostrophe kdePackages.ghostwriter
+    typora apostrophe
     # Wallpaper managers on Wayland:
-    swww waypaper
-    # Utilities:
-    jq killall ripgrep fd bat wirelesstools dust
+    waypaper
 
     # OPSEC (from Kali Linux distribution):
     recon-ng theharvester maltego dmitry fierce openvas-scanner
@@ -524,16 +524,14 @@
     # System tools
     gparted ddrescue safecopy extundelete testdisk
     # Development tools
-    gdb nasm
-
-    # Gnome related apps + extensions for Gnome Shell:
+    nasm
+    # Gnome related apps:
     gnome-control-center gnome-tweaks gnome-shell-extensions evolution
-    gnomeExtensions.dash-to-dock
-    gnomeExtensions.applications-menu
-    gnomeExtensions.workspace-indicator
-    gnomeExtensions.clipboard-indicator
-    gnomeExtensions.caffeine
-  ];
+  ] ++ (with pkgs.kdePackages; [
+    marble qtwayland okular ghostwriter
+  ]) ++ (with pkgs.gnomeExtensions; [
+    dash-to-dock applications-menu workspace-indicator clipboard-indicator caffeine
+  ]);
 
   programs.hyprland = {
     enable = true;
