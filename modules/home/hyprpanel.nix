@@ -7,5 +7,6 @@
     );
   };
   home.packages = with pkgs; [ hyprpanel ];
+  wayland.windowManager.hyprland.settings.exec-once = [ "hyprpanel" ];
   #programs.hyprpanel.enable = true;
 }

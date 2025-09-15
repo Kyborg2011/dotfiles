@@ -74,7 +74,6 @@ in {
       
       exec-once = [
         #"hyprdim &"
-        #"hyprpanel"
         "systemctl --user start hyprshell.service"
         "systemctl --user start hypridle.service"
         "hyprctl setcursor Bibata-Ice-Modern 24"
