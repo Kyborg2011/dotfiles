@@ -65,6 +65,7 @@ in {
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
           "svg.context-properties.content.enabled" = true;
           "widget.gtk.rounded-bottom-corners.enabled" = true;
+          "widget.gtk.native-context-menus" = false;
         };
       };
     };

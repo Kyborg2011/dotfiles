@@ -56,6 +56,7 @@ in
         "file://${home}/Downloads"
         "file://${home}/Desktop"
         "file://${home}/dev Dev"
+        "file:///etc/nixos NixOS Config"
       ];
     };
 

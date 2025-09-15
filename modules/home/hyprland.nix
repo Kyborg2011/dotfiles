@@ -17,6 +17,17 @@ let
     hyprctl dispatch "hy3:movewindow" r
   '';
 in {
+  home.packages = with pkgs; [
+    inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
+    inputs.hyprpicker.packages.${pkgs.system}.hyprpicker
+    inputs.hyprsunset.packages.${pkgs.system}.hyprsunset
+    inputs.hyprpolkitagent.packages.${pkgs.system}.hyprpolkitagent
+    inputs.hyprpaper.packages.${pkgs.system}.hyprpaper
+    hyprdim
+    hyprprop
+    hyprsysteminfo
+  ];
+
   wayland.windowManager.hyprland = {
     enable = true;
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
@@ -35,7 +46,9 @@ in {
       ### MONITORS ###
       ################
       # See https://wiki.hyprland.org/Configuring/Monitors/
-      monitor = [ ",preferred,auto,auto" ];
+      monitor = [
+        ",preferred,auto,auto"
+      ];
 
       ###################
       ### MY PROGRAMS ###
@@ -61,7 +74,7 @@ in {
       
       exec-once = [
         #"hyprdim &"
-        "hyprpanel"
+        #"hyprpanel"
         "systemctl --user start hyprshell.service"
         "systemctl --user start hypridle.service"
         "hyprctl setcursor Bibata-Ice-Modern 24"
@@ -337,7 +350,7 @@ in {
         "$mainMod+SHIFT, p, exec, hyprpicker -a"
         
         "$mainMod, grave, hyprexpo:expo, toggle" # can be: toggle, off/disable or on/enable
-        
+
         # SCREENSHOT:
         ", Print, exec, grimblast --notify copysave area"
         "$mainMod, Print, exec, grimblast --notify copysave screen"
@@ -393,7 +406,6 @@ in {
         "idleinhibit focus, class:^(zen)$, title:^(.*YouTube.*)$"
         "idleinhibit fullscreen, class:^(zen)$"
         "dimaround, class:^(gcr-prompter)$"
-        "dimaround, class:^(xdg-desktop-portal-gtk)$"
         "dimaround, class:^(polkit-gnome-authentication-agent-1)$"
         "dimaround, class:^(zen)$, title:^(File Upload)$"
         # fix xwayland apps
@@ -419,6 +431,22 @@ in {
         "noborder on, class:MATLAB, title:DefaultOverlayManager.JWindow"
         "noshadow on, class:MATLAB, title:DefaultOverlayManager.JWindow"
         "suppressevent maximize, class:.*"
+        # KeePassXC float:
+        "float, class:^(org.keepassxc.KeePassXC)$"
+        # Transmission float:
+        "float, class:^(transmission.*)$"
+        # Fix "Open file" dialogs in GTK apps:
+        "dimaround, class:^(xdg-desktop-portal-gtk)$"
+        "float, class:^(xdg-desktop-portal-gtk)$"
+        "center, class:^(xdg-desktop-portal-gtk)$"
+        "size 900 550, class:^(xdg-desktop-portal-gtk)$"
+        # Fix some "About" windows:
+        "float, title:^((About|about).*)$"
+      ];
+
+      layerrule = [
+        "abovelock true, notifications-window"
+        "order 100, notifications-window"
       ];
 
       plugin = {

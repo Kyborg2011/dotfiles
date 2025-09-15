@@ -400,12 +400,12 @@
       ];
     };
   };
-  
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    usbutils sysstat bandwhich hwinfo lm_sensors lsof pciutils ethtool dnsutils unixtools.netstat
-    lshw-gui lshw wget curl
+    usbutils sysstat bandwhich hwinfo lm_sensors lsof pciutils inetutils ethtool dnsutils unixtools.netstat
+    lshw-gui lshw wget curl ncdu
     telegram-desktop chromium transmission_4-gtk
     qtcreator ffmpeg-full sox vlc libreoffice-fresh inkscape gparted tor-browser
     wine winetricks winePackages.fonts keepassxc seahorse krusader

@@ -6,7 +6,7 @@
 
     font = {
       name = "InputMono Nerd Font";
-      size = 12; # You might need to adjust this based on the +8px cell height
+      size = 12;
     };
     
     settings = {
@@ -17,7 +17,9 @@
       tab_bar_style = "powerline";
       tab_separator = " ┇";
       wayland_titlebar_color = "background";
-      
+      remember_window_size = "yes";
+      initial_window_width = 640;
+      initial_window_height = 400;
       # Monokai theme colors
       background = "#272822";
       foreground = "#f8f8f2";
@@ -30,7 +32,6 @@
       inactive_tab_foreground = "#75715e";
       inactive_border_color = "#75715e";
       url_color = "#f8f8f2";
-
       # 16 Color Space
       color0 = "#272822";
       color8 = "#75715e";
@@ -48,16 +49,15 @@
       color14 = "#ae81ff";
       color7 = "#f8f8f2";
       color15 = "#f8f8f2";
-
-      remember_window_size = "yes";
-      initial_window_width = 640;
-      initial_window_height = 400;
     };
     
     # Open actions configuration
     extraConfig = ''
       # Instead of ctrl+shift+home:
       map ctrl+shift+h scroll_home
+
+      # Open a new tab with the shell's working directory:
+      map ctrl+shift+t launch --cwd=current --type=tab
 
       # Tail a log file (*.log) in a new OS Window and reduce its font size
       protocol file

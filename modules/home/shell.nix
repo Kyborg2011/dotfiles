@@ -99,17 +99,20 @@
       rebuild = "sudo nixos-rebuild switch --flake /etc/nixos --show-trace --upgrade";
       garbage-collect = "sudo nix-collect-garbage -d";
       fix-store = "sudo nix-store --verify --check-contents --repair";
-
       night = "killall -q hyprsunset; hyprsunset -t 4900 &";
       night-off = "killall -q hyprsunset; hyprsunset -t 6000 &";
-
       tree = "eza --tree";
-
       gs = "git status";
       gc = "git commit";
       ga = "git add";
       gr = "git reset --soft HEAD~1";
       gp = "git push";
+      cat = "bat";
+      ".." = "cd ..";
+      "..." = "cd ../..";
+      "...." = "cd ../../../..";
+      "....." = "cd ../../../../..";
+      "......" = "cd ../../../../../..";
     };
   };
 

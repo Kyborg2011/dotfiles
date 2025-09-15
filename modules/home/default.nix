@@ -32,13 +32,6 @@
     };
 
     packages = with pkgs; [
-      inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
-      inputs.hyprpicker.packages.${pkgs.system}.hyprpicker
-      inputs.hyprsunset.packages.${pkgs.system}.hyprsunset
-      inputs.hyprpolkitagent.packages.${pkgs.system}.hyprpolkitagent
-      inputs.hyprpaper.packages.${pkgs.system}.hyprpaper
-      hyprdim
-
       wofi
       wl-clipboard
       wf-recorder
@@ -55,10 +48,10 @@
       pavucontrol
       nerd-fonts.jetbrains-mono
       dmenu-wayland
-      hyprsysteminfo
       mc
       kdePackages.filelight
       timg
+      tldr
 
       # Development:
       figma-linux
@@ -117,7 +110,6 @@
 
   programs = {
     home-manager.enable = true;
-    qutebrowser.enable = true;
     ranger.enable = true;
     sagemath.enable = true;
     mpv.enable = true;
@@ -160,6 +152,16 @@
       extraConfig = ''
         (setq standard-indent 2)
       '';
+    };
+    qutebrowser = {
+      enable = true;
+      loadAutoconfig = true;
+      settings = {
+        scrolling.smooth = true;
+        qt.highdpi = true;
+        zoom.default = 125;
+        auto_save.session = true;
+      };
     };
   };
 
