@@ -61,11 +61,13 @@
           ./configuration.nix
           inputs.home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.anthony = import ./modules/home;
-            home-manager.extraSpecialArgs = specialArgs;
-            home-manager.backupFileExtension = "bkp4";
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.anthony = import ./modules/home;
+              extraSpecialArgs = specialArgs;
+              backupFileExtension = "bkp4";
+            };
           }
         ];
       };
