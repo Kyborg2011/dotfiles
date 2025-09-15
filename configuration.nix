@@ -431,6 +431,7 @@
 
     # Additional Nix tools:
     nurl nix-init nix-index nixfmt-rfc-style
+    nix-tree nix-du
 
     # Python3 environment with some other pkgs (including jupyterlab):
     (python3.withPackages(ps: [
