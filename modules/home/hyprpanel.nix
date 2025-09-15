@@ -1,9 +1,11 @@
-{ inputs, lib, ... }:
+{ inputs, config, lib, pkgs, ... }:
 
 {
   home.file = {
-    ".config/hyprpanel/config.json".source = 
-      lib.file.mkOutOfStoreSymlink "/etc/nixos/modules/home/dotfiles/hyprpanel.json";
+    ".config/hyprpanel/config.json".source = lib.mkForce (
+      config.lib.file.mkOutOfStoreSymlink "/etc/nixos/modules/home/dotfiles/hyprpanel.json"
+    );
   };
-  programs.hyprpanel.enable = true;
+  home.packages = with pkgs; [ hyprpanel ];
+  #programs.hyprpanel.enable = true;
 }

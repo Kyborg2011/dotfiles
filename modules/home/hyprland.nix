@@ -239,13 +239,10 @@ in {
         };
       };
 
-      # https://wiki.hyprland.org/Configuring/Variables/#gestures
-      gestures = {
-        workspace_swipe = true;
-        workspace_swipe_forever = true;
-        workspace_swipe_touch = true;
-        workspace_swipe_use_r = true;
-      };
+      # "https://wiki.hypr.land/Configuring/Gestures/"
+      gesture = [
+        "4, horizontal, workspace,"
+      ];
 
       ###################
       ### KEYBINDINGS ###
