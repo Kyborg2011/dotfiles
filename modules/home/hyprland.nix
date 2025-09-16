@@ -240,7 +240,7 @@ in {
 
       # "https://wiki.hypr.land/Configuring/Gestures/"
       gesture = [
-        "4, horizontal, workspace,"
+        "3, horizontal, workspace,"
       ];
 
       ###################
