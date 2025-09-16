@@ -57,6 +57,7 @@
       # Dev tools:
       tldr wget curl
       jq killall ripgrep fd bat
+      parallel-full
 
       # Development:
       figma-linux
