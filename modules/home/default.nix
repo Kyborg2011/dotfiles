@@ -2,6 +2,7 @@
 
 {
   imports = [
+    inputs.zen-browser.homeModules.twilight
     ./mimelist.nix
     ./shell.nix
     ./vim.nix
@@ -130,6 +131,7 @@
     aerc.enable = true;
     superfile.enable = true;
     nheko.enable = true;
+    zen-browser.enable = true; # Depends on inputs.zen-browser
     git = {
       enable = true;
       package = pkgs.git;

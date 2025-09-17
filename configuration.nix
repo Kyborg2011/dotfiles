@@ -218,10 +218,6 @@
       enable = true;
       enableSSHSupport = true;
     };
-    steam = {
-      enable = true;
-      remotePlay.openFirewall = true;
-    };
     npm = {
       enable = true;
       package = pkgs.nodejs;
@@ -257,6 +253,7 @@
     sysprof.enable = true;
     yubikey-agent.enable = true;
     pcscd.enable = true;
+    userborn.enable = true;
     openssh = {
       enable = true;
       # require public key authentication for better security
@@ -411,10 +408,10 @@
     qtcreator ffmpeg-full sox vlc libreoffice-fresh inkscape gparted tor-browser
     wine winetricks winePackages.fonts keepassxc seahorse krusader
     calibre mu dropbox yt-dlp zip unzip gnupg gnumake
-    watchman steam hledger-ui hledger-web
+    watchman hledger-ui hledger-web
     obs-studio direnv fontforge discord jadx ghidra
     gnome-builder puffin tree git vim mullvad-vpn
-    blueman hledger yarn jdk z-lua kile bottles obsidian ventoy-full
+    blueman hledger yarn jdk z-lua kile obsidian ventoy-full
     gnucash digikam
     ffuf protonvpn-cli protonvpn-gui
     dconf-editor xdg-utils util-linux networkmanagerapplet
@@ -434,13 +431,11 @@
     nix-tree nix-du
 
     # Python3 environment with some other pkgs (including jupyterlab):
-    (python3.withPackages(ps: [
-      ps.python-lsp-server
-      ps.pylsp-mypy ps.pyls-isort
-      ps.pydocstyle ps.pylint
-      ps.jupyterlab ps.jupyterlab-lsp
-      ps.numpy ps.pandas ps.matplotlib
-      ps.scipy ps.sympy ps.plotly
+    (python3.withPackages(ps: with ps; [
+      python-lsp-server pylsp-mypy pyls-isort
+      pydocstyle pylint jupyterlab jupyterlab-lsp
+      numpy pandas matplotlib
+      scipy sympy plotly
     ]))
 
     (google-chrome.override {
