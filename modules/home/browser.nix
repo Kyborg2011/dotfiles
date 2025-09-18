@@ -46,7 +46,7 @@ in {
 
   programs.firefox = {
     enable = true;
-    package = pkgs-unstable.firefox-devedition;
+    package = pkgs.firefox-devedition;
     profileVersion = null;
     profiles = {
       default = {

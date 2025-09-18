@@ -438,6 +438,9 @@ in {
         "size 900 550, class:^(xdg-desktop-portal-gtk)$"
         # Fix some "About" windows:
         "float, title:^((About|about).*)$"
+        # Fix KDEConnect windows:
+        "float, class:^(org.kde.kdeconnect.daemon)$"
+        "center, class:^(org.kde.kdeconnect.daemon)$"
       ];
 
       layerrule = [
