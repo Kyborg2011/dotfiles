@@ -49,5 +49,7 @@
     "terminal.integrated.drawBoldTextInBrightColors": false,
     "python.defaultInterpreterPath": "/etc/profiles/per-user/anthony/bin/python",
     "update.mode": "none",
-    "nixEnvSelector.useFlakes": true
+    "nixEnvSelector.useFlakes": true,
+    "docker.extension.enableComposeLanguageServer": false,
+    "@azure.argTenant": ""
 }

@@ -61,6 +61,9 @@ in {
           "browser.tabs.loadInBackground" = true;
           "browser.tabs.insertAfterCurrent" = true;
           "browser.toolbars.bookmarks.visibility" = "never";
+          "browser.translations.automaticallyPopup" = false;
+          "browser.translations.neverTranslateLanguages" = "ru,en";
+          "browser.translation.neverForLanguages" = "ru,en";
           "distribution.searchplugins.defaultLocale" = "ru-UA";
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
           "svg.context-properties.content.enabled" = true;

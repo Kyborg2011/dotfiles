@@ -389,7 +389,7 @@ in {
         # make Firefox/Zen PiP window floating and sticky
         "float, title:^(Picture-in-Picture)$"
         "pin, title:^(Picture-in-Picture)$"
-        "opacity 1.0 override 0.4 override, title:^(Picture-in-Picture)$"
+        "opacity 1.0 override 0.85 override, title:^(Picture-in-Picture)$"
         # throw sharing indicators away
         "workspace special silent, title:^(Firefox — Sharing Indicator)$"
         "workspace special silent, title:^(Zen — Sharing Indicator)$"
@@ -441,6 +441,8 @@ in {
         # Fix KDEConnect windows:
         "float, class:^(org.kde.kdeconnect.daemon)$"
         "center, class:^(org.kde.kdeconnect.daemon)$"
+        "float, class:^(org.kde.kdeconnect-indicator)$"
+        "center, class:^(org.kde.kdeconnect-indicator)$"
       ];
 
       layerrule = [

@@ -76,6 +76,8 @@
       cargo rustc rustfmt rust-analyzer
       ccls
       cmake gcc gdb
+      autoconf automake autogen pkg-config
+      libpkgconf autoconf-archive libtool m4
 
       # Custom fonts (Input Mono + Rofi custom theme fonts):
       (pkgs.callPackage ./custom-fonts { inherit inputs; })

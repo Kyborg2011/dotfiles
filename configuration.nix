@@ -597,6 +597,7 @@
       javaPackages.openjfx17
       fuse
       xorg.libxcb
+      libpkgconf
 
       # For Android Studio through JetBrains Toolbox:
       libsecret
