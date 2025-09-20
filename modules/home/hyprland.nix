@@ -389,7 +389,7 @@ in {
         # make Firefox/Zen PiP window floating and sticky
         "float, title:^(Picture-in-Picture)$"
         "pin, title:^(Picture-in-Picture)$"
-        "opacity 1.0 override 0.85 override, title:^(Picture-in-Picture)$"
+        "opacity 1.0 override 0.5 override, title:^(Picture-in-Picture)$"
         # throw sharing indicators away
         "workspace special silent, title:^(Firefox — Sharing Indicator)$"
         "workspace special silent, title:^(Zen — Sharing Indicator)$"
