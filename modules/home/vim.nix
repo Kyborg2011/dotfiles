@@ -44,6 +44,7 @@
       vim-gutentags
       vim-cool
       undotree
+      vim-peekaboo
     ];
 
     settings = {
@@ -65,6 +66,7 @@
       set wildmode=list:longest,list:full
       set diffopt+=vertical
       set foldmethod=indent
+      set clipboard=unnamed
 
       syntax on
       colorscheme gruvbox
