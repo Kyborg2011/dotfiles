@@ -443,6 +443,10 @@ in {
         "center, class:^(org.kde.kdeconnect.daemon)$"
         "float, class:^(org.kde.kdeconnect-indicator)$"
         "center, class:^(org.kde.kdeconnect-indicator)$"
+        # Nautilus file manager properties window:
+        "float, class:^(org.gnome.Nautilus)$"
+        "center, class:^(org.gnome.Nautilus)$"
+        "size 1200 720, class:^(org.gnome.Nautilus)$"
       ];
 
       layerrule = [

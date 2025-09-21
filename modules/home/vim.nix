@@ -66,7 +66,7 @@
       set wildmode=list:longest,list:full
       set diffopt+=vertical
       set foldmethod=indent
-      set clipboard=unnamed
+      set clipboard=unnamedplus
 
       syntax on
       colorscheme gruvbox
