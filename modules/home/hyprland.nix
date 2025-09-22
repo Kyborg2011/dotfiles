@@ -447,6 +447,8 @@ in {
         "float, class:^(org.gnome.Nautilus)$"
         "center, class:^(org.gnome.Nautilus)$"
         "size 1200 720, class:^(org.gnome.Nautilus)$"
+        # Firefox History/Downloads/Bookmarks windows:
+        "float, class:^(firefox-devedition)$, title:Library"
       ];
 
       layerrule = [
