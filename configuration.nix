@@ -463,7 +463,7 @@
 
     # Firefox Developer Edition wrapper to use with profile:
     (writeShellScriptBin "firefox-dev" ''
-      exec ${pkgs.firefox-devedition}/bin/firefox-devedition --profile "/home/anthony/.mozilla/firefox/dev-edition-default" "$@"
+      ${pkgs.firefox-devedition}/bin/firefox-devedition --profile "/home/anthony/.mozilla/firefox/dev-edition-default" "$@"
     '')
 
     # Virtualization:
