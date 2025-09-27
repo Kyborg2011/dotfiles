@@ -63,6 +63,8 @@ in {
       "$launcher" = "${pkgs.rofi-wayland}/bin/rofi -show drun -theme $HOME/.config/rofi-launcher.rasi";
       "$clipboard" = "cliphist list | wofi -S dmenu | cliphist decode | wl-copy";
 
+      "$default_keyboard_device" = "at-translated-set-2-keyboard";
+
       #################
       ### AUTOSTART ###
       #################
@@ -352,6 +354,9 @@ in {
         "$mainMod, Print, exec, grimblast --notify copysave screen"
         "$mainMod+SHIFT, Print, exec, grimblast --notify copysave active"
         
+        # RESET KEYBOARD LAYOUT TO DEFAULT (ENGLISH):
+        "$mainMod+ALT, Space, exec, hyprctl switchxkblayout $default_keyboard_device 0"
+
         # Resize submap:
         # will switch to a submap called resize
         "$mainMod, R, submap, resize"
@@ -449,6 +454,8 @@ in {
         "size 1200 720, class:^(org.gnome.Nautilus)$"
         # Firefox History/Downloads/Bookmarks windows:
         "float, class:^(firefox-devedition)$, title:Library"
+        # Ristretto Image Viewer:
+        "float, class:^(ristretto)$"
       ];
 
       layerrule = [
