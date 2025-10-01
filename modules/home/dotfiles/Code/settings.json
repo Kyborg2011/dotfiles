@@ -51,5 +51,6 @@
     "update.mode": "none",
     "nixEnvSelector.useFlakes": true,
     "docker.extension.enableComposeLanguageServer": false,
-    "@azure.argTenant": ""
+    "@azure.argTenant": "",
+    "editor.unicodeHighlight.includeStrings": false
 }

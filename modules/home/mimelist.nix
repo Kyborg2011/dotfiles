@@ -1,7 +1,7 @@
 let
   browser = "firefox-dev.desktop"; # google-chrome.desktop
   file-manager = "org.gnome.Nautilus.desktop";
-  image-viewer = "org.gnome.Loupe.desktop";
+  image-viewer = "org.xfce.ristretto.desktop";
   torrent = "transmission-gtk.desktop";
 in {
   xdg.mimeApps = rec {
