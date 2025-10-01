@@ -442,8 +442,8 @@ in {
         "center, class:^(xdg-desktop-portal-gtk)$"
         "size 900 550, class:^(xdg-desktop-portal-gtk)$"
         # Fix some "About" windows:
-        "float, initialTitle:^((About|about|О|о)\s.*)$"
-        "center, initialTitle:^((About|about|О|о)\s.*)$"
+        "float, initialTitle:^((About|about|О|о).*)$"
+        "center, initialTitle:^((About|about|О|о).*)$"
         # Fix KDEConnect windows:
         "float, class:^(org.kde.kdeconnect.daemon)$"
         "center, class:^(org.kde.kdeconnect.daemon)$"
