@@ -67,6 +67,8 @@
       set diffopt+=vertical
       set foldmethod=indent
       set clipboard=unnamedplus
+      set ignorecase smartcase
+      set wrapscan
 
       syntax on
       colorscheme gruvbox
