@@ -27,7 +27,6 @@
       vim-flog
       fzf-vim
       vim-startify
-      gruvbox
       indentLine
       kotlin-vim
       vim-polyglot
@@ -45,6 +44,12 @@
       vim-cool
       undotree
       vim-peekaboo
+      vim-dispatch
+
+      # Colorscheme plugins:
+      gruvbox
+      ayu-vim
+      sonokai
     ];
 
     settings = {
@@ -66,31 +71,54 @@
       set wildmode=list:longest,list:full
       set diffopt+=vertical
       set foldmethod=indent
+      " unnamedplus is for using in Wayland (wl-clipboard)
       set clipboard=unnamedplus
       set ignorecase smartcase
       set wrapscan
-
+      " By adding alpha, an alphabetical character is now considered as a number for <C-a>/<C-x> to increment/decrement
+      set nrformats+=alpha
       syntax on
-      colorscheme gruvbox
+
+      " Colorscheme settings:
+      if has('termguicolors')
+        set termguicolors
+      endif
+
+      " The configuration options should be placed before `colorscheme sonokai`
+      let g:sonokai_style = 'maia' " Style variants: default, atlantis, andromeda, shusia, maia, espresso
+      let g:sonokai_better_performance = 1
+
+      "colorscheme gruvbox
+      colorscheme sonokai
 
       " Rainbow Parentheses Improved plugin settings:
       let g:rainbow_active = 1
 
       " Airline settings:
-      let g:airline_theme='molokai'
-      let g:airline#extensions#tabline#enabled=1
-      let g:airline_powerline_fonts=1
+      let g:airline_theme='sonokai' " Or 'molokai'
+      let g:airline#extensions#tabline#enabled = 1
+      let g:airline#extensions#ale#enabled = 1
+      let g:airline_powerline_fonts = 1
 
       " Gitgutter settings:
       let g:gitgutter_set_sign_backgrounds=0
 
       " ALE settings:
-      let b:ale_fixers = {'javascript': ['prettier', 'eslint']}
-      let g:ale_fix_on_save = 1
+      let g:ale_fix_on_save = 0
       let g:ale_completion_enabled = 1
       let g:ale_sign_error = "✗"
       let g:ale_sign_warning = "⚠"
-      let g:ale_linters = { 'rust': ['analyzer'], 'python': ['pylint', 'pylsp'], 'c': ['ccls'], 'javascript': ['flow'] }
+      let g:ale_linters = {
+        \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+        \ 'rust': ['rust-analyzer'],
+        \ 'python': ['pylint', 'pylsp'],
+        \ 'c': ['ccls'],
+        \ 'javascript': ['quick-lint-js', 'prettier', 'eslint'],
+        \ 'kotlin': ['ktlint'],
+        \ 'go': ['gofmt']
+        \ }
+      let g:ale_fixers = g:ale_linters
+      set omnifunc=ale#completion#OmniFunc " For omni-completition function using <C-x><C-o>
 
       " Gutentags settings:
       let g:gutentags_ctags_tagfile = '.tags'
@@ -101,6 +129,7 @@
       let g:gutentags_generate_on_empty_buffer = 0
       let g:gutentags_ctags_executable = '${pkgs.universal-ctags}/bin/ctags'
       set statusline+=%{gutentags#statusline()}
+      "let g:gutentags_trace = 1
 
       " Sets the working directory to the current file's directory:
       autocmd BufEnter * lcd %:p:h
@@ -144,11 +173,21 @@
       nnoremap  <silent>   <tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>
       nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
 
+      " Clear search highlighting with double <esc>:
+      nnoremap <esc><esc> :noh<return><esc>
+
+      " YouCompleteMe settings & mappings:
+      let g:ycm_enable_semantic_highlighting = 1
+      let g:ycm_enable_inlay_hints = 1
+      let g:ycm_clear_inlay_hints_in_insert_mode = 1
+      nnoremap <silent> <leader>h <Plug>(YCMToggleInlayHints)
+      nmap <leader>yf <Plug>(YCMFindSymbolInWorkspace)
+
       " Disable arrow keys in normal mode to encourage hjkl usage:
-      noremap <Up> <NOP>
-      noremap <Down> <NOP>
-      noremap <Left> <NOP>
-      noremap <Right> <NOP>
+      "noremap <Up> <NOP>
+      "noremap <Down> <NOP>
+      "noremap <Left> <NOP>
+      "noremap <Right> <NOP>
 
       if (empty($TMUX) && getenv('TERM_PROGRAM') != 'Apple_Terminal')
         if (has("nvim"))

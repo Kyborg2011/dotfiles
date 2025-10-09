@@ -10,19 +10,57 @@
     };
     
     settings = {
-      cursor = "#fbf1c7";
-      scrollback_pager_history_size = 100;
+      scrollback_pager_history_size = 10;
+      scrollback_lines = 10000;
       enable_audio_bell = "no";
       tab_bar_edge = "bottom";
       tab_bar_style = "powerline";
+      tab_powerline_style = "round";
       tab_separator = " ┇";
       wayland_titlebar_color = "background";
       remember_window_size = "yes";
-      initial_window_width = 640;
+      initial_window_width = 800;
       initial_window_height = 400;
-      # Monokai theme colors
-      background = "#272822";
+      modify_font = "cell_height 110%";
+      hide_window_decorations = "yes";
+      notify_on_cmd_finish = "invisible";
+
+      # Animating cursor tail (grabbed from https://itsfoss.com/kitty-customization/):
+      cursor_trail = 200;
+      cursor_trail_decay = "0.1 0.4";
+      cursor_trail_start_threshold = 2;
+
+      # <Monokai Soda> theme colors:
+      background = "#191919";
+      foreground = "#c4c4b5";
+      cursor = "#f6f6ec";
+      selection_background = "#343434";
+      color0 = "#191919";
+      color8 = "#615e4b";
+      color1 = "#f3005f";
+      color9 = "#f3005f";
+      color2 = "#97e023";
+      color10 = "#97e023";
+      color3 = "#fa8419";
+      color11 = "#dfd561";
+      color4 = "#9c64fe";
+      color12 = "#9c64fe";
+      color5 = "#f3005f";
+      color13 = "#f3005f";
+      color6 = "#57d1ea";
+      color14 = "#57d1ea";
+      color7 = "#c4c4b5";
+      color15 = "#f6f6ee";
+      selection_foreground = "#191919";
+      active_tab_foreground = "#eeeeee";
+      active_tab_background = "#343434";
+      inactive_tab_foreground = "#c4c4b5";
+      inactive_tab_background = "#141414";
+
+      # <Monokai> theme colors:
+      /*background = "#272822";
       foreground = "#f8f8f2";
+      cursor = "#f8f8f2";
       selection_background = "#f8f8f2";
       selection_foreground = "#272822";
       active_tab_background = "#75715e";
@@ -32,7 +70,6 @@
       inactive_tab_foreground = "#75715e";
       inactive_border_color = "#75715e";
       url_color = "#f8f8f2";
-      # 16 Color Space
       color0 = "#272822";
       color8 = "#75715e";
       color1 = "#f92672";
@@ -48,7 +85,7 @@
       color6 = "#ae81ff";
       color14 = "#ae81ff";
       color7 = "#f8f8f2";
-      color15 = "#f8f8f2";
+      color15 = "#f8f8f2";*/
     };
     
     # Open actions configuration
@@ -58,6 +95,9 @@
 
       # Open a new tab with the shell's working directory:
       map ctrl+shift+t launch --cwd=current --type=tab
+
+      # Middle-click to paste from selection action:
+      mouse_map middle release ungrabbed paste_from_selection
 
       # Tail a log file (*.log) in a new OS Window and reduce its font size
       protocol file

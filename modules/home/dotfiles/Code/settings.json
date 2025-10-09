@@ -8,7 +8,7 @@
         "vscode-kubernetes.minikube-path-linux": "/home/anthony/.local/state/vs-kubernetes/tools/minikube/linux-amd64/minikube"
     },
     "redhat.telemetry.enabled": true,
-    "editor.fontFamily": "'Input Mono', 'Droid Sans Mono', 'monospace', monospace",
+    "editor.fontFamily": "'InputMono Nerd Font', 'Input Mono', 'Droid Sans Mono', 'monospace', monospace",
     "editor.fontSize": 14,
     "editor.lineHeight": 25,
     "workbench.iconTheme": "Monokai Pro (Filter Spectrum) Icons",
@@ -24,12 +24,16 @@
     },
     "solidity.telemetry": false,
     "git.openRepositoryInParentFolders": "never",
-    "kotlin.languageServer.enabled": false,
+    "kotlin.languageServer.enabled": true,
     "kotlin.debugAdapter.enabled": false,
     "files.autoSave": "afterDelay",
     "editor.formatOnPaste": true,
-    "java.semanticHighlighting.enabled": true,
-    "java.configuration.checkProjectSettingsExclusions": false,
+    "java.import.generatesMetadataFilesAtProjectRoot": true,
+    "files.exclude": {
+        "**/.project": true,
+        "**/.classpath": true,
+        "**/.settings": true
+    },
     "hardhat.telemetry": true,
     "[json]": {
         "editor.defaultFormatter": "vscode.json-language-features"
@@ -52,5 +56,9 @@
     "nixEnvSelector.useFlakes": true,
     "docker.extension.enableComposeLanguageServer": false,
     "@azure.argTenant": "",
-    "editor.unicodeHighlight.includeStrings": false
+    "editor.unicodeHighlight.includeStrings": false,
+    "workbench.editor.autoLockGroups": {
+        "mainThreadWebview-markdown.preview": true
+    },
+    "editor.fontLigatures": false
 }

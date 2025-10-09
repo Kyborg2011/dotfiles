@@ -78,6 +78,7 @@
       cmake gcc gdb
       autoconf automake autogen pkg-config
       libpkgconf autoconf-archive libtool m4
+      ktlint quick-lint-js
 
       # Custom fonts (Input Mono + Rofi custom theme fonts):
       (pkgs.callPackage ./custom-fonts { inherit inputs; })
