@@ -180,6 +180,8 @@
     PATH="$HOME/.nix-profile/bin:$PATH"
   '';
 
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  
   xdg.desktopEntries."org.gnome.Settings" = {
     name = "Settings";
     comment = "Gnome Control Center";
