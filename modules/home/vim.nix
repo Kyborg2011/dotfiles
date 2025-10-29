@@ -45,6 +45,8 @@
       undotree
       vim-peekaboo
       vim-dispatch
+      vim-markdown-composer
+      vim-markdown-toc
 
       # Colorscheme plugins:
       gruvbox
@@ -60,6 +62,8 @@
       shiftwidth = 4;
       tabstop = 4;
       background = "dark";
+      mouse = "a";
+      mousefocus = true;
     };
 
     extraConfig = ''
@@ -71,13 +75,14 @@
       set wildmode=list:longest,list:full
       set diffopt+=vertical
       set foldmethod=indent
-      " unnamedplus is for using in Wayland (wl-clipboard)
-      set clipboard=unnamedplus
+      set clipboard=unnamedplus "unnamedplus is for using in Wayland (wl-clipboard)
       set ignorecase smartcase
       set wrapscan
-      " By adding alpha, an alphabetical character is now considered as a number for <C-a>/<C-x> to increment/decrement
-      set nrformats+=alpha
+      set nrformats+=alpha "an alphabetical character is now considered as a number for <C-a>/<C-x> to increment/decrement
       syntax on
+
+      " Set custom leader key to <space>:
+      let mapleader = "\<space>"
 
       " Colorscheme settings:
       if has('termguicolors')
@@ -108,7 +113,7 @@
       let g:ale_completion_enabled = 1
       let g:ale_sign_error = "✗"
       let g:ale_sign_warning = "⚠"
-      let g:ale_linters = {
+      let g:ale_fixers = {
         \ '*': ['remove_trailing_lines', 'trim_whitespace'],
         \ 'rust': ['rust-analyzer'],
         \ 'python': ['pylint', 'pylsp'],
@@ -117,7 +122,8 @@
         \ 'kotlin': ['ktlint'],
         \ 'go': ['gofmt']
         \ }
-      let g:ale_fixers = g:ale_linters
+      let g:ale_virtualtext_cursor = 'disabled'
+      let g:ale_linters = g:ale_fixers " Use the same tools for linting as for fixing
       set omnifunc=ale#completion#OmniFunc " For omni-completition function using <C-x><C-o>
 
       " Gutentags settings:

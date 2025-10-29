@@ -6,7 +6,7 @@
 
     font = {
       name = "InputMono Nerd Font";
-      size = 12;
+      size = 11.0;
     };
     
     settings = {
@@ -21,14 +21,14 @@
       remember_window_size = "yes";
       initial_window_width = 800;
       initial_window_height = 400;
-      modify_font = "cell_height 110%";
+      modify_font = "cell_height 130%";
       hide_window_decorations = "yes";
       notify_on_cmd_finish = "invisible";
 
       # Animating cursor tail (grabbed from https://itsfoss.com/kitty-customization/):
-      cursor_trail = 200;
-      cursor_trail_decay = "0.1 0.4";
-      cursor_trail_start_threshold = 2;
+      #cursor_trail = 200;
+      #cursor_trail_decay = "0.1 0.4";
+      #cursor_trail_start_threshold = 2;
 
       # <Monokai Soda> theme colors:
       background = "#191919";

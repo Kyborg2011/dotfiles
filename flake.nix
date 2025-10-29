@@ -59,7 +59,7 @@
   outputs = {nixpkgs, ...} @ inputs: 
     let
       system = "x86_64-linux";
-      pkgs-unstable = import inputs.nixpkgs-unstable { inherit system; };
+      pkgs-unstable = import inputs.nixpkgs-unstable { inherit system; config.allowUnfree = true; };
       specialArgs = { inherit inputs pkgs-unstable; };
     in {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {

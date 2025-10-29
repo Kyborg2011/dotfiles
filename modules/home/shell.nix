@@ -58,8 +58,7 @@
         export QT_QPA_PLATFORMTHEME=qt6ct
         export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
         export QT_WAYLAND_FORCE_DPI=physical
-        export JAVA_TOOL_OPTIONS='-Djdk.gtk.version=2.2'
-        export JDK_JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel"
+        #export JDK_JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel"
         export CLUTTER_BACKEND=wayland
         export XCURSOR_SIZE=24
         export NIXOS_OZONE_WL=1

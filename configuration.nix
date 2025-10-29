@@ -365,7 +365,39 @@
     ];
   };
 
-  xdg.icons.enable = true;
+  xdg = {
+    menus.enable = true;
+    icons.enable = true;
+    autostart.enable = true;
+    mime.enable = true;
+    portal = {
+      enable = true;
+      xdgOpenUsePortal = true;
+      wlr.enable = false; # disable wlr if using Hyprland
+      extraPortals = with pkgs; [
+        xdg-desktop-portal
+        inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland
+        xdg-desktop-portal-gtk
+      ];
+      config = {
+        common = {
+          default = [ "gtk" ];
+          "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
+        };
+        hyprland = {
+          default = [ "hyprland" "gtk" ];
+          "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
+          "org.freedesktop.impl.portal.OpenURI" = [ "gtk" ];
+        };
+      };
+    };
+  };
+
+  programs.hyprland = {
+    enable = true;
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
+  };
 
   qt = {
     enable = true;
@@ -395,6 +427,7 @@
       PATH = [
         "/home/anthony/.local/share/JetBrains/Toolbox/scripts"
       ];
+      GTK_USE_PORTAL = "1";
     };
   };
 
@@ -414,7 +447,7 @@
     blueman hledger yarn jdk z-lua kile obsidian ventoy-full
     gnucash digikam
     ffuf protonvpn-cli protonvpn-gui
-    dconf-editor xdg-utils util-linux networkmanagerapplet
+    dconf-editor util-linux networkmanagerapplet
     gimp3-with-plugins jupyter-all
     texliveFull loupe sushi code-nautilus
     vesktop fractal
@@ -425,10 +458,22 @@
     yubikey-manager yubikey-personalization yubioath-flutter yubico-piv-tool
     lynx universal-ctags ddd
     googleearth-pro signal-desktop wirelesstools
+    e2fsprogs
+    #pkgs-unstable.android-studio
 
     # Additional Nix tools:
     nurl nix-init nix-index nixfmt-rfc-style
     nix-tree nix-du
+
+    # XDG related tools:
+    xdg-launch xdg-utils # A set of command line tools that assist apps with a variety of desktop integration tasks
+    xdg-user-dirs # Tool to help manage well known user directories like the desktop folder and the music folder
+    xdg-dbus-proxy # DBus proxy for Flatpak and others
+    xdg-desktop-portal # Desktop integration portals for sandboxed apps
+    xdg-desktop-portal-gnome
+    xdg-desktop-portal-gtk # Desktop integration portals for sandboxed apps
+    xdg-desktop-portal-hyprland
+
 
     # Python3 environment with some other pkgs (including jupyterlab):
     (python3.withPackages(ps: with ps; [
@@ -529,12 +574,6 @@
     dash-to-dock applications-menu workspace-indicator clipboard-indicator caffeine
   ]);
 
-  programs.hyprland = {
-    enable = true;
-    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-    portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
-  };
-
   # Android (adb) setup
   programs.adb.enable = true;
   services.udev.extraRules =
@@ -615,6 +654,7 @@
       xorg.libXtst
       fontconfig
       freetype
+      e2fsprogs
     ];
   };
 

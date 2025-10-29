@@ -1,8 +1,9 @@
 let
-  browser = "firefox-dev.desktop"; # google-chrome.desktop
+  browser = "google-chrome.desktop"; # firefox-dev.desktop
   file-manager = "org.gnome.Nautilus.desktop";
   image-viewer = "org.xfce.ristretto.desktop";
   torrent = "transmission-gtk.desktop";
+  reader = "okular.desktop";
 in {
   xdg.mimeApps = rec {
     enable = true;
@@ -14,7 +15,7 @@ in {
       "application/xhtml+xml" = browser;
       "text/html" = browser;
       "x-scheme-handler/magnet" = torrent;
-      "application/pdf" = browser;
+      "application/pdf" = reader;
       "image/jpeg" = image-viewer;
       "image/bmp" = image-viewer;
       "image/gif" = image-viewer;

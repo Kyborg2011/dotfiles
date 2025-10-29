@@ -75,7 +75,7 @@
       nodePackages.prettier
       cargo rustc rustfmt rust-analyzer
       ccls
-      cmake gcc gdb
+      cmake gcc gdb clang-tools
       autoconf automake autogen pkg-config
       libpkgconf autoconf-archive libtool m4
       ktlint quick-lint-js
