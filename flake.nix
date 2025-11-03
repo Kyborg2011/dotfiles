@@ -38,6 +38,8 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    nix-alien.url = "github:thiagokokada/nix-alien";
+
     firefox-mod-blur = {
       url = "github:datguypiko/Firefox-Mod-Blur";
       flake = false;

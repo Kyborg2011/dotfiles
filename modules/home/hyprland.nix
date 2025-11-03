@@ -89,6 +89,7 @@ in {
         "[workspace 2 silent] telegram-desktop"
         "[workspace 3 silent] ${config.home.homeDirectory}/.local/share/JetBrains/Toolbox/apps/android-studio/bin/studio"
         "[workspace 5 silent] okular"
+        "[workspace 5 silent] xdg-launch zen-twilight.desktop"
         "[workspace 6 silent] evolution"
         "dbus-update-activation-environment --systemd --all"
         "systemctl --user import-environment QT_QPA_PLATFORMTHEME WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
@@ -109,7 +110,6 @@ in {
         "XDG_SESSION_DESKTOP,Hyprland"
         "GDK_BACKEND,wayland,x11"
         "CLUTTER_BACKEND,wayland"
-        "QT_QPA_PLATFORM=wayland;xcb"
         "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
         "SDL_VIDEODRIVER,x11"
         "MOZ_ENABLE_WAYLAND,1"
@@ -399,9 +399,6 @@ in {
         "workspace special silent, title:^(Firefox — Sharing Indicator)$"
         "workspace special silent, title:^(Zen — Sharing Indicator)$"
         "workspace special silent, title:^(.*is sharing (your screen|a window)\.)$"
-        # start Spotify and YouTube Music in ws9
-        "workspace 9 silent, title:^(Spotify( Premium)?)$"
-        "workspace 9 silent, title:^(YouTube Music)$"
         # idle inhibit while watching videos
         "idleinhibit focus, class:^(mpv|.+exe|celluloid)$"
         "idleinhibit focus, class:^(zen)$, title:^(.*YouTube.*)$"
@@ -457,6 +454,9 @@ in {
         "float, class:^(firefox-devedition)$, title:Library"
         # Ristretto Image Viewer:
         "float, class:^(ristretto)$"
+        # Mpv media player:
+        "float, class:^(mpv)$"
+        "center, class:^(mpv)$"
       ];
 
       layerrule = [

@@ -134,6 +134,7 @@
         "olm-3.2.16"
         "libsoup-2.74.3"
         "googleearth-pro-7.3.6.10201"
+        "python3.12-youtube-dl-2021.12.17"
       ];
     };
   };
@@ -362,6 +363,7 @@
       "uinput" # Needed for Ydotool
       "libvirtd" # Needed for Virt Manager
       "vboxusers" # Needed for Virtualbox
+      "docker"
     ];
   };
 
@@ -459,7 +461,8 @@
     lynx universal-ctags ddd
     googleearth-pro signal-desktop wirelesstools
     e2fsprogs
-    #pkgs-unstable.android-studio
+    gnome-network-displays
+    inputs.nix-alien.packages.${system}.nix-alien
 
     # Additional Nix tools:
     nurl nix-init nix-index nixfmt-rfc-style
@@ -474,6 +477,13 @@
     xdg-desktop-portal-gtk # Desktop integration portals for sandboxed apps
     xdg-desktop-portal-hyprland
 
+    # Virtualization:
+    distrobox boxbuddy
+    # Markdown editors:
+    typora
+    apostrophe
+    # Wallpaper managers on Wayland:
+    waypaper
 
     # Python3 environment with some other pkgs (including jupyterlab):
     (python3.withPackages(ps: with ps; [
@@ -510,13 +520,6 @@
     (writeShellScriptBin "firefox-dev" ''
       ${pkgs.firefox-devedition}/bin/firefox-devedition --profile "/home/anthony/.mozilla/firefox/dev-edition-default" "$@"
     '')
-
-    # Virtualization:
-    distrobox boxbuddy
-    # Markdown editors:
-    typora apostrophe
-    # Wallpaper managers on Wayland:
-    waypaper
 
     # OPSEC (from Kali Linux distribution):
     recon-ng theharvester maltego dmitry fierce openvas-scanner
@@ -570,6 +573,7 @@
     gnome-control-center gnome-tweaks gnome-shell-extensions evolution
   ] ++ (with pkgs.kdePackages; [
     marble qtwayland okular ghostwriter
+    pulseaudio-qt
   ]) ++ (with pkgs.gnomeExtensions; [
     dash-to-dock applications-menu workspace-indicator clipboard-indicator caffeine
   ]);
@@ -628,14 +632,12 @@
     libraries = with pkgs; [
       jdk17
       uutils-coreutils-noprefix
-      xorg.xorgserver
       gtk3
       libglibutil
       glib
       glibc
       javaPackages.openjfx17
       fuse
-      xorg.libxcb
       libpkgconf
 
       # For Android Studio through JetBrains Toolbox:
@@ -646,16 +648,43 @@
       libGL
       libxkbcommon
       wayland
-      xorg.libX11
-      xorg.libXext
-      xorg.libXi
-      xorg.libXrandr
-      xorg.libXrender
-      xorg.libXtst
       fontconfig
       freetype
       e2fsprogs
-    ];
+
+      # For Android emulator:
+      libpulseaudio
+      libpng
+      nss
+      libtiff
+      libuuid
+      zlib
+      libbsd
+      ncurses5
+      libdrm
+      expat
+      nspr
+      alsa-lib
+      llvmPackages_15.libllvm.lib
+      waylandpp.lib
+    ] ++ (with pkgs.xorg; [
+      libX11
+      libXext
+      libXdamage
+      libXfixes
+      libxcb
+      libXcomposite
+      libXcursor
+      libXi
+      libXrender
+      libXtst
+      libICE
+      libSM
+      libxkbfile
+      libxshmfence
+      libXrandr
+      xorgserver
+    ]);
   };
 
   users.defaultUserShell = pkgs.zsh;
