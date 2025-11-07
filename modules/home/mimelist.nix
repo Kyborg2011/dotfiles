@@ -2,7 +2,7 @@ let
   browser = "google-chrome.desktop"; # firefox-dev.desktop
   file-manager = "org.gnome.Nautilus.desktop";
   image-viewer = "org.xfce.ristretto.desktop";
-  torrent = "transmission-gtk.desktop";
+  torrent = "org.qbittorrent.qBittorrent.desktop";
   reader = "okular.desktop";
 in {
   xdg.mimeApps = rec {
@@ -10,12 +10,22 @@ in {
     associations.added = defaultApplications;
     defaultApplications = {
       "inode/directory" = file-manager;
+
       "x-scheme-handler/http" = browser;
       "x-scheme-handler/https" = browser;
       "application/xhtml+xml" = browser;
       "text/html" = browser;
+
       "x-scheme-handler/magnet" = torrent;
+      "application/x-bittorrent" = torrent;
+
       "application/pdf" = reader;
+      "application/epub+zip" = reader;
+      "application/x-fictionbook+xml" = reader;
+      "application/x-mobipocket-ebook" = reader;
+      "application/x-cbr" = reader;
+      "application/x-cbz" = reader;
+
       "image/jpeg" = image-viewer;
       "image/bmp" = image-viewer;
       "image/gif" = image-viewer;

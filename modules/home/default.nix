@@ -44,7 +44,6 @@
       brightnessctl
       filezilla
       tree
-      freecad
       youtube-music
       pavucontrol
       nerd-fonts.jetbrains-mono
@@ -61,7 +60,6 @@
       parallel-full
 
       # Development:
-      figma-linux
       github-desktop
       icon-library
       jetbrains-toolbox
@@ -69,17 +67,17 @@
       # Languages:
       bun
       gjs
-      typescript
+      typescript yarn
       eslint
       nodejs
       nodePackages.prettier
       cargo rustc rustfmt rust-analyzer
       ccls
-      cmake gcc gdb clang-tools
+      cmake gcc gnumake gdb clang-tools
       autoconf automake autogen pkg-config
       libpkgconf autoconf-archive libtool m4
       ktlint quick-lint-js
-      swift swiftformat
+      watchman
 
       # Custom fonts (Input Mono + Rofi custom theme fonts):
       (pkgs.callPackage ./custom-fonts { inherit inputs; })

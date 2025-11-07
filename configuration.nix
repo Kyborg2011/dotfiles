@@ -133,8 +133,8 @@
         "ventoy-1.1.05"
         "olm-3.2.16"
         "libsoup-2.74.3"
-        "googleearth-pro-7.3.6.10201"
         "python3.12-youtube-dl-2021.12.17"
+        #"gradle-7.6.6"
       ];
     };
   };
@@ -219,10 +219,10 @@
       enable = true;
       enableSSHSupport = true;
     };
-    npm = {
+    /*npm = {
       enable = true;
       package = pkgs.nodejs;
-    };
+    };*/
     appimage = {
       enable = true;
       binfmt = true;
@@ -232,6 +232,11 @@
         ];
       };
     };
+    /*steam = {
+      enable = true;
+      remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+      dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    };*/
   };
 
   # List services that you want to enable:
@@ -289,10 +294,10 @@
         };
       };
     };
-    mysql = {
-      enable = true;
-      package = pkgs.mariadb;
-    };
+    #mysql = {
+    #  enable = true;
+    #  package = pkgs.mariadb;
+    #};
     pipewire = {
       enable = true;
       alsa.enable = true;
@@ -439,30 +444,36 @@
     usbutils sysstat bandwhich hwinfo lm_sensors lsof
     pciutils inetutils ethtool dnsutils unixtools.netstat
     lshw-gui lshw
-    telegram-desktop chromium transmission_4-gtk
-    qtcreator ffmpeg-full sox vlc libreoffice-fresh inkscape gparted tor-browser
+    telegram-desktop chromium
+    ffmpeg-full sox vlc libreoffice-fresh tor-browser
     wine winetricks winePackages.fonts keepassxc seahorse krusader
-    calibre mu dropbox yt-dlp zip unzip gnupg gnumake
-    watchman hledger-ui hledger-web
-    obs-studio direnv fontforge discord jadx ghidra
-    gnome-builder puffin tree git vim mullvad-vpn
-    blueman hledger yarn jdk z-lua kile obsidian ventoy-full
-    gnucash digikam
+    calibre mu dropbox yt-dlp zip unzip
+    hledger hledger-ui hledger-web gnucash
+    obs-studio fontforge jadx ghidra
+    gnome-builder puffin mullvad-vpn
+    blueman kile ventoy-full
+    digikam
     ffuf protonvpn-cli protonvpn-gui
     dconf-editor util-linux networkmanagerapplet
-    gimp3-with-plugins jupyter-all
-    texliveFull loupe sushi code-nautilus
-    vesktop fractal
+    gimp3-with-plugins inkscape
+    loupe sushi code-nautilus
+    discord vesktop fractal signal-desktop
     rhythmbox darktable pidgin audacity sublime4
-    systemd libsecret xorg.xhost polkit_gnome
+    libsecret xorg.xhost polkit_gnome
     desktop-file-utils iotop iftop
-    qalculate-gtk speedtest-cli neomutt poppler
+    qalculate-gtk poppler
     yubikey-manager yubikey-personalization yubioath-flutter yubico-piv-tool
     lynx universal-ctags ddd
-    googleearth-pro signal-desktop wirelesstools
+    wirelesstools
     e2fsprogs
     gnome-network-displays
     inputs.nix-alien.packages.${system}.nix-alien
+    tinc # "https://www.tinc-vpn.org/"
+    opentracker # "https://erdgeist.org/arts/software/opentracker/"
+
+    qbittorrent deluge-gtk transmission_4-qt
+
+    maltego burpsuite zap nmap aircrack-ng john johnny hashcat apktool gparted
 
     # Additional Nix tools:
     nurl nix-init nix-index nixfmt-rfc-style
@@ -472,10 +483,6 @@
     xdg-launch xdg-utils # A set of command line tools that assist apps with a variety of desktop integration tasks
     xdg-user-dirs # Tool to help manage well known user directories like the desktop folder and the music folder
     xdg-dbus-proxy # DBus proxy for Flatpak and others
-    xdg-desktop-portal # Desktop integration portals for sandboxed apps
-    xdg-desktop-portal-gnome
-    xdg-desktop-portal-gtk # Desktop integration portals for sandboxed apps
-    xdg-desktop-portal-hyprland
 
     # Virtualization:
     distrobox boxbuddy
@@ -512,7 +519,7 @@
         + " --enable-features="
             + "VaapiVideoEncoder,"
             + "CanvasOopRasterization,"
-            # + "Vulkan"
+            + "Vulkan"
         ;
     })
 
@@ -521,59 +528,12 @@
       ${pkgs.firefox-devedition}/bin/firefox-devedition --profile "/home/anthony/.mozilla/firefox/dev-edition-default" "$@"
     '')
 
-    # OPSEC (from Kali Linux distribution):
-    recon-ng theharvester maltego dmitry fierce openvas-scanner
-    burpsuite zap commix reaverwps armitage mimikatz
-    # Network discovery and scanning
-    nmap masscan
-    # DNS and domain reconnaissance  
-    dnsrecon fierce
-    # Vulnerability scanning
-    nikto lynis
-    # Web application testing
-    dirb gobuster wfuzz sqlmap
-    # Wireless security
-    aircrack-ng pixiewps wifite2 kismet macchanger
-    mdbtools gnuradio gqrx inspectrum
-    # Exploitation frameworks
-    metasploit
-    # Password cracking
-    john johnny hashcat thc-hydra medusa
-    # Digital forensics
-    binwalk foremost sleuthkit volatility2-bin yara volatility3
-    # Network analysis
-    wireshark tcpdump tcpflow tcpreplay netsniff-ng
-    # Network tools
-    netcat-gnu socat proxychains
-    # Reverse engineering
-    radare2 cutter apktool
-    # SDR and radio
-    hackrf kalibrate-rtl multimon-ng
-    # RFID/NFC
-    libnfc mfoc mfcuk
-    # Fuzzing
-    aflplusplus spike
-    # Misc security tools
-    chkrootkit ssdeep hashdeep exiv2 steghide
-    # Network services
-    sipp sipsak
-    # Load testing
-    siege
-    # SSL/TLS tools
-    sslscan ssldump sslsplit
-    # Database tools
-    sqlitebrowser
-    # Archive tools
-    fcrackzip pdfcrack unrar
-    # System tools
-    gparted ddrescue safecopy extundelete testdisk
-    # Development tools
-    nasm
     # Gnome related apps:
     gnome-control-center gnome-tweaks gnome-shell-extensions evolution
   ] ++ (with pkgs.kdePackages; [
     marble qtwayland okular ghostwriter
     pulseaudio-qt
+    ktorrent
   ]) ++ (with pkgs.gnomeExtensions; [
     dash-to-dock applications-menu workspace-indicator clipboard-indicator caffeine
   ]);
@@ -630,13 +590,12 @@
   programs.nix-ld = {
     enable = true;
     libraries = with pkgs; [
-      jdk17
+      #jdk17
       uutils-coreutils-noprefix
       gtk3
       libglibutil
-      glib
       glibc
-      javaPackages.openjfx17
+      #javaPackages.openjfx17
       fuse
       libpkgconf
 
@@ -666,7 +625,23 @@
       nspr
       alsa-lib
       llvmPackages_15.libllvm.lib
+      llvmPackages_15.libcxx
       waylandpp.lib
+
+      # For swiftly:
+      binutils
+      icu # libicu-dev
+      curl # libcurl4-openssl-dev
+      libedit # libedit-dev
+      sqlite # libsqlite3-dev
+      ncurses # libncurses-dev
+      python311 # libpython3-dev
+      libxml2 # libxml2-dev
+      pkg-config # pkg-config (same name)
+      util-linux # uuid-dev (provides libuuid)
+      tzdata # tzdata (same name)
+      gcc # gcc (same name)
+      stdenv.cc.cc.lib # libstdc++-12-dev (included with gcc)
     ] ++ (with pkgs.xorg; [
       libX11
       libXext

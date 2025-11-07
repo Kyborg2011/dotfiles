@@ -457,6 +457,9 @@ in {
         # Mpv media player:
         "float, class:^(mpv)$"
         "center, class:^(mpv)$"
+        # qBittorrent:
+        "float, class:^(org.qbittorrent.qBittorrent)$"
+        "center, class:^(org.qbittorrent.qBittorrent)$"
       ];
 
       layerrule = [

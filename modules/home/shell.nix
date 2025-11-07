@@ -63,9 +63,9 @@
         export NIXOS_OZONE_WL=1
         export GDK_BACKEND=wayland
       fi
-
-      ADDITIONAL_CFGS=$(find $HOME/zshrc -name '*.sh')
-      for FILE in $ADDITIONAL_CFGS; do
+      
+      # Load additional zsh configuration files:
+      for FILE in "$(find $HOME/zshrc -maxdepth 1 -name '*.sh' -print -quit)"; do
           source $FILE
       done
 
