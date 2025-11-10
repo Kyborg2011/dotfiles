@@ -78,6 +78,8 @@
       libpkgconf autoconf-archive libtool m4
       ktlint quick-lint-js
       watchman
+      qtcreator qtox
+      kdePackages.qttools
 
       # Custom fonts (Input Mono + Rofi custom theme fonts):
       (pkgs.callPackage ./custom-fonts { inherit inputs; })
@@ -173,6 +175,12 @@
         auto_save.session = true;
       };
     };
+  };
+
+  qt = {
+    enable = true;
+    platformTheme.name = "gtk3";
+    style.name = "adwaita-dark";
   };
 
   xdg.configFile."environment.d/envvars.conf".text = ''

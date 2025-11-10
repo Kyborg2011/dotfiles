@@ -310,12 +310,9 @@
         layout = "us,ru,ua";
         options = "grp:win_space_toggle";
       };
+      desktopManager.gnome.enable = true;
       videoDrivers = [ "modesetting" "nvidia" ];
       displayManager.gdm.enable = true;
-      desktopManager = {
-        gnome.enable = true;
-        xfce.enable = true;
-      };
     };
     postgresql = {
       enable = true;
@@ -406,12 +403,6 @@
     portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
   };
 
-  qt = {
-    enable = true;
-    platformTheme = "gnome";
-    style = "adwaita-dark";
-  };
-
   environment = {
     localBinInPath = true;
     homeBinInPath = true;
@@ -452,7 +443,7 @@
     obs-studio fontforge jadx ghidra
     gnome-builder puffin mullvad-vpn
     blueman kile ventoy-full
-    digikam
+    digikam wayland-utils
     ffuf protonvpn-cli protonvpn-gui
     dconf-editor util-linux networkmanagerapplet
     gimp3-with-plugins inkscape
@@ -470,8 +461,9 @@
     inputs.nix-alien.packages.${system}.nix-alien
     tinc # "https://www.tinc-vpn.org/"
     opentracker # "https://erdgeist.org/arts/software/opentracker/"
+    hardinfo2
 
-    qbittorrent deluge-gtk transmission_4-qt
+    qbittorrent transmission_4-qt
 
     maltego burpsuite zap nmap aircrack-ng john johnny hashcat apktool gparted
 
@@ -519,7 +511,6 @@
         + " --enable-features="
             + "VaapiVideoEncoder,"
             + "CanvasOopRasterization,"
-            + "Vulkan"
         ;
     })
 
@@ -533,7 +524,7 @@
   ] ++ (with pkgs.kdePackages; [
     marble qtwayland okular ghostwriter
     pulseaudio-qt
-    ktorrent
+    kcharselect kclock isoimagewriter 
   ]) ++ (with pkgs.gnomeExtensions; [
     dash-to-dock applications-menu workspace-indicator clipboard-indicator caffeine
   ]);
