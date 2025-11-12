@@ -60,5 +60,17 @@
     "workbench.editor.autoLockGroups": {
         "mainThreadWebview-markdown.preview": true
     },
-    "editor.fontLigatures": false
+    "editor.fontLigatures": false,
+    "qt-core.additionalQtPaths": [
+        {
+            "name": "Qt-6.9.3-linux-g++_from_PATH",
+            "path": "/etc/profiles/per-user/anthony/bin/qtpaths"
+        },
+        {
+            "name": "Qt-6.9.3-linux-g++",
+            "path": "/etc/profiles/per-user/anthony/bin/qmake"
+        }
+    ],
+    "qt-core.defaultProjectDirectory": "/home/anthony/dev/qt-projects",
+    "qt-qml.doNotAskForQmllsDownload": true
 }

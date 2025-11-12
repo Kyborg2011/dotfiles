@@ -38,7 +38,7 @@
       modesetting.enable = true;
       powerManagement.enable = true;
       powerManagement.finegrained = false;
-      open = false; # For old GPUs like Nvidia Quadro M1200!
+      open = false; # For old GPUs like Nvidia Quadro M1200
       nvidiaSettings = true;
       # Force Intel GPU for display:
       prime = {
@@ -60,8 +60,8 @@
     kernelParams = [
       "usbcore.autosuspend=-1"
       "snd-intel-dspcfg.dsp_driver=1"
-      #"systemd.log_level=debug" 
-      #"systemd.log_target=console"
+      # "systemd.log_level=debug" 
+      # "systemd.log_target=console"
     ];
     kernelModules = [
       "snd-hda-intel"
@@ -134,7 +134,6 @@
         "olm-3.2.16"
         "libsoup-2.74.3"
         "python3.12-youtube-dl-2021.12.17"
-        #"gradle-7.6.6"
       ];
     };
   };
@@ -175,7 +174,7 @@
     podman.enable = true;
     virtualbox.host = {
       enable = true;
-      enableExtensionPack = false; # Disable autostart of services
+      enableExtensionPack = false;
     };
   };
 
@@ -219,10 +218,10 @@
       enable = true;
       enableSSHSupport = true;
     };
-    /*npm = {
-      enable = true;
-      package = pkgs.nodejs;
-    };*/
+    # npm = {
+    #   enable = true;
+    #   package = pkgs.nodejs;
+    # };
     appimage = {
       enable = true;
       binfmt = true;
@@ -232,11 +231,11 @@
         ];
       };
     };
-    /*steam = {
-      enable = true;
-      remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-      dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-    };*/
+    # steam = {
+    #   enable = true;
+    #   remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    #   dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    # };
   };
 
   # List services that you want to enable:
@@ -262,11 +261,10 @@
     userborn.enable = true;
     openssh = {
       enable = true;
-      # require public key authentication for better security
       settings = {
         PasswordAuthentication = false;
         KbdInteractiveAuthentication = false;
-        #PermitRootLogin = "yes";
+        # PermitRootLogin = "yes";
       };
     };
     mullvad-vpn = {
@@ -283,21 +281,21 @@
       core-developer-tools.enable = true;
       gnome-browser-connector.enable = true;
     };
-    nginx = {
-      enable = true;
-      virtualHosts.localhost = {
-        locations."/" = {
-          return = "200 '<html><body>It works</body></html>'";
-          extraConfig = ''
-            default_type text/html;
-          '';
-        };
-      };
-    };
-    #mysql = {
+    # nginx = {
+    #   enable = true;
+    #   virtualHosts.localhost = {
+    #     locations."/" = {
+    #       return = "200 '<html><body>It works</body></html>'";
+    #       extraConfig = ''
+    #         default_type text/html;
+    #       '';
+    #     };
+    #   };
+    # };
+    # mysql = {
     #  enable = true;
     #  package = pkgs.mariadb;
-    #};
+    # };
     pipewire = {
       enable = true;
       alsa.enable = true;
@@ -312,7 +310,7 @@
       };
       desktopManager.gnome.enable = true;
       videoDrivers = [ "modesetting" "nvidia" ];
-      displayManager.gdm.enable = true;
+      # displayManager.gdm.enable = true;
     };
     postgresql = {
       enable = true;
@@ -321,32 +319,43 @@
     };
   };
 
-  # Enable the NixOS printing service for HP printers:
-  services.printing = {
-    enable = true;
-    drivers = with pkgs; [ hplip gutenprint ];
-    listenAddresses = [ "*:631" ];
-    allowFrom = [ "all" ];
-    browsing = true;
-    defaultShared = true;
-    openFirewall = true;
-    logLevel = "debug";
-    browsedConf = ''
-      BrowseDNSSDSubTypes _cups,_print
-      BrowseLocalProtocols all
-      BrowseRemoteProtocols all
-      CreateIPPPrinterQueues All
-      BrowseProtocols all
-    '';
+  # Configuring KDE Plasma 6:
+  services = {
+    desktopManager.plasma6.enable = true;
+    displayManager.sddm.enable = true;
+    displayManager.sddm.wayland.enable = true;
   };
-  # For all IPP printers (printing without installing drivers):
-  services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    openFirewall = true;
-    publish = {
+  # To resolve "programs.ssh.askPassword":
+  programs.ssh.askPassword = lib.mkForce "${pkgs.seahorse}/libexec/seahorse/ssh-askpass";
+
+  services = {
+    # Enable the NixOS printing service for HP printers:
+    printing = {
       enable = true;
-      userServices = true;
+      drivers = with pkgs; [ hplip gutenprint ];
+      listenAddresses = [ "*:631" ];
+      allowFrom = [ "all" ];
+      browsing = true;
+      defaultShared = true;
+      openFirewall = true;
+      logLevel = "debug";
+      browsedConf = ''
+        BrowseDNSSDSubTypes _cups,_print
+        BrowseLocalProtocols all
+        BrowseRemoteProtocols all
+        CreateIPPPrinterQueues All
+        BrowseProtocols all
+      '';
+    };
+    # For all IPP printers (printing without installing drivers):
+    avahi = {
+      enable = true;
+      nssmdns4 = true;
+      openFirewall = true;
+      publish = {
+        enable = true;
+        userServices = true;
+      };
     };
   };
 
@@ -435,7 +444,7 @@
     usbutils sysstat bandwhich hwinfo lm_sensors lsof
     pciutils inetutils ethtool dnsutils unixtools.netstat
     lshw-gui lshw
-    telegram-desktop chromium
+    telegram-desktop
     ffmpeg-full sox vlc libreoffice-fresh tor-browser
     wine winetricks winePackages.fonts keepassxc seahorse krusader
     calibre mu dropbox yt-dlp zip unzip
@@ -462,6 +471,7 @@
     tinc # "https://www.tinc-vpn.org/"
     opentracker # "https://erdgeist.org/arts/software/opentracker/"
     hardinfo2
+    llvmPackages.libcxxClang
 
     qbittorrent transmission_4-qt
 
@@ -479,7 +489,6 @@
     # Virtualization:
     distrobox boxbuddy
     # Markdown editors:
-    typora
     apostrophe
     # Wallpaper managers on Wayland:
     waypaper
@@ -492,7 +501,7 @@
       scipy sympy plotly
     ]))
 
-    (google-chrome.override {
+    (pkgs-unstable.google-chrome.override {
       # enable video encoding and hardware acceleration, along with several
       # suitable for my configuration
       # change it if you have any issues
@@ -507,23 +516,16 @@
         + " --enable-raw-draw"
         + " --enable-zero-copy" # dont enable in about:flags
         + " --ignore-gpu-blocklist" # dont enable in about:flags
-        # + " --use-vulkan"
         + " --enable-features="
             + "VaapiVideoEncoder,"
             + "CanvasOopRasterization,"
         ;
     })
 
-    # Firefox Developer Edition wrapper to use with profile:
-    (writeShellScriptBin "firefox-dev" ''
-      ${pkgs.firefox-devedition}/bin/firefox-devedition --profile "/home/anthony/.mozilla/firefox/dev-edition-default" "$@"
-    '')
-
     # Gnome related apps:
     gnome-control-center gnome-tweaks gnome-shell-extensions evolution
   ] ++ (with pkgs.kdePackages; [
     marble qtwayland okular ghostwriter
-    pulseaudio-qt
     kcharselect kclock isoimagewriter 
   ]) ++ (with pkgs.gnomeExtensions; [
     dash-to-dock applications-menu workspace-indicator clipboard-indicator caffeine
@@ -605,7 +607,7 @@
       # For Android emulator:
       libpulseaudio
       libpng
-      nss
+      pkgs-unstable.nss_latest
       libtiff
       libuuid
       zlib

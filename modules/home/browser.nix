@@ -44,9 +44,16 @@ in {
     "${ff}/${profile_path}/chrome/userContent.css".text = userContent;
   };
 
+  home.packages = [
+    # Firefox Developer Edition wrapper to use with profile:
+    (writeShellScriptBin "firefox-dev" ''
+      ${pkgs-unstable.firefox-devedition}/bin/firefox-devedition --profile "/home/anthony/.mozilla/firefox/dev-edition-default" "$@"
+    '')
+  ];
+
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox-devedition;
+    package = pkgs-unstable.firefox-devedition;
     profileVersion = null;
     profiles = {
       default = {

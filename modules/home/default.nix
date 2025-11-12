@@ -15,6 +15,7 @@
     ./browser.nix
     ./rofi.nix
     ./vifm.nix
+    ./typora.nix
   ];
 
   news.display = "show";
@@ -73,13 +74,15 @@
       nodePackages.prettier
       cargo rustc rustfmt rust-analyzer
       ccls
-      cmake gcc gnumake gdb clang-tools
+      cmake gcc gnumake gdb clang-tools #llvmPackages.libcxxClang
       autoconf automake autogen pkg-config
       libpkgconf autoconf-archive libtool m4
       ktlint quick-lint-js
       watchman
       qtcreator qtox
-      kdePackages.qttools
+      kdePackages.qttools kdePackages.qtbase
+
+      libsForQt5.qtstyleplugin-kvantum kdePackages.qtstyleplugin-kvantum
 
       # Custom fonts (Input Mono + Rofi custom theme fonts):
       (pkgs.callPackage ./custom-fonts { inherit inputs; })
@@ -179,13 +182,20 @@
 
   qt = {
     enable = true;
-    platformTheme.name = "gtk3";
-    style.name = "adwaita-dark";
+    platformTheme.name = "qt5ct";
+    style.name = "kvantum";
   };
 
   xdg.configFile."environment.d/envvars.conf".text = ''
     PATH="$HOME/.nix-profile/bin:$PATH"
   '';
+
+  xdg.configFile = {
+    "Kvantum/kvantum.kvconfig".text = ''
+      [General]
+      theme=KvGnomish
+    '';
+  };
 
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   
