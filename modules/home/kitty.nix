@@ -22,7 +22,7 @@
       initial_window_width = 800;
       initial_window_height = 400;
       modify_font = "cell_height 130%";
-      hide_window_decorations = "yes";
+      hide_window_decorations = "no";
       notify_on_cmd_finish = "invisible";
 
       # Animating cursor tail (grabbed from https://itsfoss.com/kitty-customization/):

@@ -7,8 +7,12 @@
 
 let
   theme_name = "Nordic";
+  icon_theme_name = "Papirus-Dark";
+  cursor_theme_name = "Bibata-Modern-Ice";
+  cursor_theme_pkg = pkgs.bibata-cursors;
   theme_pkg = pkgs.nordic;
-  home = config.home.homeDirectory;
+  icon_theme_pkg = pkgs.papirus-icon-theme;
+  home_dir = config.home.homeDirectory;
   gtk_extra_config = {
     gtk-application-prefer-dark-theme = 1;
     gtk-enable-event-sounds = 1;
@@ -20,6 +24,22 @@ let
   };
 in
 {
+  home = {
+    pointerCursor = {
+      x11.enable = true;
+      gtk.enable = true;
+      name = cursor_theme_name;
+      package = cursor_theme_pkg;
+      size = 24;
+    };
+
+    packages = with pkgs; [
+      icon_theme_pkg
+      theme_pkg
+      cursor_theme_pkg
+    ];
+  };
+
   # gtk settings
   gtk = {
     enable = true;
@@ -30,8 +50,8 @@ in
     };
 
     iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme;
+      name = icon_theme_name;
+      package = icon_theme_pkg;
     };
 
     gtk2.extraConfig = ''
@@ -47,16 +67,18 @@ in
     gtk3 = {
       extraConfig = gtk_extra_config;
       bookmarks = [
-        "file://${home}/.config Config"
-        "file://${home}/Documents"
-        "file://${home}/Dropbox"
-        "file://${home}/Music"
-        "file://${home}/Pictures"
-        "file://${home}/Videos"
-        "file://${home}/Downloads"
-        "file://${home}/Desktop"
-        "file://${home}/dev Dev"
+        "file://${home_dir}/.config Config"
+        "file://${home_dir}/Documents"
+        "file://${home_dir}/Dropbox"
+        "file://${home_dir}/Music"
+        "file://${home_dir}/Pictures"
+        "file://${home_dir}/Videos"
+        "file://${home_dir}/Downloads"
+        "file://${home_dir}/Desktop"
+        "file://${home_dir}/dev Dev"
         "file:///etc/nixos NixOS Config"
+        "file:///etc/profiles/per-user/anthony/share/applications HM .desktop files"
+        "file:///run/current-system/sw/share/applications NixOS .desktop files"
       ];
     };
 
@@ -86,9 +108,23 @@ in
     };
 
     "org/gnome/desktop/interface" = {
-      show-battery-percentage = true;
+      show-battery-percentage = false;
       monospace-font-name = "InputMono Nerd Font 10";
       color-scheme = "prefer-dark";
+      gtk-theme = theme_name;
+      icon-theme = icon_theme_name;
+      cursor-theme = cursor_theme_name;  # requires Bibata cursor theme to be installed
+      scaling-factor = 1;
+      text-scaling-factor = 1.0;
+    };
+
+    "org/gnome/desktop/applications/terminal" = {
+      exec = "kitty";
+      exec-arg = "";
+    };
+
+    "org/gnome/shell/extensions/user-theme" = {
+      name = theme_name;
     };
 
     "org/gnome/desktop/peripherals/touchpad" = {

@@ -10,16 +10,21 @@ let
     "~/.config/rofi/launchers/type-1/shared/fonts.rasi"
   ] (builtins.readFile "${inputs.rofi-theme}/files/launchers/type-1/style-5.rasi");
 in {
-  home.packages = with pkgs; [ rofi-wayland ];
-  home.file = {
-    ".config/rofi".source = "${inputs.rofi-theme}/files";
-    ".config/rofi-launcher.rasi".text = rofi_main_config + ''
-      button {
-        padding: 5px 12px 5px 8px;
-      }
-      textbox-prompt-colon {
-        padding: 5px 5px;
-      }
-    '';
+  home = {
+    packages = with pkgs; [ rofi-wayland ];
+
+    file = {
+      ".config/rofi".source = "${inputs.rofi-theme}/files";
+      ".config/rofi-launcher.rasi".text = ''
+        ${rofi_main_config}
+        
+        button {
+          padding: 5px 12px 5px 8px;
+        }
+        textbox-prompt-colon {
+          padding: 5px 5px;
+        }
+      '';
+    };
   };
 }

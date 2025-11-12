@@ -309,8 +309,8 @@
         options = "grp:win_space_toggle";
       };
       desktopManager.gnome.enable = true;
-      videoDrivers = [ "modesetting" "nvidia" ];
       # displayManager.gdm.enable = true;
+      videoDrivers = [ "modesetting" "nvidia" ];
     };
     postgresql = {
       enable = true;
@@ -494,7 +494,7 @@
     waypaper
 
     # Python3 environment with some other pkgs (including jupyterlab):
-    (python3.withPackages(ps: with ps; [
+    (pkgs-unstable.python3.withPackages(ps: with ps; [
       python-lsp-server pylsp-mypy pyls-isort
       pydocstyle pylint jupyterlab jupyterlab-lsp
       numpy pandas matplotlib
@@ -524,9 +524,10 @@
 
     # Gnome related apps:
     gnome-control-center gnome-tweaks gnome-shell-extensions evolution
+    gnome-themes-extra
   ] ++ (with pkgs.kdePackages; [
     marble qtwayland okular ghostwriter
-    kcharselect kclock isoimagewriter 
+    kcharselect kclock isoimagewriter
   ]) ++ (with pkgs.gnomeExtensions; [
     dash-to-dock applications-menu workspace-indicator clipboard-indicator caffeine
   ]);
@@ -583,12 +584,10 @@
   programs.nix-ld = {
     enable = true;
     libraries = with pkgs; [
-      #jdk17
       uutils-coreutils-noprefix
       gtk3
       libglibutil
       glibc
-      #javaPackages.openjfx17
       fuse
       libpkgconf
 
@@ -607,7 +606,7 @@
       # For Android emulator:
       libpulseaudio
       libpng
-      pkgs-unstable.nss_latest
+      nss
       libtiff
       libuuid
       zlib

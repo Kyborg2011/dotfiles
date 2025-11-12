@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-unstable, inputs, ... }:
+{ config, lib, pkgs, pkgs-unstable, inputs, ... }:
 
 let
   concatFilesContent = sourceSubstr: targetSubstr: files:
@@ -46,7 +46,7 @@ in {
 
   home.packages = [
     # Firefox Developer Edition wrapper to use with profile:
-    (writeShellScriptBin "firefox-dev" ''
+    (pkgs.writeShellScriptBin "firefox-dev" ''
       ${pkgs-unstable.firefox-devedition}/bin/firefox-devedition --profile "/home/anthony/.mozilla/firefox/dev-edition-default" "$@"
     '')
   ];
