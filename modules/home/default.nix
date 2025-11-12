@@ -91,9 +91,6 @@
       _ZL_MATCH_MODE = 1;
       QT_STYLE_OVERRIDE = "kvantum";
       QT_QPA_PLATFORMTHEME = "qt5ct";
-      QT_QPA_PLATFORM = "xcb"; # Change to wayland if needed (Android emulator has issues with wayland)
-      QT_ENABLE_HIGHDPI_SCALING = 1;
-      QT_AUTO_SCREEN_SCALE_FACTOR = 1;
     };
 
     sessionPath = [

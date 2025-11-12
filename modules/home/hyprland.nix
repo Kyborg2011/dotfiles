@@ -88,7 +88,7 @@ in {
         "[workspace 2 silent] google-chrome-stable"
         "[workspace 2 silent] telegram-desktop"
         "[workspace 3 silent] ${config.home.homeDirectory}/.local/share/JetBrains/Toolbox/apps/android-studio/bin/studio"
-        "[workspace 5 silent] okular"
+        "[workspace 5 silent] QT_QPA_PLATFORM=wayland okular"
         "[workspace 5 silent] xdg-launch zen-twilight.desktop"
         "[workspace 6 silent] evolution"
         "dbus-update-activation-environment --systemd --all"
@@ -102,7 +102,7 @@ in {
       # See https://wiki.hyprland.org/Configuring/Environment-variables/
       env = [
         "XCURSOR_SIZE,24"
-        "XCURSOR_THEME,Bibata-Original-Classic"
+        "XCURSOR_THEME,Bibata-Modern-Ice"
         "NIXOS_OZONE_WL,1"
         "NIXPKGS_ALLOW_UNFREE,1"
         "XDG_CURRENT_DESKTOP,Hyprland"
