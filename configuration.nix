@@ -143,10 +143,11 @@
     networkmanager.enable = true;
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 80 8080 631 ];
-      allowedUDPPorts = [ 53 631 ];
+      allowedTCPPorts = [ 80 8080 631 7236 7250 ];
+      allowedUDPPorts = [ 53 631 7236 5353 ];
       allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
       allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
+      trustedInterfaces = [ "p2p-wl+" ];
     };
   };
 
@@ -259,6 +260,7 @@
     yubikey-agent.enable = true;
     pcscd.enable = true;
     userborn.enable = true;
+    dbus.enable = true;
     openssh = {
       enable = true;
       settings = {
@@ -301,6 +303,7 @@
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
+      wireplumber.enable = true;
     };
     xserver = {
       enable = true;
@@ -309,7 +312,7 @@
         options = "grp:win_space_toggle";
       };
       desktopManager.gnome.enable = true;
-      # displayManager.gdm.enable = true;
+      displayManager.gdm.enable = true;
       videoDrivers = [ "modesetting" "nvidia" ];
     };
     postgresql = {
@@ -320,13 +323,13 @@
   };
 
   # Configuring KDE Plasma 6:
-  services = {
-    desktopManager.plasma6.enable = true;
-    displayManager.sddm.enable = true;
-    displayManager.sddm.wayland.enable = true;
-  };
+  # services = {
+  #   desktopManager.plasma6.enable = true;
+  #   displayManager.sddm.enable = true;
+  #   displayManager.sddm.wayland.enable = true;
+  # };
   # To resolve "programs.ssh.askPassword":
-  programs.ssh.askPassword = lib.mkForce "${pkgs.seahorse}/libexec/seahorse/ssh-askpass";
+  # programs.ssh.askPassword = lib.mkForce "${pkgs.seahorse}/libexec/seahorse/ssh-askpass";
 
   services = {
     # Enable the NixOS printing service for HP printers:
@@ -352,8 +355,10 @@
       enable = true;
       nssmdns4 = true;
       openFirewall = true;
+      allowPointToPoint = true;
       publish = {
         enable = true;
+        domain = true;
         userServices = true;
       };
     };
@@ -378,6 +383,12 @@
     ];
   };
 
+  qt = {
+    enable = true;
+    platformTheme = "qt5ct";
+    style = "kvantum";
+  };
+
   xdg = {
     menus.enable = true;
     icons.enable = true;
@@ -386,11 +397,13 @@
     portal = {
       enable = true;
       xdgOpenUsePortal = true;
-      wlr.enable = false; # disable wlr if using Hyprland
+      wlr.enable = true;
       extraPortals = with pkgs; [
         xdg-desktop-portal
         inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland
         xdg-desktop-portal-gtk
+        xdg-desktop-portal-wlr
+        xdg-desktop-portal-gnome
       ];
       config = {
         common = {
@@ -451,8 +464,8 @@
     hledger hledger-ui hledger-web gnucash
     obs-studio fontforge jadx ghidra
     gnome-builder puffin mullvad-vpn
-    blueman kile ventoy-full
-    digikam wayland-utils
+    blueman ventoy-full
+    wayland-utils
     ffuf protonvpn-cli protonvpn-gui
     dconf-editor util-linux networkmanagerapplet
     gimp3-with-plugins inkscape
@@ -466,14 +479,13 @@
     lynx universal-ctags ddd
     wirelesstools
     e2fsprogs
-    gnome-network-displays
     inputs.nix-alien.packages.${system}.nix-alien
     tinc # "https://www.tinc-vpn.org/"
     opentracker # "https://erdgeist.org/arts/software/opentracker/"
     hardinfo2
-    llvmPackages.libcxxClang
 
-    qbittorrent transmission_4-qt
+    pkgs-unstable.gnome-network-displays
+    qbittorrent digikam
 
     maltego burpsuite zap nmap aircrack-ng john johnny hashcat apktool gparted
 
@@ -485,6 +497,7 @@
     xdg-launch xdg-utils # A set of command line tools that assist apps with a variety of desktop integration tasks
     xdg-user-dirs # Tool to help manage well known user directories like the desktop folder and the music folder
     xdg-dbus-proxy # DBus proxy for Flatpak and others
+    d-spy # A viewer and debugger for D-Bus messages
 
     # Virtualization:
     distrobox boxbuddy
@@ -492,6 +505,8 @@
     apostrophe
     # Wallpaper managers on Wayland:
     waypaper
+
+    # miraclecast mkchromecast
 
     # Python3 environment with some other pkgs (including jupyterlab):
     (pkgs-unstable.python3.withPackages(ps: with ps; [
@@ -524,7 +539,7 @@
 
     # Gnome related apps:
     gnome-control-center gnome-tweaks gnome-shell-extensions evolution
-    gnome-themes-extra
+    gnome-themes-extra gnome-remote-desktop
   ] ++ (with pkgs.kdePackages; [
     marble qtwayland okular ghostwriter
     kcharselect kclock isoimagewriter

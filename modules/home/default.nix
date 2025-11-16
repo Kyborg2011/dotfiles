@@ -16,6 +16,7 @@
     ./rofi.nix
     ./vifm.nix
     ./typora.nix
+    ./quickshell.nix
   ];
 
   news.display = "show";
@@ -37,7 +38,6 @@
       brightnessctl
       filezilla
       tree
-      youtube-music
       pavucontrol
       nerd-fonts.jetbrains-mono
       dmenu-wayland
@@ -45,7 +45,7 @@
       timg
 
       # Disk space management tools:
-      ncdu dust kdePackages.filelight
+      ncdu dust pkgs.kdePackages.filelight
 
       # Dev tools:
       tldr wget curl
@@ -66,15 +66,12 @@
       nodePackages.prettier
       cargo rustc rustfmt rust-analyzer
       ccls
-      cmake gcc gnumake gdb clang-tools #llvmPackages.libcxxClang
+      cmake gcc gnumake gdb clang-tools
       autoconf automake autogen pkg-config
       libpkgconf autoconf-archive libtool m4
       ktlint quick-lint-js
       watchman
-      qtcreator qtox
-      kdePackages.qttools kdePackages.qtbase
-
-      libsForQt5.qtstyleplugin-kvantum kdePackages.qtstyleplugin-kvantum
+      qtox
 
       # Custom fonts (Input Mono + Rofi custom theme fonts):
       (pkgs.callPackage ./custom-fonts { inherit inputs; })
@@ -106,6 +103,7 @@
   services = {
     kdeconnect = {
       enable = true;
+      package = pkgs.kdePackages.kdeconnect-kde;
       indicator = true;
     };
     gpg-agent = {
@@ -162,22 +160,6 @@
         (setq standard-indent 2)
       '';
     };
-    qutebrowser = {
-      enable = true;
-      loadAutoconfig = true;
-      settings = {
-        scrolling.smooth = true;
-        qt.highdpi = true;
-        zoom.default = 125;
-        auto_save.session = true;
-      };
-    };
-  };
-
-  qt = {
-    enable = true;
-    platformTheme.name = "qt5ct";
-    style.name = "kvantum";
   };
 
   xdg.configFile."environment.d/envvars.conf".text = ''
@@ -190,8 +172,6 @@
       theme=KvGnomish
     '';
   };
-
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   
   xdg.desktopEntries."org.gnome.Settings" = {
     name = "Settings";

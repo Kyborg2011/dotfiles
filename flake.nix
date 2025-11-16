@@ -8,7 +8,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1&ref=refs/tags/v0.51.0";
+    hyprland = {
+      url = "git+https://github.com/hyprwm/Hyprland?submodules=1&ref=refs/tags/v0.51.0";
+      # inputs.nixpkgs.follows = "nixpkgs"; # Uncomment this line if you want to pin Hyprland to the same nixpkgs version
+    };
     hy3 = {
       url = "github:outfoxxed/hy3?ref=hl0.51.0";
       inputs.hyprland.follows = "hyprland";
@@ -19,17 +22,37 @@
     };
     hypridle = {
       url = "github:hyprwm/hypridle";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.hyprland.follows = "hyprland";
     };
     hyprlock = {
       url = "github:hyprwm/hyprlock";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.hyprland.follows = "hyprland";
     };
-    hyprland-contrib.url = "github:hyprwm/contrib";
-    hyprpicker.url = "github:hyprwm/hyprpicker";
-    hyprsunset.url = "github:hyprwm/hyprsunset";
-    hyprpolkitagent.url = "github:hyprwm/hyprpolkitagent";
-    hyprpaper.url = "github:hyprwm/hyprpaper";
+    hyprpolkitagent = {
+      url = "github:hyprwm/hyprpolkitagent";
+      inputs.hyprland.follows = "hyprland";
+    };
+    hyprsunset = {
+      url = "github:hyprwm/hyprsunset";
+      inputs.hyprland.follows = "hyprland";
+    };
+    hyprpicker = {
+      url = "github:hyprwm/hyprpicker";
+      inputs.hyprland.follows = "hyprland";
+    };
+    hyprland-contrib = {
+      url = "github:hyprwm/contrib";
+      inputs.hyprland.follows = "hyprland";
+    };
+    hyprpaper = {
+      url = "github:hyprwm/hyprpaper";
+      inputs.hyprland.follows = "hyprland";
+    };
+
+    quickshell = {
+      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs"; # Mismatched system dependencies will lead to crashes and other issues.
+    };
 
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
@@ -75,7 +98,7 @@
               useUserPackages = true;
               users.anthony = import ./modules/home;
               extraSpecialArgs = specialArgs;
-              backupFileExtension = "bkp6";
+              backupFileExtension = "bkp7";
             };
           }
         ];

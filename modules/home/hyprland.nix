@@ -34,7 +34,7 @@ in {
 
     plugins = [
       inputs.hy3.packages.${pkgs.system}.hy3
-      inputs.hyprland-plugins.packages.${pkgs.system}.hyprexpo
+      # inputs.hyprland-plugins.packages.${pkgs.system}.hyprexpo
     ];
 
     xwayland = {
@@ -347,7 +347,7 @@ in {
         "$mainMod+SHIFT, n, exec, killall -q hyprsunset; hyprsunset -t 6000 &"
         "$mainMod+SHIFT, p, exec, hyprpicker -a"
         
-        "$mainMod, grave, hyprexpo:expo, toggle" # can be: toggle, off/disable or on/enable
+        # "$mainMod, grave, hyprexpo:expo, toggle" # can be: toggle, off/disable or on/enable
 
         # SCREENSHOT:
         ", Print, exec, grimblast --notify copysave area"
@@ -480,16 +480,16 @@ in {
             trigger_height = 500;
           };
         };
-        hyprexpo = {
-          columns = 3;
-          gap_size = 5;
-          bg_col = "rgb(111111)";
-          workspace_method = "center current"; # [center/first] [workspace] e.g. first 1 or center m+1
-          enable_gesture = true; # laptop touchpad
-          gesture_fingers = 3; # 3 or 4
-          gesture_distance = 300; # how far is the "max"
-          gesture_positive = true; # positive = swipe down. Negative = swipe up.
-        };
+        # hyprexpo = {
+        #   columns = 3;
+        #   gap_size = 5;
+        #   bg_col = "rgb(111111)";
+        #   workspace_method = "center current"; # [center/first] [workspace] e.g. first 1 or center m+1
+        #   enable_gesture = true; # laptop touchpad
+        #   gesture_fingers = 3; # 3 or 4
+        #   gesture_distance = 300; # how far is the "max"
+        #   gesture_positive = true; # positive = swipe down. Negative = swipe up.
+        # };
       };
     };
 
