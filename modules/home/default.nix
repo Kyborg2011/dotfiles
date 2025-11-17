@@ -71,17 +71,6 @@
       watchman
       qtox
 
-      # For Quickshell usage:
-      material-symbols roboto-flex rubik twemoji-color-font # Fonts
-      swappy tesseract
-      imagemagick
-      translate-shell
-      libnotify
-      libcava
-      libdbusmenu-gtk3
-      playerctl
-      matugen
-
       # Quickshell with Qt dependencies bundled:
       (pkgs-unstable.callPackage ./quickshell.nix { inherit inputs pkgs-unstable; })
 

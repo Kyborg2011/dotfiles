@@ -419,6 +419,21 @@
     };
   };
 
+  fonts = {
+    enableDefaultPackages = true;
+    fontDir.enable = true;
+    fontconfig.useEmbeddedBitmaps = true;
+    packages = with pkgs; [
+      noto-fonts
+      ubuntu_font_family
+      liberation_ttf
+      winePackages.fonts
+      google-fonts
+      material-symbols roboto-flex rubik twemoji-color-font # Fonts for Quickshell
+      corefonts
+    ];
+  };
+
   programs.hyprland = {
     enable = true;
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
@@ -460,7 +475,7 @@
     lshw-gui lshw
     telegram-desktop
     ffmpeg-full sox vlc libreoffice-fresh tor-browser
-    wine winetricks winePackages.fonts keepassxc seahorse krusader
+    wine winetricks keepassxc seahorse krusader
     calibre mu dropbox yt-dlp zip unzip
     hledger hledger-ui hledger-web gnucash
     obs-studio fontforge jadx ghidra
@@ -506,6 +521,17 @@
     # Wallpaper managers on Wayland:
     waypaper
 
+    # For Quickshell usage:
+    swappy
+    tesseract
+    imagemagick
+    translate-shell
+    libnotify
+    libcava
+    libdbusmenu-gtk3
+    playerctl
+    matugen
+
     # Gnome related apps:
     gnome-control-center gnome-tweaks gnome-shell-extensions evolution
     gnome-themes-extra gnome-remote-desktop
@@ -516,6 +542,8 @@
     dash-to-dock applications-menu workspace-indicator clipboard-indicator caffeine
   ]) ++ (with pkgs-unstable; [
     gnome-network-displays
+
+    microsoft-edge
 
     # Google Chrome latest:
     (google-chrome.override {

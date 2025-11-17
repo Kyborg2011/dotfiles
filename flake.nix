@@ -78,7 +78,7 @@
               useUserPackages = true;
               users.anthony = import ./modules/home;
               extraSpecialArgs = specialArgs;
-              backupFileExtension = "bkp7";
+              backupFileExtension = "bkp9";
             };
           }
         ];
