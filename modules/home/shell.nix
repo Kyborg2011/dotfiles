@@ -60,7 +60,7 @@
         export GDK_BACKEND=wayland
         export XCURSOR_SIZE=24
         export GTK_THEME=Nordic
-        export QT_QPA_PLATFORM=xcb # Change to wayland if needed (Android emulator has issues with wayland)
+        export QT_QPA_PLATFORM=wayland # Change to xcb if needed (Android emulator has issues with wayland)
       fi
       
       # Load additional zsh configuration files:

@@ -16,7 +16,7 @@
     ./rofi.nix
     ./vifm.nix
     ./typora.nix
-    ./quickshell.nix
+    ./desktop-shell.nix
   ];
 
   news.display = "show";
@@ -40,9 +40,7 @@
       tree
       pavucontrol
       nerd-fonts.jetbrains-mono
-      dmenu-wayland
-      mc
-      timg
+      dmenu-wayland mc timg
 
       # Disk space management tools:
       ncdu dust pkgs.kdePackages.filelight
@@ -72,6 +70,20 @@
       ktlint quick-lint-js
       watchman
       qtox
+
+      # For Quickshell usage:
+      material-symbols roboto-flex rubik twemoji-color-font # Fonts
+      swappy tesseract
+      imagemagick
+      translate-shell
+      libnotify
+      libcava
+      libdbusmenu-gtk3
+      playerctl
+      matugen
+
+      # Quickshell with Qt dependencies bundled:
+      (pkgs-unstable.callPackage ./quickshell.nix { inherit inputs pkgs-unstable; })
 
       # Custom fonts (Input Mono + Rofi custom theme fonts):
       (pkgs.callPackage ./custom-fonts { inherit inputs; })

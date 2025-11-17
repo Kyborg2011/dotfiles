@@ -75,7 +75,6 @@ in {
       ];
       
       exec-once = [
-        #"hyprdim &"
         "systemctl --user start hyprshell.service"
         "systemctl --user start hypridle.service"
         "hyprctl setcursor Bibata-Ice-Modern 24"
@@ -460,6 +459,9 @@ in {
         # qBittorrent:
         "float, class:^(org.qbittorrent.qBittorrent)$"
         "center, class:^(org.qbittorrent.qBittorrent)$"
+        # qBittorrent:
+        "float, class:^(org.gnome.SystemMonitor)$"
+        "center, class:^(org.gnome.SystemMonitor)$"
       ];
 
       layerrule = [

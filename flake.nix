@@ -20,38 +20,18 @@
       url = "git+https://github.com/hyprwm/hyprland-plugins?submodules=1&ref=refs/tags/v0.51.0";
       inputs.hyprland.follows = "hyprland";
     };
-    hypridle = {
-      url = "github:hyprwm/hypridle";
-      inputs.hyprland.follows = "hyprland";
-    };
-    hyprlock = {
-      url = "github:hyprwm/hyprlock";
-      inputs.hyprland.follows = "hyprland";
-    };
-    hyprpolkitagent = {
-      url = "github:hyprwm/hyprpolkitagent";
-      inputs.hyprland.follows = "hyprland";
-    };
-    hyprsunset = {
-      url = "github:hyprwm/hyprsunset";
-      inputs.hyprland.follows = "hyprland";
-    };
-    hyprpicker = {
-      url = "github:hyprwm/hyprpicker";
-      inputs.hyprland.follows = "hyprland";
-    };
-    hyprland-contrib = {
-      url = "github:hyprwm/contrib";
-      inputs.hyprland.follows = "hyprland";
-    };
-    hyprpaper = {
-      url = "github:hyprwm/hyprpaper";
-      inputs.hyprland.follows = "hyprland";
-    };
+    hypridle.url = "github:hyprwm/hypridle";
+    hyprlock.url = "github:hyprwm/hyprlock";
+    hyprpolkitagent.url = "github:hyprwm/hyprpolkitagent";
+    hyprsunset.url = "github:hyprwm/hyprsunset";
+    hyprpicker.url = "github:hyprwm/hyprpicker";
+    hyprland-contrib.url = "github:hyprwm/contrib";
+    hyprpaper.url = "github:hyprwm/hyprpaper";
 
     quickshell = {
-      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
-      inputs.nixpkgs.follows = "nixpkgs"; # Mismatched system dependencies will lead to crashes and other issues.
+      # url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+      url = "github:quickshell-mirror/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs-unstable"; # Mismatched system dependencies will lead to crashes and other issues.
     };
 
     zen-browser = {

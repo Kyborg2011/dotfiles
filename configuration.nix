@@ -456,6 +456,7 @@
   environment.systemPackages = with pkgs; [
     usbutils sysstat bandwhich hwinfo lm_sensors lsof
     pciutils inetutils ethtool dnsutils unixtools.netstat
+    ddcutil
     lshw-gui lshw
     telegram-desktop
     ffmpeg-full sox vlc libreoffice-fresh tor-browser
@@ -479,12 +480,10 @@
     lynx universal-ctags ddd
     wirelesstools
     e2fsprogs
-    inputs.nix-alien.packages.${system}.nix-alien
     tinc # "https://www.tinc-vpn.org/"
     opentracker # "https://erdgeist.org/arts/software/opentracker/"
     hardinfo2
 
-    pkgs-unstable.gnome-network-displays
     qbittorrent digikam
 
     maltego burpsuite zap nmap aircrack-ng john johnny hashcat apktool gparted
@@ -492,6 +491,7 @@
     # Additional Nix tools:
     nurl nix-init nix-index nixfmt-rfc-style
     nix-tree nix-du
+    inputs.nix-alien.packages.${system}.nix-alien
 
     # XDG related tools:
     xdg-launch xdg-utils # A set of command line tools that assist apps with a variety of desktop integration tasks
@@ -506,37 +506,6 @@
     # Wallpaper managers on Wayland:
     waypaper
 
-    # miraclecast mkchromecast
-
-    # Python3 environment with some other pkgs (including jupyterlab):
-    (pkgs-unstable.python3.withPackages(ps: with ps; [
-      python-lsp-server pylsp-mypy pyls-isort
-      pydocstyle pylint jupyterlab jupyterlab-lsp
-      numpy pandas matplotlib
-      scipy sympy plotly
-    ]))
-
-    (pkgs-unstable.google-chrome.override {
-      # enable video encoding and hardware acceleration, along with several
-      # suitable for my configuration
-      # change it if you have any issues
-      # note the spaces, they are required
-      # Vulkan is not stable, likely because of drivers
-      commandLineArgs = ""
-        + " --enable-accelerated-video-decode"
-        + " --enable-accelerated-mjpeg-decode"
-        + " --enable-gpu-compositing"
-        + " --enable-gpu-rasterization" # dont enable in about:flags
-        + " --enable-native-gpu-memory-buffers"
-        + " --enable-raw-draw"
-        + " --enable-zero-copy" # dont enable in about:flags
-        + " --ignore-gpu-blocklist" # dont enable in about:flags
-        + " --enable-features="
-            + "VaapiVideoEncoder,"
-            + "CanvasOopRasterization,"
-        ;
-    })
-
     # Gnome related apps:
     gnome-control-center gnome-tweaks gnome-shell-extensions evolution
     gnome-themes-extra gnome-remote-desktop
@@ -545,6 +514,47 @@
     kcharselect kclock isoimagewriter
   ]) ++ (with pkgs.gnomeExtensions; [
     dash-to-dock applications-menu workspace-indicator clipboard-indicator caffeine
+  ]) ++ (with pkgs-unstable; [
+    gnome-network-displays
+
+    # Google Chrome latest:
+    (google-chrome.override {
+      commandLineArgs = ''
+        --password-store=gnome-libsecret
+        --ozone-platform-hint=wayland
+        --gtk-version=4
+        --ignore-gpu-blocklist
+        --enable-accelerated-video-decode
+        --enable-accelerated-mjpeg-decode
+        --enable-gpu-compositing
+        --enable-gpu-rasterization
+        --enable-native-gpu-memory-buffers
+        --enable-raw-draw
+        --enable-zero-copy
+        --ignore-gpu-blocklist
+        --enable-features=VaapiVideoEncoder,CanvasOopRasterization,TouchpadOverscrollHistoryNavigation
+        --enable-wayland-ime
+      '';
+    })
+
+    # Python3 environment (latest) with some other pkgs (including jupyterlab):
+    (python3.withPackages (
+      ps: with ps; [
+        python-lsp-server
+        pylsp-mypy
+        pyls-isort
+        pydocstyle
+        pylint
+        jupyterlab
+        jupyterlab-lsp
+        numpy
+        pandas
+        matplotlib
+        scipy
+        sympy
+        plotly
+      ]
+    ))
   ]);
 
   # Android (adb) setup
