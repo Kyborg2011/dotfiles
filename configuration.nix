@@ -429,8 +429,9 @@
       liberation_ttf
       winePackages.fonts
       google-fonts
-      material-symbols roboto-flex rubik twemoji-color-font # Fonts for Quickshell
+      pkgs-unstable.material-symbols roboto-flex rubik twemoji-color-font # Fonts for Quickshell
       corefonts
+      nerd-fonts.jetbrains-mono
     ];
   };
 
@@ -542,29 +543,9 @@
     dash-to-dock applications-menu workspace-indicator clipboard-indicator caffeine
   ]) ++ (with pkgs-unstable; [
     gnome-network-displays
-
     microsoft-edge
-
-    # Google Chrome latest:
-    (google-chrome.override {
-      commandLineArgs = ''
-        --password-store=gnome-libsecret
-        --ozone-platform-hint=wayland
-        --gtk-version=4
-        --ignore-gpu-blocklist
-        --enable-accelerated-video-decode
-        --enable-accelerated-mjpeg-decode
-        --enable-gpu-compositing
-        --enable-gpu-rasterization
-        --enable-native-gpu-memory-buffers
-        --enable-raw-draw
-        --enable-zero-copy
-        --ignore-gpu-blocklist
-        --enable-features=VaapiVideoEncoder,CanvasOopRasterization,TouchpadOverscrollHistoryNavigation
-        --enable-wayland-ime
-      '';
-    })
-
+    google-chrome
+    
     # Python3 environment (latest) with some other pkgs (including jupyterlab):
     (python3.withPackages (
       ps: with ps; [

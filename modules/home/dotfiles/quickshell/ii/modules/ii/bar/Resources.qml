@@ -28,9 +28,9 @@ MouseArea {
         Resource {
             iconName: "swap_horiz"
             percentage: ResourceUsage.swapUsedPercentage
-            shown: (Config.options.bar.resources.alwaysShowSwap && percentage > 0) || 
+            shown: ((Config.options.bar.resources.alwaysShowSwap) || 
                 (MprisController.activePlayer?.trackTitle == null) ||
-                root.alwaysShowAllResources
+                root.alwaysShowAllResources) && percentage > 0
             Layout.leftMargin: shown ? 6 : 0
             warningThreshold: Config.options.bar.resources.swapWarningThreshold
         }

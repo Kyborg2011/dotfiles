@@ -39,7 +39,6 @@
       filezilla
       tree
       pavucontrol
-      nerd-fonts.jetbrains-mono
       dmenu-wayland mc timg
 
       # Disk space management tools:

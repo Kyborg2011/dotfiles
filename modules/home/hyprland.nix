@@ -62,7 +62,6 @@ in {
       "$editor" = "vim";
       "$launcher" = "${pkgs.rofi-wayland}/bin/rofi -show drun -theme $HOME/.config/rofi-launcher.rasi";
       "$clipboard" = "cliphist list | wofi -S dmenu | cliphist decode | wl-copy";
-
       "$default_keyboard_device" = "at-translated-set-2-keyboard";
 
       #################
@@ -459,9 +458,12 @@ in {
         # qBittorrent:
         "float, class:^(org.qbittorrent.qBittorrent)$"
         "center, class:^(org.qbittorrent.qBittorrent)$"
-        # qBittorrent:
+        # System Settings (from Gnome Shell):
         "float, class:^(org.gnome.SystemMonitor)$"
         "center, class:^(org.gnome.SystemMonitor)$"
+        # Quickshell:
+        "float, class:^(org.quickshell)$"
+        "center, class:^(org.quickshell)$"
       ];
 
       layerrule = [

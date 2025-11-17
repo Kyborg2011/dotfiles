@@ -30,9 +30,9 @@
             "enable": false
         },
         "wallpaperTheming": {
-            "enableAppsAndShell": true,
-            "enableQtApps": true,
-            "enableTerminal": true,
+            "enableAppsAndShell": false,
+            "enableQtApps": false,
+            "enableTerminal": false,
             "terminalGenerationProps": {
                 "forceDarkMode": false,
                 "harmonizeThreshold": 100,
@@ -42,12 +42,12 @@
         }
     },
     "apps": {
-        "bluetooth": "kcmshell6 kcm_bluetooth",
+        "bluetooth": "kitty -c blueman-manager",
         "network": "kitty -c nmtui",
-        "networkEthernet": "kcmshell6 kcm_networkmanagement",
+        "networkEthernet": "kitty -c nmtui",
         "taskManager": "gnome-system-monitor",
-        "terminal": "kitty -1",
-        "update": "kitty -1 --hold=yes -i -c 'sudo rebuild'",
+        "terminal": "kitty",
+        "update": "kitty -1 --hold=yes -i -c 'rebuild'",
         "volumeMixer": "pavucontrol"
     },
     "audio": {
@@ -68,19 +68,19 @@
             "workspaceZoom": 1.07
         },
         "thumbnailPath": "",
-        "wallpaperPath": "/home/anthony/Dropbox/01 AboutMe/16 Pictures/03 Wallpapers/",
+        "wallpaperPath": "/home/anthony/Dropbox/01 AboutMe/16 Pictures/03 Wallpapers",
         "widgets": {
             "clock": {
                 "cookie": {
-                    "aiStyling": false,
-                    "constantlyRotate": false,
+                    "aiStyling": true,
+                    "constantlyRotate": true,
                     "dateInClock": true,
                     "dateStyle": "bubble",
                     "dialNumberStyle": "full",
-                    "hourHandStyle": "fill",
+                    "hourHandStyle": "hollow",
                     "hourMarks": false,
-                    "minuteHandStyle": "medium",
-                    "secondHandStyle": "dot",
+                    "minuteHandStyle": "thin",
+                    "secondHandStyle": "line",
                     "sides": 14,
                     "timeIndicators": true,
                     "useSineCookie": false
@@ -89,7 +89,7 @@
                     "animateChange": true
                 },
                 "enable": true,
-                "placementStrategy": "leastBusy",
+                "placementStrategy": "free",
                 "quote": {
                     "enable": false,
                     "text": ""
@@ -103,8 +103,8 @@
             "weather": {
                 "enable": true,
                 "placementStrategy": "free",
-                "x": 1653.7734375,
-                "y": 115.5859375
+                "x": 1645.640625,
+                "y": 108.640625
             }
         }
     },
@@ -115,16 +115,16 @@
             "pushWindows": false,
             "showWhenPressingSuper": {
                 "delay": 140,
-                "enable": true
+                "enable": false
             }
         },
         "borderless": false,
         "bottom": false,
-        "cornerStyle": 1,
+        "cornerStyle": 0,
         "floatStyleShadow": true,
         "indicators": {
             "notifications": {
-                "showUnreadCount": false
+                "showUnreadCount": true
             }
         },
         "resources": {
@@ -134,7 +134,8 @@
             "memoryWarningThreshold": 95,
             "swapWarningThreshold": 85
         },
-        "screenList": [],
+        "screenList": [
+        ],
         "showBackground": true,
         "tooltips": {
             "clickToShow": false
@@ -144,15 +145,16 @@
             "filterPassive": true,
             "invertPinnedItems": true,
             "monochromeIcons": true,
-            "pinnedItems": [],
-            "showItemId": false
+            "pinnedItems": [
+            ],
+            "showItemId": true
         },
         "utilButtons": {
             "showColorPicker": true,
-            "showDarkModeToggle": true,
+            "showDarkModeToggle": false,
             "showKeyboardToggle": true,
             "showMicToggle": false,
-            "showPerformanceProfileToggle": false,
+            "showPerformanceProfileToggle": true,
             "showScreenRecord": true,
             "showScreenSnip": true
         },
@@ -166,13 +168,18 @@
             "useUSCS": false
         },
         "workspaces": {
-            "alwaysShowNumbers": false,
+            "alwaysShowNumbers": true,
             "monochromeIcons": true,
             "numberMap": [
-                "1",
-                "2"
+                "",
+                "",
+                "",
+                "",
+                "",
+                "󰴃",
+                "󱆃"
             ],
-            "showAppIcons": true,
+            "showAppIcons": false,
             "showNumberDelay": 300,
             "shown": 10,
             "useNerdFont": true
@@ -204,15 +211,25 @@
         "code": "0;P;d;1;0l;10;0o;2;1b;0"
     },
     "dock": {
-        "enable": false,
+        "enable": true,
         "height": 60,
-        "hoverRegionHeight": 2,
+        "hoverRegionHeight": 1,
         "hoverToReveal": true,
-        "ignoredAppRegexes": [],
-        "monochromeIcons": true,
+        "ignoredAppRegexes": [
+        ],
+        "monochromeIcons": false,
         "pinnedApps": [
             "org.gnome.Nautilus",
-            "kitty"
+            "kitty",
+            "firefox-devedition",
+            "google-chrome",
+            "zen-twilight",
+            "org.telegram.desktop",
+            "code",
+            "jetbrains-studio",
+            "org.kde.okular",
+            "org.gnome.Evolution",
+            "org.gnome.Settings"
         ],
         "pinnedOnStartup": false
     },
@@ -262,11 +279,11 @@
     },
     "light": {
         "antiFlashbang": {
-            "enable": true
+            "enable": false
         },
         "night": {
-            "automatic": true,
-            "colorTemperature": 4963,
+            "automatic": false,
+            "colorTemperature": 4730,
             "from": "19:00",
             "to": "06:30"
         }
@@ -301,7 +318,7 @@
         "timeout": 7000
     },
     "osd": {
-        "timeout": 1000
+        "timeout": 3000
     },
     "osk": {
         "layout": "English",
@@ -326,7 +343,7 @@
     "panelFamily": "ii",
     "policies": {
         "ai": 0,
-        "weeb": 1
+        "weeb": 0
     },
     "regionSelector": {
         "circle": {
@@ -347,14 +364,14 @@
         }
     },
     "resources": {
-        "historyLength": 60,
+        "historyLength": 100,
         "updateInterval": 3000
     },
     "screenRecord": {
         "savePath": "/home/anthony/Videos"
     },
     "screenSnip": {
-        "savePath": ""
+        "savePath": "/home/anthony/Pictures/Screenshots"
     },
     "search": {
         "engineBaseUrl": "https://www.google.com/search?q=",
@@ -404,7 +421,7 @@
         },
         "keepRightSidebarLoaded": true,
         "quickSliders": {
-            "enable": false,
+            "enable": true,
             "showBrightness": true,
             "showMic": false,
             "showVolume": true
@@ -448,7 +465,7 @@
     },
     "sounds": {
         "battery": false,
-        "pomodoro": false,
+        "pomodoro": true,
         "theme": "freedesktop"
     },
     "time": {
@@ -461,7 +478,7 @@
             "focus": 1500,
             "longBreak": 900
         },
-        "secondPrecision": false,
+        "secondPrecision": true,
         "shortDateFormat": "dd/MM"
     },
     "updates": {

@@ -31,7 +31,9 @@
     quickshell = {
       # url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
       url = "github:quickshell-mirror/quickshell";
-      inputs.nixpkgs.follows = "nixpkgs-unstable"; # Mismatched system dependencies will lead to crashes and other issues.
+      # Mismatched system dependencies will lead to crashes and other issues.
+      # Qt 6.10+ required:
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     zen-browser = {
@@ -78,7 +80,7 @@
               useUserPackages = true;
               users.anthony = import ./modules/home;
               extraSpecialArgs = specialArgs;
-              backupFileExtension = "bkp9";
+              backupFileExtension = "bkp91";
             };
           }
         ];

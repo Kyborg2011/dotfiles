@@ -42,6 +42,22 @@ in {
   home.file = {
     "${ff}/${profile_path}/chrome/userChrome.css".text = userChrome + userChromeBugFix;
     "${ff}/${profile_path}/chrome/userContent.css".text = userContent;
+    ".config/chrome-flags.conf".text = ''
+      --password-store=gnome-libsecret
+      --ozone-platform-hint=wayland
+      --gtk-version=4
+      --ignore-gpu-blocklist
+      --enable-accelerated-video-decode
+      --enable-accelerated-mjpeg-decode
+      --enable-gpu-compositing
+      --enable-gpu-rasterization
+      --enable-native-gpu-memory-buffers
+      --enable-raw-draw
+      --enable-zero-copy
+      --ignore-gpu-blocklist
+      --enable-features=VaapiVideoEncoder,CanvasOopRasterization,TouchpadOverscrollHistoryNavigation
+      --enable-wayland-ime
+    '';
   };
 
   home.packages = [
