@@ -342,7 +342,7 @@
     },
     "panelFamily": "ii",
     "policies": {
-        "ai": 0,
+        "ai": 1,
         "weeb": 0
     },
     "regionSelector": {
@@ -460,7 +460,7 @@
         },
         "translator": {
             "delay": 300,
-            "enable": false
+            "enable": true
         }
     },
     "sounds": {

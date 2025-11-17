@@ -374,7 +374,7 @@ ApplicationWindow {
                         }
 
                         ContentSubsection {
-                            title: "AI"
+                            title: Translation.tr("AI")
 
                             ConfigSelectionArray {
                                 currentValue: Config.options.policies.ai

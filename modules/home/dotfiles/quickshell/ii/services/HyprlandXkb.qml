@@ -17,7 +17,7 @@ Singleton {
     property string currentLayoutName: ""
     property string currentLayoutCode: ""
     // For the service
-    property var baseLayoutFilePath: "/usr/share/X11/xkb/rules/base.lst"
+    property var baseLayoutFilePath: "/run/current-system/sw/share/X11/xkb/rules/base.lst" // In other Linux distributions: /usr/share/X11/xkb/rules/base.lst
     property bool needsLayoutRefresh: false
 
     // Update the layout code according to the layout name (Hyprland gives the name not the code)
