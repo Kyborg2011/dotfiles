@@ -80,8 +80,6 @@
     sessionVariables = {
       BROWSER = "firefox-dev";
       QT_XCB_GL_INTEGRATION = "none"; # kde-connect
-      NIXPKGS_ALLOW_UNFREE = "1";
-      NIXPKGS_ALLOW_INSECURE = "1";
       LEDGER_FILE = "$HOME/Dropbox/09 Business/06 Ledger/main.journal";
       HIST_STAMPS = "dd.mm.yyyy";
       ELECTRON_OZONE_PLATFORM_HINT = "auto";

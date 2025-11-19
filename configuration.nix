@@ -21,7 +21,6 @@
         };
       };
     };
-
     graphics = {
       enable = true;
       enable32Bit = true;
@@ -33,7 +32,6 @@
         libvdpau-va-gl
       ];
     };
-
     nvidia = {
       modesetting.enable = true;
       powerManagement.enable = true;
@@ -46,10 +44,9 @@
         nvidiaBusId = "PCI:1:0:0";
         # Use one of the following options:
         sync.enable = true;  # for perfomance
-        # offload.enable = true;  # for powersave
+        offload.enable = false;  # for powersave
       };
     };
-
     alsa.enablePersistence = true;
     enableAllFirmware = true;
   };
@@ -422,7 +419,24 @@
   fonts = {
     enableDefaultPackages = true;
     fontDir.enable = true;
-    fontconfig.useEmbeddedBitmaps = true;
+    fontconfig = {
+      enable = true;
+      antialias = true;
+      useEmbeddedBitmaps = true;
+      # Improve rendering sharpness
+      hinting = {
+        enable = true;
+        autohint = true;
+        # Amount of font reshaping
+        # slight will make the font more fuzzy to line up to the grid but will be better in retaining font shape
+        style = "slight";
+      };
+      subpixel = {
+        lcdfilter = "light";
+        rgba = "rgb";
+      };
+    };
+
     packages = with pkgs; [
       noto-fonts
       ubuntu_font_family
@@ -449,21 +463,31 @@
     pathsToLink = [ "/share/zsh" ];
     # System-wide session environment variables:
     sessionVariables = {
+      XDG_SESSION_TYPE = "wayland";
+      MOZ_DISABLE_RDD_SANDBOX = "1";
+      LIBVA_DRIVER_NAME = "nvidia";
+      GBM_BACKEND = "nvidia-drm";
+      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+      WLR_NO_HARDWARE_CURSORS = "1";
+      DRI_PRIME = "1";
       GNOME_KEYRING_CONTROL = "/run/user/$UID/keyring";
       SSH_AUTH_SOCK = "/run/user/$UID/keyring/ssh";
       GNOME_KEYRING_PID = "";
       TERMINAL = "kitty";
     };
     variables = {
+      NIXPKGS_ALLOW_UNFREE = "1";
+      NIXPKGS_ALLOW_INSECURE = "1";
+      NIXOS_OZONE_WL = "1";
       EDITOR = "vim";
       VISUAL = "vim";
       GDM_LANG = "en_US.UTF-8";
       LANG = "en_US.UTF-8";
       XDG_RUNTIME_DIR = "/run/user/$UID";
+      GTK_USE_PORTAL = "1";
       PATH = [
         "/home/anthony/.local/share/JetBrains/Toolbox/scripts"
       ];
-      GTK_USE_PORTAL = "1";
     };
   };
 
@@ -482,7 +506,7 @@
     obs-studio fontforge jadx ghidra
     gnome-builder puffin mullvad-vpn
     blueman ventoy-full
-    wayland-utils
+    wayland-utils egl-wayland vulkan-tools mesa-demos
     ffuf protonvpn-cli protonvpn-gui
     dconf-editor util-linux networkmanagerapplet
     gimp3-with-plugins inkscape
@@ -545,7 +569,6 @@
     gnome-network-displays
     microsoft-edge
     google-chrome
-    
     # Python3 environment (latest) with some other pkgs (including jupyterlab):
     (python3.withPackages (
       ps: with ps; [
@@ -578,6 +601,8 @@
       SUBSYSTEM=="usb", ATTR{idVendor}=="${idVendor}", MODE="[]", GROUP="adbusers", TAG+="uaccess"
       SUBSYSTEM=="usb", ATTR{idVendor}=="${idVendor}", ATTR{idProduct}=="${idProduct}", SYMLINK+="android_adb"
       SUBSYSTEM=="usb", ATTR{idVendor}=="${idVendor}", ATTR{idProduct}=="${idProduct}", SYMLINK+="android_fastboot"
+      ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030000", TAG+="mutter-device-preferred-primary"
+      ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030200", TAG+="mutter-device-preferred-primary"
     '';
 
   services.udev.packages = [ pkgs.yubikey-personalization ];
@@ -624,7 +649,6 @@
       glibc
       fuse
       libpkgconf
-
       # For Android Studio through JetBrains Toolbox:
       libsecret
       gnome-keyring
@@ -636,7 +660,6 @@
       fontconfig
       freetype
       e2fsprogs
-
       # For Android emulator:
       libpulseaudio
       libpng
@@ -653,7 +676,6 @@
       llvmPackages_15.libllvm.lib
       llvmPackages_15.libcxx
       waylandpp.lib
-
       # For swiftly:
       binutils
       icu # libicu-dev

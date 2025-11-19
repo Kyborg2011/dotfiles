@@ -101,18 +101,21 @@ in {
       env = [
         "XCURSOR_SIZE,24"
         "XCURSOR_THEME,Bibata-Modern-Ice"
-        "NIXOS_OZONE_WL,1"
-        "NIXPKGS_ALLOW_UNFREE,1"
+        "ELECTRON_OZONE_PLATFORM_HINT,auto"
         "XDG_CURRENT_DESKTOP,Hyprland"
         "XDG_SESSION_TYPE,wayland"
         "XDG_SESSION_DESKTOP,Hyprland"
+        "GBM_BACKEND,nvidia-drm"
         "GDK_BACKEND,wayland,x11"
         "CLUTTER_BACKEND,wayland"
         "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
         "SDL_VIDEODRIVER,x11"
         "MOZ_ENABLE_WAYLAND,1"
-        "WLR_NO_HARDWARE_CURSORS,1"
         "MOZ_WEBRENDER,1"
+        "LIBVA_DRIVER_NAME,nvidia"
+        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+        "WLR_NO_HARDWARE_CURSORS,1"
+        "NVD_BACKEND,direct"
       ];
 
       #####################

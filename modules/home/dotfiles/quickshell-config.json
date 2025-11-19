@@ -61,8 +61,8 @@
         "hideWhenFullscreen": true,
         "parallax": {
             "autoVertical": false,
-            "enableSidebar": true,
-            "enableWorkspace": true,
+            "enableSidebar": false,
+            "enableWorkspace": false,
             "vertical": false,
             "widgetsFactor": 1.2,
             "workspaceZoom": 1.07
@@ -72,8 +72,8 @@
         "widgets": {
             "clock": {
                 "cookie": {
-                    "aiStyling": true,
-                    "constantlyRotate": true,
+                    "aiStyling": false,
+                    "constantlyRotate": false,
                     "dateInClock": true,
                     "dateStyle": "bubble",
                     "dialNumberStyle": "full",
@@ -163,8 +163,8 @@
         "weather": {
             "city": "Kyiv",
             "enable": true,
-            "enableGPS": true,
-            "fetchInterval": 10,
+            "enableGPS": false,
+            "fetchInterval": 30,
             "useUSCS": false
         },
         "workspaces": {
@@ -235,15 +235,12 @@
     },
     "enabledPanels": [
         "iiBar",
-        "iiBackground",
-        "iiCheatsheet",
         "iiDock",
         "iiLock",
         "iiMediaControls",
         "iiNotificationPopup",
         "iiOnScreenDisplay",
         "iiOnScreenKeyboard",
-        "iiOverlay",
         "iiOverview",
         "iiPolkit",
         "iiRegionSelector",
@@ -251,9 +248,7 @@
         "iiScreenCorners",
         "iiSessionScreen",
         "iiSidebarLeft",
-        "iiSidebarRight",
-        "iiVerticalBar",
-        "iiWallpaperSelector"
+        "iiSidebarRight"
     ],
     "hacks": {
         "arbitraryRaceConditionDelay": 20
@@ -273,7 +268,7 @@
         "translator": {
             "engine": "auto",
             "sourceLanguage": "auto",
-            "targetLanguage": "auto"
+            "targetLanguage": "Русский"
         },
         "ui": "ru_RU"
     },
@@ -302,7 +297,7 @@
             "unlockKeyring": true
         },
         "showLockedText": true,
-        "useHyprlock": false
+        "useHyprlock": true
     },
     "media": {
         "filterDuplicatePlayers": true
@@ -364,7 +359,7 @@
         }
     },
     "resources": {
-        "historyLength": 100,
+        "historyLength": 60,
         "updateInterval": 3000
     },
     "screenRecord": {
@@ -491,7 +486,7 @@
             "bottom": true,
             "leftAlignApps": false
         },
-        "smootherAnimations": true
+        "smootherAnimations": false
     },
     "wallpaperSelector": {
         "useSystemFileDialog": false

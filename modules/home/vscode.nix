@@ -5,6 +5,14 @@
     ".config/Code/User/settings.json".source = lib.mkForce (
       config.lib.file.mkOutOfStoreSymlink "/etc/nixos/modules/home/dotfiles/Code/settings.json"
     );
+    ".config/code-flags.conf".text = ''
+      --ozone-platform=wayland
+      --enable-features=UseOzonePlatform,WaylandLinuxDrmSyncobj,TouchpadOverscrollHistoryNavigation
+      --enable-wayland-ime
+      --gtk-version=4
+      --ignore-gpu-blocklist
+      --password-store=gnome-libsecret
+    '';
   };
 
   programs.vscode = {

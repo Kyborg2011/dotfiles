@@ -44,7 +44,7 @@ in {
     "${ff}/${profile_path}/chrome/userContent.css".text = userContent;
     ".config/chrome-flags.conf".text = ''
       --password-store=gnome-libsecret
-      --ozone-platform-hint=wayland
+      --ozone-platform=wayland
       --gtk-version=4
       --ignore-gpu-blocklist
       --enable-accelerated-video-decode
@@ -54,8 +54,7 @@ in {
       --enable-native-gpu-memory-buffers
       --enable-raw-draw
       --enable-zero-copy
-      --ignore-gpu-blocklist
-      --enable-features=VaapiVideoEncoder,CanvasOopRasterization,TouchpadOverscrollHistoryNavigation
+      --enable-features=UseOzonePlatform,VaapiVideoEncoder,CanvasOopRasterization,TouchpadOverscrollHistoryNavigation,WaylandLinuxDrmSyncobj
       --enable-wayland-ime
     '';
   };
@@ -63,7 +62,7 @@ in {
   home.packages = [
     # Firefox Developer Edition wrapper to use with profile:
     (pkgs.writeShellScriptBin "firefox-dev" ''
-      ${pkgs-unstable.firefox-devedition}/bin/firefox-devedition --profile "/home/anthony/.mozilla/firefox/dev-edition-default" "$@"
+      ${pkgs-unstable.firefox-devedition}/bin/firefox-devedition --name firefox-devedition --profile "${config.home.homeDirectory}/${ff}/${profile_path}" "$@"
     '')
   ];
 
@@ -92,6 +91,12 @@ in {
           "svg.context-properties.content.enabled" = true;
           "widget.gtk.rounded-bottom-corners.enabled" = true;
           "widget.gtk.native-context-menus" = false;
+          "media.ffmpeg.vaapi.enabled" = true;
+          "media.hardware-video-decoding.force-enabled" = true;
+          "media.av1.enabled" = true;
+          "media.video_stats.enabled" = true;
+          "gfx.x11-egl.force-enabled" = true;
+          "widget.dmabuf.force-enabled" = true;
         };
       };
     };
@@ -99,9 +104,36 @@ in {
 
   xdg.desktopEntries."firefox-dev" = {
     name = "Firefox Developer Edition";
+    genericName = "Web Browser";
     comment = "Firefox Developer Edition with custom profile";
-    exec = "firefox-dev";
-    categories = [ "Network" "WebBrowser" ];
+    exec = "firefox-dev %U";
     terminal = false;
+    icon = "firefox-devedition";
+    categories = [
+      "Network"
+      "WebBrowser"
+    ];
+    mimeType = [
+      "text/html"
+      "text/xml"
+      "application/xhtml+xml"
+      "application/vnd.mozilla.xul+xml"
+      "x-scheme-handler/http"
+      "x-scheme-handler/https"
+    ];
+    actions = {
+      "new-window" = {
+        name = "New Window";
+        exec = "firefox-dev --new-window %u";
+      };
+      "private-window" = {
+        name = "New Private Window";
+        exec = "firefox-dev --private-window %u";
+      };
+      "profile-manager-window" = {
+        name = "Profile Manager";
+        exec = "firefox-dev --ProfileManager";
+      };
+    };
   };
 }

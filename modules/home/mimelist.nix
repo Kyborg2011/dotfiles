@@ -1,5 +1,5 @@
 let
-  browser = "google-chrome.desktop"; # firefox-dev.desktop
+  browser = "firefox-dev.desktop"; # google-chrome.desktop
   file-manager = "org.gnome.Nautilus.desktop";
   image-viewer = "org.xfce.ristretto.desktop";
   torrent = "org.qbittorrent.qBittorrent.desktop";
