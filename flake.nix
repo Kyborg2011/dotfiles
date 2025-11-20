@@ -66,8 +66,16 @@
   outputs = {nixpkgs, ...} @ inputs: 
     let
       system = "x86_64-linux";
+      params = {
+        config_base_path = "/etc/nixos";
+        ledger_journal_path = "$HOME/Dropbox/09 Business/06 Ledger/main.journal";
+        default_browser = "firefox-dev";
+        default_username = "anthony";
+        git_username = "kyborg2011";
+        git_email = "wkyborgw@gmail.com";
+      };
       pkgs-unstable = import inputs.nixpkgs-unstable { inherit system; config.allowUnfree = true; };
-      specialArgs = { inherit inputs pkgs-unstable; };
+      specialArgs = { inherit inputs pkgs-unstable params; };
     in {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
@@ -78,7 +86,7 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              users.anthony = import ./modules/home;
+              users.anthony = import ./home;
               extraSpecialArgs = specialArgs;
               backupFileExtension = "bkp91";
             };

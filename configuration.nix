@@ -469,7 +469,6 @@
       GBM_BACKEND = "nvidia-drm";
       __GLX_VENDOR_LIBRARY_NAME = "nvidia";
       WLR_NO_HARDWARE_CURSORS = "1";
-      DRI_PRIME = "1";
       GNOME_KEYRING_CONTROL = "/run/user/$UID/keyring";
       SSH_AUTH_SOCK = "/run/user/$UID/keyring/ssh";
       GNOME_KEYRING_PID = "";
@@ -485,6 +484,7 @@
       LANG = "en_US.UTF-8";
       XDG_RUNTIME_DIR = "/run/user/$UID";
       GTK_USE_PORTAL = "1";
+      GST_PLUGIN_PATH = "/run/current-system/sw/lib/gstreamer-1.0/";
       PATH = [
         "/home/anthony/.local/share/JetBrains/Toolbox/scripts"
       ];
@@ -523,6 +523,7 @@
     tinc # "https://www.tinc-vpn.org/"
     opentracker # "https://erdgeist.org/arts/software/opentracker/"
     hardinfo2
+    easyeffects
 
     qbittorrent digikam
 
@@ -556,6 +557,14 @@
     libdbusmenu-gtk3
     playerctl
     matugen
+
+    gst_all_1.gstreamer
+    gst_all_1.gst-plugins-base
+    gst_all_1.gst-plugins-good
+    gst_all_1.gst-plugins-bad
+    gst_all_1.gst-plugins-ugly
+    gst_all_1.gst-libav
+    gst_all_1.gst-vaapi
 
     # Gnome related apps:
     gnome-control-center gnome-tweaks gnome-shell-extensions evolution
