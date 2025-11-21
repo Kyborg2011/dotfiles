@@ -63,7 +63,7 @@
             "autoVertical": false,
             "enableSidebar": false,
             "enableWorkspace": false,
-            "vertical": false,
+            "vertical": true,
             "widgetsFactor": 1.2,
             "workspaceZoom": 1.07
         },
@@ -79,7 +79,7 @@
                     "dialNumberStyle": "full",
                     "hourHandStyle": "hollow",
                     "hourMarks": false,
-                    "minuteHandStyle": "thin",
+                    "minuteHandStyle": "medium",
                     "secondHandStyle": "line",
                     "sides": 14,
                     "timeIndicators": true,
@@ -239,7 +239,8 @@
         "iiSessionScreen",
         "iiSidebarLeft",
         "iiSidebarRight",
-        "iiOverview"
+        "iiOverview",
+        "iiBackground"
     ],
     "hacks": {
         "arbitraryRaceConditionDelay": 20
@@ -304,20 +305,20 @@
         "timeout": 7000
     },
     "osd": {
-        "timeout": 5000
+        "timeout": 3000
     },
     "osk": {
-        "layout": "Russian",
+        "layout": "English",
         "pinnedOnStartup": false
     },
     "overlay": {
         "clickthroughOpacity": 0.8,
-        "darkenScreen": true,
+        "darkenScreen": false,
         "floatingImage": {
-            "imageSource": "https://media.tenor.com/H5U5bJzj3oAAAAAi/kukuru.gif",
+            "imageSource": "",
             "scale": 0.5
         },
-        "openingZoomAnimation": true
+        "openingZoomAnimation": false
     },
     "overview": {
         "centerIcons": true,
@@ -464,7 +465,7 @@
             "focus": 1500,
             "longBreak": 900
         },
-        "secondPrecision": false,
+        "secondPrecision": true,
         "shortDateFormat": "dd/MM"
     },
     "tray": {

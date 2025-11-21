@@ -1,6 +1,6 @@
 diff --color -ur ./quickshell/ii/modules/common/Appearance.qml ./quickshell-custom/ii/modules/common/Appearance.qml
 --- ./quickshell/ii/modules/common/Appearance.qml	2025-11-20 19:06:59.504143739 +0200
-+++ ./quickshell-custom/ii/modules/common/Appearance.qml	2025-11-20 19:07:35.374070581 +0200
++++ ./quickshell-custom/ii/modules/common/Appearance.qml	2025-11-20 22:39:40.305183594 +0200
 @@ -385,4 +385,4 @@
      }
  
@@ -10,7 +10,7 @@ diff --color -ur ./quickshell/ii/modules/common/Appearance.qml ./quickshell-cust
 \ No newline at end of file
 diff --color -ur ./quickshell/ii/modules/ii/bar/Bar.qml ./quickshell-custom/ii/modules/ii/bar/Bar.qml
 --- ./quickshell/ii/modules/ii/bar/Bar.qml	2025-11-20 19:06:59.512567320 +0200
-+++ ./quickshell-custom/ii/modules/ii/bar/Bar.qml	2025-11-20 19:07:35.377189425 +0200
++++ ./quickshell-custom/ii/modules/ii/bar/Bar.qml	2025-11-20 22:39:40.307238872 +0200
 @@ -54,6 +54,7 @@
                  exclusiveZone: (Config?.options.bar.autoHide.enable && (!mustShow || !Config?.options.bar.autoHide.pushWindows)) ? 0 :
                      Appearance.sizes.baseBarHeight + (Config.options.bar.cornerStyle === 1 ? Appearance.sizes.hyprlandGapsOut : 0)
@@ -21,7 +21,7 @@ diff --color -ur ./quickshell/ii/modules/ii/bar/Bar.qml ./quickshell-custom/ii/m
                      item: hoverMaskRegion
 diff --color -ur ./quickshell/ii/modules/ii/bar/Resources.qml ./quickshell-custom/ii/modules/ii/bar/Resources.qml
 --- ./quickshell/ii/modules/ii/bar/Resources.qml	2025-11-20 19:06:59.512567320 +0200
-+++ ./quickshell-custom/ii/modules/ii/bar/Resources.qml	2025-11-20 19:07:35.375414298 +0200
++++ ./quickshell-custom/ii/modules/ii/bar/Resources.qml	2025-11-20 22:39:40.306252686 +0200
 @@ -28,9 +28,9 @@
          Resource {
              iconName: "swap_horiz"
@@ -36,7 +36,7 @@ diff --color -ur ./quickshell/ii/modules/ii/bar/Resources.qml ./quickshell-custo
          }
 diff --color -ur ./quickshell/ii/modules/ii/bar/Workspaces.qml ./quickshell-custom/ii/modules/ii/bar/Workspaces.qml
 --- ./quickshell/ii/modules/ii/bar/Workspaces.qml	2025-11-20 19:06:59.512567320 +0200
-+++ ./quickshell-custom/ii/modules/ii/bar/Workspaces.qml	2025-11-20 19:07:35.376155187 +0200
++++ ./quickshell-custom/ii/modules/ii/bar/Workspaces.qml	2025-11-20 22:39:40.306686428 +0200
 @@ -23,10 +23,10 @@
      readonly property int workspaceGroup: Math.floor((monitor?.activeWorkspace?.id - 1) / root.workspacesShown)
      property list<bool> workspaceOccupied: []
@@ -69,22 +69,18 @@ diff --color -ur ./quickshell/ii/modules/ii/bar/Workspaces.qml ./quickshell-cust
      MouseArea {
          anchors.fill: parent
          acceptedButtons: Qt.BackButton
-@@ -168,9 +157,9 @@
-             id: idxPair
-             index: root.workspaceIndexInGroup
+@@ -170,7 +159,7 @@
          }
--        property real indicatorPosition: Math.min(idxPair.idx1, idxPair.idx2) * workspaceButtonWidth + root.activeWorkspaceMargin
--        property real indicatorLength: Math.abs(idxPair.idx1 - idxPair.idx2) * workspaceButtonWidth + workspaceButtonWidth - root.activeWorkspaceMargin * 2
+         property real indicatorPosition: Math.min(idxPair.idx1, idxPair.idx2) * workspaceButtonWidth + root.activeWorkspaceMargin
+         property real indicatorLength: Math.abs(idxPair.idx1 - idxPair.idx2) * workspaceButtonWidth + workspaceButtonWidth - root.activeWorkspaceMargin * 2
 -        property real indicatorThickness: workspaceButtonWidth - root.activeWorkspaceMargin * 2
-+        property real indicatorPosition: Math.min(idxPair.idx1, idxPair.idx2) * workspaceButtonWidth + root.activeWorkspaceMargin + 2
-+        property real indicatorLength: Math.abs(idxPair.idx1 - idxPair.idx2) * workspaceButtonWidth + workspaceButtonWidth - root.activeWorkspaceMargin * 2 + 1
 +        property real indicatorThickness: workspaceButtonWidth - root.activeWorkspaceMargin * 2 + 1
  
          x: root.vertical ? null : indicatorPosition
          implicitWidth: root.vertical ? indicatorThickness : indicatorLength
 diff --color -ur ./quickshell/ii/services/HyprlandXkb.qml ./quickshell-custom/ii/services/HyprlandXkb.qml
 --- ./quickshell/ii/services/HyprlandXkb.qml	2025-11-20 19:06:59.526248476 +0200
-+++ ./quickshell-custom/ii/services/HyprlandXkb.qml	2025-11-20 19:07:35.396468450 +0200
++++ ./quickshell-custom/ii/services/HyprlandXkb.qml	2025-11-20 22:39:40.318292701 +0200
 @@ -17,7 +17,7 @@
      property string currentLayoutName: ""
      property string currentLayoutCode: ""
@@ -96,7 +92,7 @@ diff --color -ur ./quickshell/ii/services/HyprlandXkb.qml ./quickshell-custom/ii
      // Update the layout code according to the layout name (Hyprland gives the name not the code)
 diff --color -ur ./quickshell/ii/shell.qml ./quickshell-custom/ii/shell.qml
 --- ./quickshell/ii/shell.qml	2025-11-20 19:06:59.527931140 +0200
-+++ ./quickshell-custom/ii/shell.qml	2025-11-20 19:07:35.399216489 +0200
++++ ./quickshell-custom/ii/shell.qml	2025-11-20 22:39:40.319902213 +0200
 @@ -10,9 +10,9 @@
  import qs.modules.common
  import qs.modules.ii.background
@@ -117,10 +113,9 @@ diff --color -ur ./quickshell/ii/shell.qml ./quickshell-custom/ii/shell.qml
 +        // FirstRunExperience.load()
          ConflictKiller.load()
 -        Cliphist.refresh()
--        Wallpapers.load()
--        Updates.load()
 +        // Cliphist.refresh()
-+        // Wallpapers.load()
+         Wallpapers.load()
+-        Updates.load()
 +        // Updates.load()
      }
  
@@ -154,7 +149,7 @@ diff --color -ur ./quickshell/ii/shell.qml ./quickshell-custom/ii/shell.qml
          required property string identifier
 diff --color -ur ./quickshell/ii/welcome.qml ./quickshell-custom/ii/welcome.qml
 --- ./quickshell/ii/welcome.qml	2025-11-20 19:06:59.529155168 +0200
-+++ ./quickshell-custom/ii/welcome.qml	2025-11-20 19:07:35.400211060 +0200
++++ ./quickshell-custom/ii/welcome.qml	2025-11-20 22:39:40.320748303 +0200
 @@ -374,7 +374,7 @@
                          }
  

@@ -394,12 +394,11 @@
     portal = {
       enable = true;
       xdgOpenUsePortal = true;
-      wlr.enable = true;
+      wlr.enable = false;
       extraPortals = with pkgs; [
         xdg-desktop-portal
         inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland
         xdg-desktop-portal-gtk
-        xdg-desktop-portal-wlr
         xdg-desktop-portal-gnome
       ];
       config = {
@@ -436,7 +435,6 @@
         rgba = "rgb";
       };
     };
-
     packages = with pkgs; [
       noto-fonts
       ubuntu_font_family
@@ -465,14 +463,14 @@
     sessionVariables = {
       XDG_SESSION_TYPE = "wayland";
       MOZ_DISABLE_RDD_SANDBOX = "1";
-      LIBVA_DRIVER_NAME = "nvidia";
-      GBM_BACKEND = "nvidia-drm";
-      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
       WLR_NO_HARDWARE_CURSORS = "1";
       GNOME_KEYRING_CONTROL = "/run/user/$UID/keyring";
       SSH_AUTH_SOCK = "/run/user/$UID/keyring/ssh";
       GNOME_KEYRING_PID = "";
       TERMINAL = "kitty";
+      # LIBVA_DRIVER_NAME = "nvidia";
+      # GBM_BACKEND = "nvidia-drm";
+      # __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     };
     variables = {
       NIXPKGS_ALLOW_UNFREE = "1";

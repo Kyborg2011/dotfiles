@@ -75,7 +75,7 @@ ShellRoot {
     PanelLoader { identifier: "iiSidebarLeft"; component: SidebarLeft {} }
     PanelLoader { identifier: "iiSidebarRight"; component: SidebarRight {} }
     PanelLoader { identifier: "iiVerticalBar"; extraCondition: Config.options.bar.vertical; component: VerticalBar {} }
-    // PanelLoader { identifier: "iiWallpaperSelector"; component: WallpaperSelector {} }
+    PanelLoader { identifier: "iiWallpaperSelector"; component: WallpaperSelector {} }
     // PanelLoader { identifier: "wActionCenter"; component: WaffleActionCenter {} }
     // PanelLoader { identifier: "wBar"; component: WaffleBar {} }
     // PanelLoader { identifier: "wBackground"; component: WaffleBackground {} }
