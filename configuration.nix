@@ -319,6 +319,9 @@
     };
   };
 
+  # Enable the COSMIC desktop environment
+  services.desktopManager.cosmic.enable = true;
+
   # Configuring KDE Plasma 6:
   # services = {
   #   desktopManager.plasma6.enable = true;
@@ -394,7 +397,7 @@
     portal = {
       enable = true;
       xdgOpenUsePortal = true;
-      wlr.enable = false;
+      wlr.enable = true;
       extraPortals = with pkgs; [
         xdg-desktop-portal
         inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland
@@ -405,6 +408,7 @@
         common = {
           default = [ "gtk" ];
           "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
+          "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
         };
         hyprland = {
           default = [ "hyprland" "gtk" ];
@@ -468,6 +472,7 @@
       SSH_AUTH_SOCK = "/run/user/$UID/keyring/ssh";
       GNOME_KEYRING_PID = "";
       TERMINAL = "kitty";
+      NVD_BACKEND = "direct";
       # LIBVA_DRIVER_NAME = "nvidia";
       # GBM_BACKEND = "nvidia-drm";
       # __GLX_VENDOR_LIBRARY_NAME = "nvidia";
@@ -494,7 +499,7 @@
   environment.systemPackages = with pkgs; [
     usbutils sysstat bandwhich hwinfo lm_sensors lsof
     pciutils inetutils ethtool dnsutils unixtools.netstat
-    ddcutil
+    ddcutil libva-utils
     lshw-gui lshw
     telegram-desktop
     ffmpeg-full sox vlc libreoffice-fresh tor-browser

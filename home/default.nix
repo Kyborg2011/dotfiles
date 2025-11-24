@@ -79,11 +79,11 @@
 
     sessionVariables = {
       BROWSER = params.default_browser;
-      QT_XCB_GL_INTEGRATION = "none"; # kde-connect
       LEDGER_FILE = params.ledger_journal_path;
       HIST_STAMPS = "dd.mm.yyyy";
       ELECTRON_OZONE_PLATFORM_HINT = "auto";
       _ZL_MATCH_MODE = 1;
+      QT_XCB_GL_INTEGRATION = "none"; # kde-connect
       QT_STYLE_OVERRIDE = "kvantum";
       QT_QPA_PLATFORMTHEME = "qt5ct";
     };

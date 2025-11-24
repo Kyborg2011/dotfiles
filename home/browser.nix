@@ -47,15 +47,16 @@ in {
       --ozone-platform=wayland
       --gtk-version=4
       --ignore-gpu-blocklist
+      --enable-zero-copy
       --enable-accelerated-video-decode
       --enable-accelerated-mjpeg-decode
       --enable-gpu-compositing
       --enable-gpu-rasterization
       --enable-native-gpu-memory-buffers
       --enable-raw-draw
-      --enable-zero-copy
-      --enable-features=UseOzonePlatform,VaapiVideoEncoder,CanvasOopRasterization,TouchpadOverscrollHistoryNavigation,WaylandLinuxDrmSyncobj
+      --enable-features=UseOzonePlatform,VaapiVideoEncoder,CanvasOopRasterization,TouchpadOverscrollHistoryNavigation,WaylandLinuxDrmSyncobj,AcceleratedVideoDecodeLinuxGL,AcceleratedVideoDecodeLinuxZeroCopyGL
       --enable-wayland-ime
+      --disable-features=UseSkiaRenderer
     '';
   };
 
@@ -96,14 +97,20 @@ in {
           "media.av1.enabled" = true;
           "media.video_stats.enabled" = true;
           "gfx.x11-egl.force-enabled" = true;
+          "gfx.webrender.all" = true;
+          "layers.gpu-process.enabled" = true;
+          "layers.mlgpu.enabled" = true;
+          "layers.acceleration.force-enabled" = true;
+          "layers.offmainthreadcomposition.enabled" = true;
           "widget.dmabuf.force-enabled" = true;
+          "dom.webgpu.enabled" = true;
         };
       };
     };
   };
 
   xdg.desktopEntries."firefox-dev" = {
-    name = "Firefox Developer Edition";
+    name = "Firefox Developer Edition (fixed profiles)";
     genericName = "Web Browser";
     comment = "Firefox Developer Edition with custom profile";
     exec = "firefox-dev %U";

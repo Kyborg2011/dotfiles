@@ -9,15 +9,15 @@
     };
 
     hyprland = {
-      url = "git+https://github.com/hyprwm/Hyprland?submodules=1&ref=refs/tags/v0.51.0";
+      url = "git+https://github.com/hyprwm/Hyprland?submodules=1&ref=refs/tags/v0.52.0";
       # inputs.nixpkgs.follows = "nixpkgs"; # Uncomment this line if you want to pin Hyprland to the same nixpkgs version
     };
     hy3 = {
-      url = "github:outfoxxed/hy3?ref=hl0.51.0";
+      url = "github:outfoxxed/hy3?ref=hl0.52.0";
       inputs.hyprland.follows = "hyprland";
     };
     hyprland-plugins = {
-      url = "git+https://github.com/hyprwm/hyprland-plugins?submodules=1&ref=refs/tags/v0.51.0";
+      url = "git+https://github.com/hyprwm/hyprland-plugins?submodules=1&ref=refs/tags/v0.52.0";
       inputs.hyprland.follows = "hyprland";
     };
     hypridle.url = "github:hyprwm/hypridle";
@@ -88,7 +88,7 @@
               useUserPackages = true;
               users.anthony = import ./home;
               extraSpecialArgs = specialArgs;
-              backupFileExtension = "bkp91";
+              backupFileExtension = "bkp";
             };
           }
         ];
