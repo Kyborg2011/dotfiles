@@ -40,6 +40,8 @@
       tree
       pavucontrol
       dmenu-wayland mc timg
+      flameshot
+      obsidian
 
       # Disk space management tools:
       ncdu dust pkgs.kdePackages.filelight
@@ -69,9 +71,6 @@
       ktlint quick-lint-js
       watchman
       qtox
-
-      # Quickshell with Qt dependencies bundled:
-      (pkgs-unstable.callPackage ./quickshell.nix { inherit inputs pkgs-unstable; })
 
       # Custom fonts (Input Mono + Rofi custom theme fonts):
       (pkgs.callPackage ./custom-fonts { inherit inputs; })

@@ -157,7 +157,7 @@ Item {
             id: idxPair
             index: root.workspaceIndexInGroup
         }
-        property real indicatorPosition: Math.min(idxPair.idx1, idxPair.idx2) * workspaceButtonWidth + root.activeWorkspaceMargin + 3
+        property real indicatorPosition: Math.min(idxPair.idx1, idxPair.idx2) * workspaceButtonWidth + root.activeWorkspaceMargin
         property real indicatorLength: Math.abs(idxPair.idx1 - idxPair.idx2) * workspaceButtonWidth + workspaceButtonWidth - root.activeWorkspaceMargin * 2
         property real indicatorThickness: workspaceButtonWidth - root.activeWorkspaceMargin * 2 + 1
 

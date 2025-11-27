@@ -20,6 +20,15 @@
     "appearance": {
         "extraBackgroundTint": false,
         "fakeScreenRounding": 2,
+        "fonts": {
+            "expressive": "Space Grotesk",
+            "iconNerd": "JetBrains Mono NF",
+            "main": "Google Sans Flex",
+            "monospace": "JetBrains Mono NF",
+            "numbers": "Google Sans Flex",
+            "reading": "Readex Pro",
+            "title": "Google Sans Flex"
+        },
         "palette": {
             "type": "auto"
         },
@@ -147,8 +156,8 @@
             "showKeyboardToggle": true,
             "showMicToggle": false,
             "showPerformanceProfileToggle": true,
-            "showScreenRecord": true,
-            "showScreenSnip": true
+            "showScreenRecord": false,
+            "showScreenSnip": false
         },
         "verbose": true,
         "vertical": false,
@@ -168,7 +177,7 @@
                 "",
                 "",
                 "",
-                "󰇰",
+                "󰴃",
                 "󱆃"
             ],
             "showAppIcons": false,
@@ -440,6 +449,22 @@
                     {
                         "size": 2,
                         "type": "nightLight"
+                    },
+                    {
+                        "size": 1,
+                        "type": "powerProfile"
+                    },
+                    {
+                        "size": 1,
+                        "type": "colorPicker"
+                    },
+                    {
+                        "size": 1,
+                        "type": "onScreenKeyboard"
+                    },
+                    {
+                        "size": 1,
+                        "type": "notifications"
                     }
                 ]
             },
@@ -508,7 +533,10 @@
             "bottom": true,
             "leftAlignApps": false
         },
-        "smootherAnimations": true
+        "tweaks": {
+            "smootherMenuAnimations": true,
+            "switchHandlePositionFix": true
+        }
     },
     "wallpaperSelector": {
         "useSystemFileDialog": false

@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, inputs, pkgs, pkgs-unstable, ... }:
+{ config, lib, inputs, pkgs, pkgs-unstable, params, ... }:
 
 {
   imports =
@@ -279,6 +279,7 @@
       tinysparql.enable = true;
       core-developer-tools.enable = true;
       gnome-browser-connector.enable = true;
+      sushi.enable = true;
     };
     # nginx = {
     #   enable = true;
@@ -393,7 +394,10 @@
     menus.enable = true;
     icons.enable = true;
     autostart.enable = true;
-    mime.enable = true;
+    mime = {
+      enable = true;
+      defaultApplications = params.xdg-mime-default-apps;
+    };
     portal = {
       enable = true;
       xdgOpenUsePortal = true;
@@ -487,7 +491,6 @@
       LANG = "en_US.UTF-8";
       XDG_RUNTIME_DIR = "/run/user/$UID";
       GTK_USE_PORTAL = "1";
-      GST_PLUGIN_PATH = "/run/current-system/sw/lib/gstreamer-1.0/";
       PATH = [
         "/home/anthony/.local/share/JetBrains/Toolbox/scripts"
       ];
@@ -547,27 +550,6 @@
     distrobox boxbuddy
     # Markdown editors:
     apostrophe
-    # Wallpaper managers on Wayland:
-    waypaper
-
-    # For Quickshell usage:
-    swappy
-    tesseract
-    imagemagick
-    translate-shell
-    libnotify
-    libcava
-    libdbusmenu-gtk3
-    playerctl
-    matugen
-
-    gst_all_1.gstreamer
-    gst_all_1.gst-plugins-base
-    gst_all_1.gst-plugins-good
-    gst_all_1.gst-plugins-bad
-    gst_all_1.gst-plugins-ugly
-    gst_all_1.gst-libav
-    gst_all_1.gst-vaapi
 
     # Gnome related apps:
     gnome-control-center gnome-tweaks gnome-shell-extensions evolution
@@ -575,8 +557,6 @@
   ] ++ (with pkgs.kdePackages; [
     marble qtwayland okular ghostwriter
     kcharselect kclock isoimagewriter
-  ]) ++ (with pkgs.gnomeExtensions; [
-    dash-to-dock applications-menu workspace-indicator clipboard-indicator caffeine
   ]) ++ (with pkgs-unstable; [
     gnome-network-displays
     microsoft-edge

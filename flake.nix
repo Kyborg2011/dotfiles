@@ -73,6 +73,7 @@
         default_username = "anthony";
         git_username = "kyborg2011";
         git_email = "wkyborgw@gmail.com";
+        xdg-mime-default-apps = import ./home/xdg-mime-default-apps.nix;
       };
       pkgs-unstable = import inputs.nixpkgs-unstable { inherit system; config.allowUnfree = true; };
       specialArgs = { inherit inputs pkgs-unstable params; };

@@ -32,7 +32,9 @@ in
       icon_theme_pkg
       theme_pkg
       cursor_theme_pkg
-    ];
+    ] ++ (with pkgs.gnomeExtensions; [
+      dash-to-dock applications-menu workspace-indicator clipboard-indicator caffeine
+    ]);
   };
 
   # gtk settings
@@ -81,6 +83,26 @@ in
   };
 
   dconf.settings = {
+    "org/gnome/shell" = {
+      # Gnome Shell extensions to enable:
+      enabled-extensions = [
+        "gsconnect@andyholmes.github.io"
+        "clipboard-indicator@tudmotu.com"
+        "auto-move-windows@gnome-shell-extensions.gcampax.github.com"
+        "launch-new-instance@gnome-shell-extensions.gcampax.github.com"
+        "places-menu@gnome-shell-extensions.gcampax.github.com"
+        "drive-menu@gnome-shell-extensions.gcampax.github.com"
+        "screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com"
+        "system-monitor@gnome-shell-extensions.gcampax.github.com"
+        "caffeine@patapon.info"
+        "dash-to-dock@micxgx.gmail.com"
+        "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
+        "user-theme@gnome-shell-extensions.gcampax.github.com"
+        "status-icons@gnome-shell-extensions.gcampax.github.com"
+        "apps-menu@gnome-shell-extensions.gcampax.github.com"
+      ];
+    };
+
     "org/gnome/desktop/wm/preferences" = {
       disable-workarounds = false;
     };

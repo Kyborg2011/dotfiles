@@ -56,7 +56,7 @@ in {
       --enable-raw-draw
       --enable-features=UseOzonePlatform,VaapiVideoEncoder,CanvasOopRasterization,TouchpadOverscrollHistoryNavigation,WaylandLinuxDrmSyncobj,AcceleratedVideoDecodeLinuxGL,AcceleratedVideoDecodeLinuxZeroCopyGL
       --enable-wayland-ime
-      --disable-features=UseSkiaRenderer
+      --disable-features=UseSkiaRenderer,ExtensionManifestV2Unsupported
     '';
   };
 
