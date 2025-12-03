@@ -23,10 +23,10 @@ Item {
     readonly property int workspaceGroup: Math.floor((monitor?.activeWorkspace?.id - 1) / root.workspacesShown)
     property list<bool> workspaceOccupied: []
     property int widgetPadding: 4
-    property int workspaceButtonWidth: 27
+    property int workspaceButtonWidth: 26
     property real activeWorkspaceMargin: 2
-    property real workspaceIconSize: workspaceButtonWidth * 0.7
-    property real workspaceIconSizeShrinked: workspaceButtonWidth * 0.2
+    property real workspaceIconSize: workspaceButtonWidth * 0.69
+    property real workspaceIconSizeShrinked: workspaceButtonWidth * 0.55
     property real workspaceIconOpacityShrinked: 1
     property real workspaceIconMarginShrinked: -4
     property int workspaceIndexInGroup: (monitor?.activeWorkspace?.id - 1) % root.workspacesShown
@@ -158,8 +158,8 @@ Item {
             index: root.workspaceIndexInGroup
         }
         property real indicatorPosition: Math.min(idxPair.idx1, idxPair.idx2) * workspaceButtonWidth + root.activeWorkspaceMargin
-        property real indicatorLength: Math.abs(idxPair.idx1 - idxPair.idx2) * workspaceButtonWidth + workspaceButtonWidth - root.activeWorkspaceMargin * 2
-        property real indicatorThickness: workspaceButtonWidth - root.activeWorkspaceMargin * 2 + 1
+        property real indicatorLength: Math.abs(idxPair.idx1 - idxPair.idx2) * workspaceButtonWidth + workspaceButtonWidth - root.activeWorkspaceMargin * 2 + 4
+        property real indicatorThickness: workspaceButtonWidth - root.activeWorkspaceMargin * 2 + 4
 
         x: root.vertical ? null : indicatorPosition
         implicitWidth: root.vertical ? indicatorThickness : indicatorLength

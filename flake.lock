@@ -36,11 +36,11 @@
     "firefox-mod-blur": {
       "flake": false,
       "locked": {
-        "lastModified": 1764018994,
-        "narHash": "sha256-TwfXHO4ok1WO2PI0ox85cgCe2nyntmJcp2MyRavl5vk=",
+        "lastModified": 1764180275,
+        "narHash": "sha256-RprADEPNEkuLq05bdQkuhvdQpB/f+JC3SUmUbTDqKgY=",
         "owner": "datguypiko",
         "repo": "Firefox-Mod-Blur",
-        "rev": "c94b39397f9c46c80cf9ef92425295f80e8eaab8",
+        "rev": "fe22887e877060a5564dd7eeb5c8f05775f3b694",
         "type": "github"
       },
       "original": {
@@ -1731,11 +1731,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1764015829,
-        "narHash": "sha256-Oi3D37fFYvYRC4cA2voW8kICzmtUCYMoGSuyYuazDZ8=",
+        "lastModified": 1764217570,
+        "narHash": "sha256-vgqUC6lI/gW70uekA0bpNFU6yR0tcZRfLIZcxGfN76g=",
         "owner": "0xc000022070",
         "repo": "zen-browser-flake",
-        "rev": "011760d40ec6ac8af6b078d58def3c7d2d994a53",
+        "rev": "3dc281d86044322f9182b20abbc21db8824c130a",
         "type": "github"
       },
       "original": {
