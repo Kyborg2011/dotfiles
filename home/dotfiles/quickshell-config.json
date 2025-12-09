@@ -52,6 +52,8 @@
     },
     "apps": {
         "bluetooth": "kitty -c blueman-manager",
+        "changePassword": "kitty -1 --hold=yes fish -i -c 'passwd'",
+        "manageUser": "kcmshell6 kcm_users",
         "network": "kitty -c nmtui",
         "networkEthernet": "kitty -c nmtui",
         "taskManager": "gnome-system-monitor",
@@ -177,7 +179,7 @@
                 "",
                 "",
                 "",
-                "󰇰",
+                "󰴃",
                 "󱆃"
             ],
             "showAppIcons": false,
@@ -192,6 +194,9 @@
         "full": 101,
         "low": 20,
         "suspend": 3
+    },
+    "calendar": {
+        "locale": "en-GB"
     },
     "cheatsheet": {
         "fontSize": {
@@ -272,6 +277,13 @@
             "targetLanguage": "Русский"
         },
         "ui": "ru_RU"
+    },
+    "launcher": {
+        "pinnedApps": [
+            "org.kde.dolphin",
+            "kitty",
+            "cmake-gui"
+        ]
     },
     "light": {
         "antiFlashbang": {
@@ -533,8 +545,12 @@
             "bottom": true,
             "leftAlignApps": false
         },
+        "calendar": {
+            "force2CharDayOfWeek": true
+        },
         "tweaks": {
             "smootherMenuAnimations": true,
+            "smootherSearchBar": true,
             "switchHandlePositionFix": true
         }
     },
